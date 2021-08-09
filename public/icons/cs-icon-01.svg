@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="512"
+   height="512"
+   viewBox="0 0 512 512"
+   version="1.1"
+   id="SVGRoot"
+   inkscape:version="1.0.2-2 (e86c870879, 2021-01-15)"
+   sodipodi:docname="cs-icon-01.svg"
+   inkscape:export-filename="Z:\Usuarios\Madson\Testes HTML5\eGPF_R1\assets\icons\eGPF2.png"
+   inkscape:export-xdpi="768"
+   inkscape:export-ydpi="768">
+  <title
+     id="title6645">SB Ícone</title>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.3535534"
+     inkscape:cx="-1452.2879"
+     inkscape:cy="-416.31135"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer2"
+     showgrid="true"
+     inkscape:pagecheckerboard="true"
+     inkscape:showpageshadow="true"
+     showborder="true"
+     inkscape:window-width="2560"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:grid-bbox="true"
+     inkscape:document-rotation="0">
+    <inkscape:grid
+       enabled="true"
+       opacity="0.2745098"
+       color="#2c9000"
+       spacingy="25"
+       spacingx="25"
+       units="mm"
+       empspacing="4"
+       empopacity="0.74509804"
+       empcolor="#ff0000"
+       id="grid4131"
+       type="xygrid" />
+    <inkscape:grid
+       enabled="true"
+       empspacing="10"
+       empopacity="0.28235294"
+       empcolor="#000000"
+       opacity="0.23529412"
+       color="#0000ff"
+       spacingy="1"
+       spacingx="1"
+       units="mm"
+       id="grid4133"
+       type="xygrid" />
+    <inkscape:grid
+       enabled="false"
+       opacity="0.31372549"
+       color="#3f3fff"
+       empopacity="0.39215686"
+       empcolor="#000000"
+       empspacing="10"
+       units="mm"
+       id="grid4170"
+       type="axonomgrid" />
+  </sodipodi:namedview>
+  <defs
+     id="defs2">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4166">
+      <stop
+         style="stop-color:#78909c;stop-opacity:1"
+         offset="0"
+         id="stop4162" />
+      <stop
+         style="stop-color:#546e7a;stop-opacity:1"
+         offset="1"
+         id="stop4164" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4158-1">
+      <stop
+         style="stop-color:#eceff1;stop-opacity:1"
+         offset="0"
+         id="stop4154" />
+      <stop
+         style="stop-color:#cfd8dc;stop-opacity:1"
+         offset="1"
+         id="stop4156" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4292">
+      <stop
+         style="stop-color:#dc3026;stop-opacity:1;"
+         offset="0"
+         id="stop4288" />
+      <stop
+         style="stop-color:#870000;stop-opacity:1"
+         offset="1"
+         id="stop4290" />
+    </linearGradient>
+    <inkscape:path-effect
+       effect="taper_stroke"
+       id="path-effect6748"
+       is_visible="true"
+       stroke_width="0.7"
+       attach_start="0.6"
+       end_offset="0.2"
+       smoothing="0.5"
+       jointype="round"
+       miter_limit="100"
+       lpeversion="0" />
+    <linearGradient
+       gradientTransform="translate(-8.512909,-10.611858)"
+       inkscape:collect="always"
+       xlink:href="#linearGradient4292"
+       id="linearGradient4294-5"
+       x1="9"
+       y1="11"
+       x2="9"
+       y2="22"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       gradientTransform="translate(-8.512909,-10.611858)"
+       inkscape:collect="always"
+       xlink:href="#linearGradient4292"
+       id="linearGradient4302-4"
+       x1="12"
+       y1="11"
+       x2="12"
+       y2="21"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4158-1"
+       id="linearGradient4230"
+       gradientUnits="userSpaceOnUse"
+       x1="9"
+       y1="2"
+       x2="14"
+       y2="7"
+       gradientTransform="matrix(16.481676,0,0,16.606561,-10.407731,-10.70016)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4166"
+       id="linearGradient4168"
+       x1="16"
+       y1="3"
+       x2="16"
+       y2="29"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(14.954178,0,0,15.067481,14.032319,13.925092)" />
+  </defs>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>SB Ícone</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     style="display:inline"
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Workspace" />
+  <g
+     inkscape:label="Layer 1"
+     id="layer2"
+     inkscape:groupmode="layer">
+    <rect
+       style="opacity:1;vector-effect:none;fill:url(#linearGradient4168);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:4.2046;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
+       id="rect4160"
+       width="388.65283"
+       height="391.59763"
+       x="58.972702"
+       y="59.20594"
+       ry="85.661919" />
+    <path
+       style="opacity:1;fill:url(#linearGradient4230);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:5.70567;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
+       id="path4977-4-4-2"
+       sodipodi:type="arc"
+       sodipodi:cx="179.50963"
+       sodipodi:cy="65.658699"
+       sodipodi:rx="59.210056"
+       sodipodi:ry="59.658703"
+       sodipodi:start="0"
+       sodipodi:end="6.2732718"
+       sodipodi:open="true"
+       d="M 238.71968,65.658699 A 59.210056,59.658703 0 0 1 179.65637,125.31722 59.210056,59.658703 0 0 1 120.3003,65.954411 59.210056,59.658703 0 0 1 179.0694,6.0016452 59.210056,59.658703 0 0 1 238.71678,65.067282"
+       sodipodi:arc-type="arc" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#path4977-4-4-2"
+       id="use4226"
+       transform="translate(152.98071)"
+       width="100%"
+       height="100%" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#path4977-4-4-2"
+       id="use4280"
+       transform="translate(267.28031,111.01421)"
+       width="100%"
+       height="100%" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#path4977-4-4-2"
+       id="use4282"
+       transform="translate(267.28031,267.59236)"
+       width="100%"
+       height="100%" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#path4977-4-4-2"
+       id="use4284"
+       transform="translate(152.98071,380.6826)"
+       width="100%"
+       height="100%" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#path4977-4-4-2"
+       id="use4286"
+       transform="translate(2.9296878e-8,380.6826)"
+       width="100%"
+       height="100%" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#path4977-4-4-2"
+       id="use4288"
+       transform="translate(-114.29958,267.59236)"
+       width="100%"
+       height="100%" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#path4977-4-4-2"
+       id="use4290"
+       transform="translate(-114.29958,111.01421)"
+       width="100%"
+       height="100%" />
+  </g>
+</svg>
