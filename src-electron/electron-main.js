@@ -1,6 +1,9 @@
 import { app, BrowserWindow, nativeTheme } from "electron";
 import path from "path";
 
+import { initialize } from "@electron/remote/main";
+initialize();
+
 try {
   if (
     process.platform === "win32" &&
@@ -25,7 +28,7 @@ function createWindow() {
     icon: `${__dirname}/icons/icon.ico`,
     useContentSize: true,
     webPreferences: {
-      contextIsolation: true,
+      // contextIsolation: true,
       enableRemoteModule: true,
       // More info: /quasar-cli/developing-electron-apps/electron-preload-script
       preload: path.resolve(__dirname, process.env.QUASAR_ELECTRON_PRELOAD),
