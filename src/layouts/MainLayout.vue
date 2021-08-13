@@ -10,10 +10,11 @@
 		<q-layout view="lHh lpr lFf">
 			<q-header elevated>
 				<q-bar
-					class="q-electron-drag q-px-none bg-blue-grey-10"
+					id="titlebar"
+					class="q-electron-drag q-pr-none q-pl-sm"
 					v-if="$q.platform.is.electron"
 				>
-					<q-avatar size="md">
+					<q-avatar size="24px" square>
 						<img src="../../public/icons/cs/cs-icon-01.svg" />
 					</q-avatar>
 
@@ -23,10 +24,15 @@
 
 					<q-btn
 						unelevated
-						class="win-btn win-btn-regular q-ma-none cursor-inherit"
+						class="
+							win-btn win-btn-regular
+							q-ma-none
+							cursor-inherit
+							q-pt-md
+						"
 						@click="minimize"
 					>
-						<q-avatar>
+						<q-avatar square size="16px">
 							<img
 								src="../assets/img/titlebar/icon_minimize.svg"
 								class="q-my-auto"
@@ -36,38 +42,41 @@
 
 					<q-btn
 						unelevated
+						size="md"
 						class="win-btn win-btn-regular q-ma-none cursor-inherit"
 						@click="toggleMaximize"
 					>
-						<q-avatar>
+						<q-avatar square size="16px">
 							<img src="../assets/img/titlebar/icon_maximize.svg" />
 						</q-avatar>
 					</q-btn>
 
 					<q-btn
 						unelevated
+						size="md"
 						class="win-btn win-btn-regular q-ma-none cursor-inherit"
 						@click="toggleMaximize"
 					>
-						<q-avatar>
+						<q-avatar square size="16px">
 							<img src="../assets/img/titlebar/icon_restore.svg" />
 						</q-avatar>
 					</q-btn>
 
 					<q-btn
 						unelevated
+						size="md"
 						class="win-btn win-btn-close q-ma-none cursor-inherit"
 						@click="closeApp"
 					>
-						<q-avatar>
+						<q-avatar square size="16px">
 							<img src="../assets/img/titlebar/icon_close.svg" />
 						</q-avatar>
 					</q-btn>
 				</q-bar>
 
-				<div class="q-pa-sm q-pl-md row items-center">
+				<div class="q-pa-sm q-pl-md row items-center" id="menu-row">
 					<div class="non-selectable">
-						File
+						<h4>File</h4>
 						<q-menu>
 							<q-list dense style="min-width: 100px">
 								<q-item clickable v-close-popup>
@@ -131,8 +140,8 @@
 						</q-menu>
 					</div>
 
-					<div class="q-ml-md cursor-pointer non-selectable">
-						Edit
+					<div class="q-ml-md non-selectable">
+						<h4>Edit</h4>
 						<q-menu auto-close>
 							<q-list dense style="min-width: 100px">
 								<q-item clickable>
@@ -209,6 +218,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#titlebar {
+	background-color: $color-d3;
+}
+
+#menu-row {
+	color: $color-d3;
+
+	background-color: $color-l4;
+}
+
 .win-btn {
 	font-weight: 800;
 	border-radius: 0px;
@@ -216,13 +235,7 @@ export default {
 		border-radius: 0px;
 	}
 }
-
-// .win-btn-regular:hover {
-//   background: $blue-grey-9;
-// }
 .win-btn-close:hover {
-	border-radius: 0px;
-	// background: $teste;
 	background: $red-8;
 }
 </style>

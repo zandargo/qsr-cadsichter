@@ -18,22 +18,16 @@ export default defineComponent({
 	src: url("../public/fonts/RobotoCondensed-Regular.ttf") format("truetype");
 }
 
-* {
-	font-family: "RobotoCondensed", Arial, Helvetica, sans-serif;
-	font-size: 12pt;
-	overflow: hidden;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	font-variant-caps: petite-caps;
-}
-
 h4 {
 	font-size: 1rem;
+	line-height: 1rem;
+	margin: "none";
+	padding: "none";
+}
+h5 {
+	font-size: 0.85rem;
+}
+h6 {
+	font-size: 0.75rem;
 }
 </style>

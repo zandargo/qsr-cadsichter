@@ -15,25 +15,25 @@
  *     doAThing: () => {}
  *   })
  */
-import { contextBridge } from "electron";
+import { contextBridge, ipcMain } from "electron";
 import { BrowserWindow } from "@electron/remote";
 
 contextBridge.exposeInMainWorld("myWindowAPI", {
-  minimize() {
-    BrowserWindow.getFocusedWindow().minimize();
-  },
+	minimize() {
+		BrowserWindow.getFocusedWindow().minimize();
+	},
 
-  toggleMaximize() {
-    const win = BrowserWindow.getFocusedWindow();
+	toggleMaximize() {
+		const win = BrowserWindow.getFocusedWindow();
 
-    if (win.isMaximized()) {
-      win.unmaximize();
-    } else {
-      win.maximize();
-    }
-  },
+		if (win.isMaximized()) {
+			win.unmaximize();
+		} else {
+			win.maximize();
+		}
+	},
 
-  close() {
-    BrowserWindow.getFocusedWindow().close();
-  },
+	close() {
+		BrowserWindow.getFocusedWindow().close();
+	},
 });

@@ -1,1 +1,16 @@
 // app global css in SCSS form
+* {
+	font-family: "RobotoCondensed", Arial, Helvetica, sans-serif;
+	font-size: 12pt;
+	line-height: 14pt;
+	overflow: hidden;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-variant-caps: petite-caps;
+	margin: auto;
+}

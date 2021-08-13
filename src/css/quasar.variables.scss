@@ -20,14 +20,37 @@
 // $warning   : #F2C037;
 
 $primary: #607d8b;
-$secondary: #018786;
+$secondary: #009688;
 $accent: #9c27b0;
 
 $dark: #263238;
 
-$positive: #287a35;
-$negative: #a01b2a;
-$info: #1a9ab4;
-$warning: #f2c037;
+$positive: #4caf50;
+$negative: #d32f2f;
+$info: #00acc1;
+$warning: #fdd835;
 
-$teste: hsl(69, 79%, 43%);
+// $color-l5: hsl(200, 18%, 96%);
+// $color-l4: hsl(200, 18%, 86%);
+// $color-l3: hsl(200, 18%, 76%);
+// $color-l2: hsl(200, 18%, 66%);
+// $color-l1: hsl(200, 18%, 56%);
+// $color-00: hsl(200, 18%, 46%);
+// $color-d1: hsl(200, 18%, 36%);
+// $color-d2: hsl(200, 18%, 26%);
+// $color-d3: hsl(200, 18%, 16%);
+// $color-d4: hsl(200, 18%, 10%);
+
+$color-l5: lighten($primary, 45%);
+$color-l4: lighten($primary, 40%);
+$color-l3: lighten($primary, 30%);
+$color-l2: lighten($primary, 20%);
+$color-l1: lighten($primary, 10%);
+$color-00: $primary;
+$color-d1: darken($primary, 10%);
+$color-d2: darken($primary, 20%);
+$color-d3: darken($primary, 30%);
+$color-d4: darken($primary, 40%);
+$color-d5: darken($primary, 45%);
+
+$menu-background: $color-l5 !default;
