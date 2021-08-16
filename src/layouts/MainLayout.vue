@@ -182,6 +182,9 @@
 // is only needed if we build same app with other
 // Quasar Modes as well (SPA/PWA/Cordova/SSR...)
 // import TitleBar from "../components/TitleBar.vue";
+import { computed } from "vue";
+import { useStore } from "vuex";
+import { mapState } from "vuex";
 
 export default {
 	// data() {
@@ -193,6 +196,14 @@ export default {
 	// 	};
 	// },
 	setup() {
+		const $store = useStore();
+		const winState = computed({
+			get: () => $store.state.main.winState,
+			set: (val) => {
+				$store.commit("main/updateWinState", val);
+			},
+		});
+
 		// we rely upon
 		function minimize() {
 			if (process.env.MODE === "electron") {
@@ -212,7 +223,7 @@ export default {
 			}
 		}
 
-		return { minimize, toggleMaximize, closeApp };
+		return { minimize, toggleMaximize, closeApp, winState };
 	},
 };
 </script>

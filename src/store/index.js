@@ -1,27 +1,26 @@
-import { store } from 'quasar/wrappers'
-import { createStore } from 'vuex'
+import { store } from "quasar/wrappers";
+import { createStore } from "vuex";
 
-// import example from './module-example'
+// import Vue from "vue";
+// import Vuex from "vuex";
 
-/*
- * If not building with SSR mode, you can
- * directly export the Store instantiation;
- *
- * The function below can be async too; either use
- * async/await or return a Promise which resolves
- * with the Store instance.
- */
+import main from "./cadsichter";
+
+// Vue.config.devtools = true;
+
+// Vue.use(Vuex);
 
 export default store(function (/* { ssrContext } */) {
-  const Store = createStore({
-    modules: {
-      // example
-    },
+	const Store = createStore({
+		modules: {
+			main,
+		},
 
-    // enable strict mode (adds overhead!)
-    // for dev mode and --debug builds only
-    strict: process.env.DEBUGGING
-  })
+		// enable strict mode (adds overhead!)
+		// for dev mode and --debug builds only
+		// strict: process.env.DEBUGGING,
+		strict: true,
+	});
 
-  return Store
-})
+	return Store;
+});

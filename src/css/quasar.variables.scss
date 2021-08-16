@@ -53,4 +53,91 @@ $color-d3: darken($primary, 30%);
 $color-d4: darken($primary, 40%);
 $color-d5: darken($primary, 45%);
 
+$bg1000: hsl(200, 19%, 18%);
+$bg0800: hsl(200, 18%, 26%);
+$bg0700: hsl(199, 18%, 33%);
+$bg0600: hsl(199, 18%, 40%);
+$bg0500: hsl(200, 18%, 46%);
+$bg0400: hsl(200, 15%, 54%);
+$bg0300: hsl(200, 16%, 62%);
+$bg0200: hsl(200, 15%, 73%);
+$bg0100: hsl(198, 16%, 84%);
+$bg0050: hsl(204, 15%, 94%);
+
 $menu-background: $color-l5 !default;
+
+$body-font-size: 14px !default;
+$body-line-height: 1.5 !default;
+
+$h1: (
+	size: 2rem,
+	line-height: 2.25rem,
+	letter-spacing: -0.01562em,
+	weight: 300,
+) !default;
+$h2: (
+	size: 1.5rem,
+	line-height: 1.75rem,
+	letter-spacing: -0.00833em,
+	weight: 300,
+) !default;
+$h3: (
+	size: 1.2rem,
+	line-height: 1.75rem,
+	letter-spacing: normal,
+	weight: 400,
+) !default;
+$h4: (
+	size: 1rem,
+	line-height: 1.5rem,
+	letter-spacing: 0.00735em,
+	weight: 400,
+) !default;
+$h5: (
+	size: 0.8rem,
+	line-height: 0.85rem,
+	letter-spacing: normal,
+	weight: 400,
+) !default;
+$h6: (
+	size: 0.6rem,
+	line-height: 0.75rem,
+	letter-spacing: 0.0125em,
+	weight: 500,
+) !default;
+$subtitle1: (
+	size: 1rem,
+	line-height: 1.25rem,
+	letter-spacing: 0.00937em,
+	weight: 400,
+) !default;
+$subtitle2: (
+	size: 0.85rem,
+	line-height: 1rem,
+	letter-spacing: 0.00714em,
+	weight: 500,
+) !default;
+$body1: (
+	size: 1rem,
+	line-height: 1.25rem,
+	letter-spacing: 0.03125em,
+	weight: 400,
+) !default;
+$body2: (
+	size: 0.85rem,
+	line-height: 1rem,
+	letter-spacing: 0.01786em,
+	weight: 400,
+) !default;
+$overline: (
+	size: 0.75rem,
+	line-height: 1rem,
+	letter-spacing: 0.16667em,
+	weight: 500,
+) !default;
+$caption: (
+	size: 0.75rem,
+	line-height: 1rem,
+	letter-spacing: 0.03333em,
+	weight: 400,
+) !default;

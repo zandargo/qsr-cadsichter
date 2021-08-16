@@ -17,17 +17,4 @@ export default defineComponent({
 	//_ src: url('./assets/fonts/RobotoCondensed-Regular.ttf') format('truetype');
 	src: url("../public/fonts/RobotoCondensed-Regular.ttf") format("truetype");
 }
-
-h4 {
-	font-size: 1rem;
-	line-height: 1rem;
-	margin: "none";
-	padding: "none";
-}
-h5 {
-	font-size: 0.85rem;
-}
-h6 {
-	font-size: 0.75rem;
-}
 </style>
