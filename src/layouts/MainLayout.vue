@@ -9,70 +9,8 @@
 
 		<q-layout view="lHh lpr lFf">
 			<q-header elevated>
-				<q-bar
-					id="titlebar"
-					class="q-electron-drag q-pr-none q-pl-sm"
-					v-if="$q.platform.is.electron"
-				>
-					<q-avatar size="24px" square>
-						<img src="../../public/icons/cs/cs-icon-01.svg" />
-					</q-avatar>
-
-					<q-space />
-					<div><h4>CadSichter</h4></div>
-					<q-space />
-
-					<q-btn
-						unelevated
-						class="
-							win-btn win-btn-regular
-							q-ma-none
-							cursor-inherit
-							q-pt-md
-						"
-						@click="minimize"
-					>
-						<q-avatar square size="16px">
-							<img
-								src="../assets/img/titlebar/icon_minimize.svg"
-								class="q-my-auto"
-							/>
-						</q-avatar>
-					</q-btn>
-
-					<q-btn
-						unelevated
-						size="md"
-						class="win-btn win-btn-regular q-ma-none cursor-inherit"
-						@click="toggleMaximize"
-					>
-						<q-avatar square size="16px">
-							<img src="../assets/img/titlebar/icon_maximize.svg" />
-						</q-avatar>
-					</q-btn>
-
-					<q-btn
-						unelevated
-						size="md"
-						class="win-btn win-btn-regular q-ma-none cursor-inherit"
-						@click="toggleMaximize"
-					>
-						<q-avatar square size="16px">
-							<img src="../assets/img/titlebar/icon_restore.svg" />
-						</q-avatar>
-					</q-btn>
-
-					<q-btn
-						unelevated
-						size="md"
-						class="win-btn win-btn-close q-ma-none cursor-inherit"
-						@click="closeApp"
-					>
-						<q-avatar square size="16px">
-							<img src="../assets/img/titlebar/icon_close.svg" />
-						</q-avatar>
-					</q-btn>
-				</q-bar>
+				<TitleBar />
+				<EssentialLink />
 
 				<div class="q-pa-sm q-pl-md row items-center" id="menu-row">
 					<div class="non-selectable">
@@ -165,7 +103,7 @@
 
 			<q-page-container>
 				<q-page class="q-pa-md">
-					<p v-for="n in 15" :key="n">
+					<p v-for="n in 5" :key="n">
 						Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
 						nihil praesentium molestias a adipisci, dolore vitae odit,
 						quidem consequatur optio voluptates asperiores pariatur eos
@@ -181,18 +119,22 @@
 // We guard the Electron API calls, but this
 // is only needed if we build same app with other
 // Quasar Modes as well (SPA/PWA/Cordova/SSR...)
-// import TitleBar from "../components/TitleBar.vue";
 import { computed } from "vue";
 import { useStore } from "vuex";
 import { mapState } from "vuex";
 
-export default {
+import EssentialLink from "components/EssentialLink.vue";
+import TitleBar from "components/TitleBar.vue";
+
+import { defineComponent } from "vue";
+export default defineComponent({
 	// data() {
 	// 	return {
-	// 		name: "MainLayout",
-	// 		components: {
-	// 			TitleBar,
-	// 		},
+	name: "MainLayout",
+
+	components: {
+		TitleBar,
+	},
 	// 	};
 	// },
 	setup() {
@@ -205,48 +147,27 @@ export default {
 		});
 
 		// we rely upon
-		function minimize() {
-			if (process.env.MODE === "electron") {
-				window.myWindowAPI.minimize();
-			}
-		}
+		// function minimize() {
+		// 	if (process.env.MODE === "electron") {
+		// 		window.myWindowAPI.minimize();
+		// 	}
+		// }
 
-		function toggleMaximize() {
-			if (process.env.MODE === "electron") {
-				window.myWindowAPI.toggleMaximize();
-			}
-		}
+		// function toggleMaximize() {
+		// 	if (process.env.MODE === "electron") {
+		// 		window.myWindowAPI.toggleMaximize();
+		// 	}
+		// }
 
-		function closeApp() {
-			if (process.env.MODE === "electron") {
-				window.myWindowAPI.close();
-			}
-		}
+		// function closeApp() {
+		// 	if (process.env.MODE === "electron") {
+		// 		window.myWindowAPI.close();
+		// 	}
+		// }
 
-		return { minimize, toggleMaximize, closeApp, winState };
+		// return { minimize, toggleMaximize, closeApp, winState };
 	},
-};
+});
 </script>
 
-<style lang="scss" scoped>
-#titlebar {
-	background-color: $color-d3;
-}
-
-#menu-row {
-	color: $color-d3;
-
-	background-color: $color-l4;
-}
-
-.win-btn {
-	font-weight: 800;
-	border-radius: 0px;
-	&:hover {
-		border-radius: 0px;
-	}
-}
-.win-btn-close:hover {
-	background: $red-8;
-}
-</style>
+<style lang="scss" scoped></style>
