@@ -16,7 +16,7 @@
 			<q-btn
 				unelevated
 				class="win-btn win-btn-regular q-ma-none cursor-inherit q-pt-md"
-				@click="minimize"
+				@click="winMinimize"
 			>
 				<q-avatar square size="16px">
 					<img
@@ -30,7 +30,8 @@
 				unelevated
 				size="md"
 				class="win-btn win-btn-regular q-ma-none cursor-inherit"
-				@click="toggleMaximize"
+				v-if="status === 'normal'"
+				@click="winMaximize"
 			>
 				<q-avatar square size="16px">
 					<img src="../assets/img/titlebar/icon_maximize.svg" />
@@ -41,7 +42,8 @@
 				unelevated
 				size="md"
 				class="win-btn win-btn-regular q-ma-none cursor-inherit"
-				@click="toggleMaximize"
+				v-if="status === 'maximized'"
+				@click="winRestore"
 			>
 				<q-avatar square size="16px">
 					<img src="../assets/img/titlebar/icon_restore.svg" />
@@ -52,7 +54,7 @@
 				unelevated
 				size="md"
 				class="win-btn win-btn-close q-ma-none cursor-inherit"
-				@click="closeApp"
+				@click="winClose"
 			>
 				<q-avatar square size="16px">
 					<img src="../assets/img/titlebar/icon_close.svg" />
@@ -66,38 +68,46 @@
 import { computed } from "vue";
 import { useStore } from "vuex";
 import { mapState } from "vuex";
-import { defineComponent } from "vue";
 
-export default defineComponent({
-	name: "TitleBar",
-	setup() {
-		const $store = useStore();
-		const winState = computed({
-			get: () => $store.state.main.winState,
-			set: () => {
-				$store.commit("main/toggleWinState");
-			},
-		});
-		// we rely upon
-		function minimize() {
-			if (process.env.MODE === "electron") {
-				window.myWindowAPI.minimize();
-			}
-		}
-		function toggleMaximize() {
-			if (process.env.MODE === "electron") {
-				window.myWindowAPI.toggleMaximize();
-				$store.commit("main/toggleWinState");
-			}
-		}
-		function closeApp() {
-			if (process.env.MODE === "electron") {
-				window.myWindowAPI.close();
-			}
-		}
-		return { minimize, toggleMaximize, closeApp };
+export default {
+	name: "titlebar",
+	data: function () {
+		return {
+			status: "normal",
+			isMaximized: false,
+		};
 	},
-});
+	created() {},
+	mounted() {},
+	unmounted() {},
+	methods: {
+		winMinimize() {
+			if (process.env.MODE === "electron") {
+				console.log("winMinimize", "App minimized");
+				this.status = "minimized";
+				window.csxAPI.minimize();
+			}
+		},
+		winMaximize() {
+			console.log("winMaximize", "App maximized");
+			window.csxAPI.toggleMaximize();
+			// status = "maximized";
+		},
+		winRestore() {
+			if (process.env.MODE === "electron") {
+				// this.status = "normal";
+				window.csxAPI.toggleMaximize();
+				console.log("winRestore", "App restored");
+			}
+		},
+		winClose() {
+			if (process.env.MODE === "electron") {
+				console.log("winClose", "App closed");
+				window.csxAPI.close();
+			}
+		},
+	},
+};
 </script>
 
 <style lang="scss" scoped>

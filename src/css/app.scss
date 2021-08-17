@@ -4,6 +4,7 @@
 	font-size: 12pt;
 	line-height: 14pt;
 	overflow: hidden;
+	cursor: default !important;
 }
 h1,
 h2,
@@ -13,4 +14,16 @@ h5,
 h6 {
 	font-variant-caps: petite-caps;
 	margin: auto;
+}
+
+div,
+.q-list,
+.q-item,
+.q-item__section,
+.q-item-section,
+.q-separator,
+.q-link,
+.q-focusable,
+.q-hoverable {
+	cursor: default !important;
 }

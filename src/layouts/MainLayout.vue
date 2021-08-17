@@ -170,4 +170,9 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+#menu-row {
+	color: $color-d3;
+	background-color: $color-l4;
+}
+</style>

@@ -1,8 +1,8 @@
 import { app, BrowserWindow, nativeTheme } from "electron";
 import path from "path";
-
 import { initialize } from "@electron/remote/main";
 initialize();
+const { ipcMain } = require("electron");
 
 try {
 	if (
@@ -28,7 +28,7 @@ function createWindow() {
 		icon: `${__dirname}/icons/icon.ico`,
 		useContentSize: true,
 		webPreferences: {
-			// contextIsolation: true,
+			contextIsolation: true,
 			enableRemoteModule: true,
 			// More info: /quasar-cli/developing-electron-apps/electron-preload-script
 			preload: path.resolve(__dirname, process.env.QUASAR_ELECTRON_PRELOAD),
@@ -49,6 +49,22 @@ function createWindow() {
 
 	mainWindow.on("closed", () => {
 		mainWindow = null;
+	});
+
+	mainWindow.on("move", () => {
+		//_ console.log("electron move");
+	});
+	mainWindow.on("minimize", () => {
+		console.log("electron minimize");
+		mainWindow.webContents.send("winState", "minimized");
+	});
+	mainWindow.on("maximize", () => {
+		console.log("electron maximize");
+		mainWindow.webContents.send("winState", "maximized");
+	});
+	mainWindow.on("restore", () => {
+		console.log("electron restore");
+		mainWindow.webContents.send("winState", "restored");
 	});
 }
 

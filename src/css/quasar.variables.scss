@@ -64,7 +64,7 @@ $bg0200: hsl(200, 15%, 73%);
 $bg0100: hsl(198, 16%, 84%);
 $bg0050: hsl(204, 15%, 94%);
 
-$menu-background: $color-l5 !default;
+$menu-background: $color-l5 !important; //Open Menu
 
 $body-font-size: 14px !default;
 $body-line-height: 1.5 !default;
