@@ -78,35 +78,35 @@ export default {
 		};
 	},
 	created() {},
-	mounted() {},
+	mounted() {
+		window.ipc.on("winState", (event, msg) => {
+			this.status = msg;
+		});
+	},
 	unmounted() {},
 	methods: {
 		winMinimize() {
-			if (process.env.MODE === "electron") {
-				console.log("winMinimize", "App minimized");
-				this.status = "minimized";
+			if (window.csxAPI.envMode === "electron") {
 				window.csxAPI.minimize();
 			}
 		},
 		winMaximize() {
-			console.log("winMaximize", "App maximized");
-			window.csxAPI.toggleMaximize();
-			// status = "maximized";
+			if (window.csxAPI.envMode === "electron") {
+				window.csxAPI.maximize();
+			}
 		},
 		winRestore() {
-			if (process.env.MODE === "electron") {
-				// this.status = "normal";
-				window.csxAPI.toggleMaximize();
-				console.log("winRestore", "App restored");
+			if (window.csxAPI.envMode === "electron") {
+				window.csxAPI.restore();
 			}
 		},
 		winClose() {
-			if (process.env.MODE === "electron") {
-				console.log("winClose", "App closed");
+			if (window.csxAPI.envMode === "electron") {
 				window.csxAPI.close();
 			}
 		},
 	},
+	computed: {},
 };
 </script>
 

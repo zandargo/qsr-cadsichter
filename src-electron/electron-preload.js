@@ -18,51 +18,39 @@
 import { contextBridge, ipcMain, ipcRenderer } from "electron";
 import { BrowserWindow } from "@electron/remote";
 
-// win.electron = require("electron");
-
 contextBridge.exposeInMainWorld("csxAPI", {
-	listenMinimize: ipcRenderer.on("winState", function () {
-		console.log("Aaaah, malandro!!!");
-	}),
+	envMode: process.env.MODE,
 
 	minimize() {
 		BrowserWindow.getFocusedWindow().minimize();
 	},
 
-	toggleMaximize() {
-		const win = BrowserWindow.getFocusedWindow();
+	maximize() {
+		BrowserWindow.getFocusedWindow().maximize();
+	},
 
-		if (win.isMaximized()) {
-			win.unmaximize();
-			// win.webContents.send("winState", "restored1");
-			mainWindow.webContents.send("winState", "restored1");
-		} else {
-			win.maximize();
-			// win.webContents.send("winState", "maximized1");
-			mainWindow.webContents.send("winState", "maximized1");
-		}
+	restore() {
+		BrowserWindow.getFocusedWindow().unmaximize();
 	},
 
 	close() {
 		BrowserWindow.getFocusedWindow().close();
 		BrowserWindow.getFocusedWindow().destroy();
 	},
+});
 
-	qWinState() {
-		switch (true) {
-			case win.isMaximized():
-				return "maximized";
-				break;
-			case win.isMinimized():
-				return "minimized";
-				break;
-
-			default:
-				return "normal";
-				break;
+const validChannels = ["winState"];
+contextBridge.exposeInMainWorld("ipc", {
+	send: (channel, data) => {
+		if (validChannels.includes(channel)) {
+			ipcRenderer.send(channel, data);
+		}
+	},
+	on: (channel, func) => {
+		if (validChannels.includes(channel)) {
+			// Strip event as it includes `sender` and is a security risk
+			//_ ipcRenderer.on(channel, (event, ...args) => func(...args));
+			ipcRenderer.on(channel, (...args) => func(...args));
 		}
 	},
 });
-
-// window.electron = require("electron");
-// win.ipcRenderer = require("electron").ipcRenderer;

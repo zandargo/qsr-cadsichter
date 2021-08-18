@@ -28,6 +28,7 @@ function createWindow() {
 		icon: `${__dirname}/icons/icon.ico`,
 		useContentSize: true,
 		webPreferences: {
+			nodeIntegration: false,
 			contextIsolation: true,
 			enableRemoteModule: true,
 			// More info: /quasar-cli/developing-electron-apps/electron-preload-script
@@ -39,7 +40,7 @@ function createWindow() {
 
 	if (process.env.DEBUGGING) {
 		// if on DEV or Production with debug enabled
-		//  mainWindow.webContents.openDevTools();
+		mainWindow.webContents.openDevTools();
 	} else {
 		// we're on production; no access to devtools pls
 		mainWindow.webContents.on("devtools-opened", () => {
@@ -52,7 +53,8 @@ function createWindow() {
 	});
 
 	mainWindow.on("move", () => {
-		//_ console.log("electron move");
+		console.log("electron move");
+		mainWindow.webContents.send("winState", "normal");
 	});
 	mainWindow.on("minimize", () => {
 		console.log("electron minimize");
@@ -62,9 +64,13 @@ function createWindow() {
 		console.log("electron maximize");
 		mainWindow.webContents.send("winState", "maximized");
 	});
+	mainWindow.on("unmaximize", () => {
+		console.log("electron unmaximize");
+		mainWindow.webContents.send("winState", "normal");
+	});
 	mainWindow.on("restore", () => {
 		console.log("electron restore");
-		mainWindow.webContents.send("winState", "restored");
+		mainWindow.webContents.send("winState", "normal");
 	});
 }
 
