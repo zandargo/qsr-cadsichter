@@ -53,23 +53,23 @@ function createWindow() {
 	});
 
 	mainWindow.on("move", () => {
-		console.log("electron move");
+		//_ console.log("electron move");
 		mainWindow.webContents.send("winState", "normal");
 	});
 	mainWindow.on("minimize", () => {
-		console.log("electron minimize");
+		//_ console.log("electron minimize");
 		mainWindow.webContents.send("winState", "minimized");
 	});
 	mainWindow.on("maximize", () => {
-		console.log("electron maximize");
+		//_ console.log("electron maximize");
 		mainWindow.webContents.send("winState", "maximized");
 	});
 	mainWindow.on("unmaximize", () => {
-		console.log("electron unmaximize");
+		//_ console.log("electron unmaximize");
 		mainWindow.webContents.send("winState", "normal");
 	});
 	mainWindow.on("restore", () => {
-		console.log("electron restore");
+		//_ console.log("electron restore");
 		mainWindow.webContents.send("winState", "normal");
 	});
 }

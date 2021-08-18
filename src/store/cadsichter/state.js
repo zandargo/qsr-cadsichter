@@ -1,5 +1,5 @@
 export default function () {
 	return {
-		winState: "normal",
+		tab: "flow",
 	};
 }

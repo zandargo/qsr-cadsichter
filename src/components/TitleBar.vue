@@ -6,7 +6,7 @@
 			v-if="$q.platform.is.electron"
 		>
 			<q-avatar size="24px" square>
-				<img src="../../public/icons/cs/cs-icon-01.svg" />
+				<img src="../../public/icons/cs/cs-icon-02a.svg" />
 			</q-avatar>
 
 			<q-space />
