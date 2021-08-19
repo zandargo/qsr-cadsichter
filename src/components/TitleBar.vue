@@ -74,7 +74,6 @@ export default {
 	data: function () {
 		return {
 			status: "normal",
-			isMaximized: false,
 		};
 	},
 	created() {},

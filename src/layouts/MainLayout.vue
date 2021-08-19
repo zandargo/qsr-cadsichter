@@ -9,8 +9,9 @@
 
 		<q-layout view="lHh lpr lFf">
 			<q-header elevated>
-				<TitleBar />
+				<TitleBar id="title-bar" />
 			</q-header>
+			<Ribbon />
 
 			<q-page-container>
 				<!-- <router-view /> -->
@@ -24,21 +25,19 @@
 // We guard the Electron API calls, but this
 // is only needed if we build same app with other
 // Quasar Modes as well (SPA/PWA/Cordova/SSR...)
-import { computed, ref } from "vue";
-import { useStore } from "vuex";
-import { mapState } from "vuex";
+import { defineComponent, computed, ref } from "vue";
+import { useStore, mapState } from "vuex";
 //_ import EssentialLink from "components/EssentialLink.vue";
 import TitleBar from "components/TitleBar.vue";
-import Home from "pages/Index.vue";
+import Ribbon from "pages/Ribbon.vue";
+// import Home from "pages/Index.vue";
 
-import { defineComponent } from "vue";
 export default defineComponent({
-	// data() {
-	// 	return {
 	name: "MainLayout",
 
 	components: {
 		TitleBar,
+		Ribbon,
 		// Home,
 	},
 	// 	};
@@ -55,4 +54,9 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+// #title-bar {
+// 	shadow: 5px 5px 5px;
+// 	z-index: 999;
+// }
+</style>
