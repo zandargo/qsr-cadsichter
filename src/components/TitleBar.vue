@@ -52,6 +52,7 @@
 
 			<q-btn
 				unelevated
+				flat
 				size="md"
 				class="win-btn win-btn-close q-ma-none cursor-inherit"
 				@click="winClose"
@@ -112,13 +113,13 @@ export default {
 <style lang="scss" scoped>
 #titlebar {
 	background-color: $color-d3;
+	height: $h_title;
 }
 
-#menu-row {
-	color: $color-d3;
-
-	background-color: $color-l4;
-}
+// #menu-row {
+// 	color: $color-d3;
+// 	background-color: $color-l4;
+// }
 
 .win-btn {
 	font-weight: 800;

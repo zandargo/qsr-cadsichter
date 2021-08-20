@@ -8,7 +8,7 @@
 	-->
 
 		<q-layout view="lHh lpr lFf">
-			<q-header elevated>
+			<q-header elevated flat>
 				<TitleBar id="title-bar" />
 			</q-header>
 			<Ribbon />
