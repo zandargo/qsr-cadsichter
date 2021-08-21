@@ -3,7 +3,7 @@
 	font-family: "RobotoCondensed", Arial, Helvetica, sans-serif;
 	font-size: 12pt;
 	line-height: 14pt;
-	// overflow: hidden;
+
 	cursor: default !important;
 }
 h1,
@@ -26,4 +26,8 @@ div,
 .q-focusable,
 .q-hoverable {
 	cursor: default !important;
+}
+
+.q-splitter__separator-area {
+	cursor: col-resize !important;
 }

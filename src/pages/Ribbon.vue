@@ -1,34 +1,23 @@
 <template>
-	<div id="ribbon" class="column">
+	<div id="ribbon" class="column justify-end">
 		<div class="col-auto"></div>
-		<div id="row_tabs"></div>
-		<div id="row_buttons"></div>
+		<!-- <div id="row_tabs"></div> -->
+		<!-- <div id="row_buttons"></div> -->
 
-		<div class="q-gutter-y-md">
-			<!-- <q-card> -->
-			<q-tabs v-model="tab" dense align="left">
-				<q-tab name="mails" label="Mails" />
-				<q-tab name="alarms" label="Alarms" />
-				<q-tab name="movies" label="Movies" />
+		<div class="q-gutter-y-none">
+			<q-tabs v-model="tab" dense align="left" id="row_tabs">
+				<q-tab name="flow" label="Esquema" />
+				<q-tab name="chart" label="Esquemino" />
+				<q-tab name="defs" label="Definições" />
 			</q-tabs>
 
-			<q-tab-panels v-model="tab" animated>
-				<q-tab-panel name="mails">
-					<div class="text-h6">Mails</div>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit.
-				</q-tab-panel>
+			<q-tab-panels v-model="tab" animated id="row_buttons">
+				<q-tab-panel name="flow"> Botões de Esquema </q-tab-panel>
 
-				<q-tab-panel name="alarms">
-					<div class="text-h6">Alarms</div>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit.
-				</q-tab-panel>
+				<q-tab-panel name="chart"> Botões de Esquemino </q-tab-panel>
 
-				<q-tab-panel name="movies">
-					<div class="text-h6">Movies</div>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit.
-				</q-tab-panel>
+				<q-tab-panel name="defs"> Botões de Definições </q-tab-panel>
 			</q-tab-panels>
-			<!-- </q-card> -->
 		</div>
 	</div>
 </template>
@@ -40,7 +29,7 @@ export default defineComponent({
 	name: "Ribbon",
 	setup() {
 		return {
-			tab: ref("mails"),
+			tab: ref("flow"),
 		};
 	},
 });
@@ -48,18 +37,18 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 #ribbon {
-	height: $h_title + $h_tabs + $h_ribbon + 300px;
+	height: $h_title + 8px + $h_tabs + $h_ribbon;
 	font-variant-caps: petite-caps !important;
 	// background-color: $color-d3;
+	background-color: $color-l4;
 
 	#row_tabs {
 		height: $h_tabs;
-		// background-color: $color-l3;
 	}
 
 	#row_buttons {
 		height: $h_ribbon;
-		// background-color: $color-l1;
+		background-color: $color-l3;
 	}
 }
 

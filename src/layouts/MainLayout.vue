@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div id="main_div">
 		<!--
 	Anything after view="lHh lpr lFf" is only needed
 	so we can display this example in the documentation
@@ -8,29 +8,60 @@
 	-->
 
 		<q-layout view="lHh lpr lFf">
-			<q-header elevated flat>
-				<TitleBar id="title-bar" />
+			<q-header elevated>
+				<TitleBar id="title-bar" elevated />
+				<Ribbon class="text-black" />
 			</q-header>
-			<Ribbon />
 
-			<q-page-container>
+			<q-page-container class="q-ma-none q-pa-none">
 				<!-- <router-view /> -->
 				<!-- <Home /> -->
+
+				<div class="text-black">
+					<q-splitter
+						class="text-black"
+						v-model="splitterModel"
+						:limits="[300, 600]"
+						unit="px"
+						:separator-style="{ cursor: 'col-resize' }"
+					>
+						<template v-slot:before>
+							<div class="q-pa-md">
+								<div class="text-h4 q-mb-md">Before</div>
+								<div v-for="n in 5" :key="n" class="q-my-md">
+									{{ n }}. Lorem ipsum dolor sit, amet consectetur
+									adipisicing elit. Quis praesentium cumque magnam odio
+									iure quidem, quod illum numquam possimus obcaecati
+									commodi minima assumenda consectetur culpa fuga nulla
+									ullam. In, libero.
+								</div>
+							</div>
+						</template>
+
+						<template v-slot:after>
+							<div class="q-pa-md">
+								<div class="text-h4 q-mb-md">After</div>
+								<div v-for="n in 20" :key="n" class="q-my-md">
+									{{ n }}. Lorem ipsum dolor sit, amet consectetur
+									adipisicing elit. Quis praesentium cumque magnam odio
+									iure quidem, quod illum numquam possimus obcaecati
+									commodi minima assumenda consectetur culpa fuga nulla
+									ullam. In, libero.
+								</div>
+							</div>
+						</template>
+					</q-splitter>
+				</div>
 			</q-page-container>
 		</q-layout>
 	</div>
 </template>
 
 <script>
-// We guard the Electron API calls, but this
-// is only needed if we build same app with other
-// Quasar Modes as well (SPA/PWA/Cordova/SSR...)
 import { defineComponent, computed, ref } from "vue";
 import { useStore, mapState } from "vuex";
-//_ import EssentialLink from "components/EssentialLink.vue";
 import TitleBar from "components/TitleBar.vue";
 import Ribbon from "pages/Ribbon.vue";
-// import Home from "pages/Index.vue";
 
 export default defineComponent({
 	name: "MainLayout",
@@ -50,13 +81,19 @@ export default defineComponent({
 		// 		$store.commit("main/updateWinState", val);
 		// 	},
 		// });
+		return {
+			splitterModel: ref(320),
+		};
 	},
 });
 </script>
 
 <style lang="scss" scoped>
-// #title-bar {
-// 	shadow: 5px 5px 5px;
-// 	z-index: 999;
-// }
+#main_div {
+	overflow: hidden;
+}
+#title-bar {
+	box-shadow: 5px 5px blue, 10px 10px red, 15px 15px green !important;
+	z-index: 999;
+}
 </style>
