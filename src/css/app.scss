@@ -1,4 +1,6 @@
 // app global css in SCSS form
+@import "./quasar.variables.scss";
+
 * {
 	font-family: "RobotoCondensed", Arial, Helvetica, sans-serif;
 	font-size: 12pt;
@@ -11,7 +13,7 @@ h3,
 h4,
 h5,
 h6 {
-	font-variant-caps: petite-caps;
+	font-variant-caps: small-caps;
 	margin: auto;
 }
 
@@ -38,4 +40,17 @@ div,
 	}
 	-ms-overflow-style: none; /* IE and Edge */
 	scrollbar-width: none; /* Firefox */
+}
+.q-tab__indicator {
+	display: none !important;
+}
+
+#row_tabs
+	> div
+	> div.q-tab.relative-position.self-stretch.flex.flex-center.text-center.q-tab--active.q-focusable.q-hoverable.cursor-pointer.text-bold
+	> div.q-tab__content.self-stretch.flex-center.relative-position.q-anchor--skip.non-selectable.column
+	> div {
+	font-weight: 500 !important;
+	font-size: 1.2em !important;
+	text-transform: uppercase;
 }

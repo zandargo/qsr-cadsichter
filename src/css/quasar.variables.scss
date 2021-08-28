@@ -69,6 +69,10 @@ $bg0200: hsl(200, 15%, 73%);
 $bg0100: hsl(198, 16%, 84%);
 $bg0050: hsl(204, 15%, 94%);
 
+$shadow1: 5px 5px 10px transparentize($primary, 0.75);
+$shadow2: 5px 5px 10px transparentize($color_d4, 0.5);
+$shadowscroll: 0px 0px 5px transparentize($primary, 0.75);
+
 $menu-background: $color-l5 !important; //Open Menu
 
 $body-font-size: 14px !default;

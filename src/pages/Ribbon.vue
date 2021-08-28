@@ -1,27 +1,22 @@
 <template>
 	<div id="ribbon" class="column justify-end">
-		<!-- <div class="col-auto"></div> -->
-		<!-- <div id="row_tabs"></div> -->
-		<!-- <div id="row_buttons"></div> -->
-
-		<div class="q-gutter-y-none">
+		<div class="q-gutter-y-none bg-cs-l4">
 			<q-tabs
 				v-model="tab"
 				dense
+				no-caps
 				align="left"
 				id="row_tabs"
-				class="bg-cs-l4"
+				class="bg-cs-l4 q-mt-sm q-pl-md text-grey-8 text-caption"
 			>
 				<q-tab name="flow" label="Esquema" />
 				<q-tab name="chart" label="Esquemino" />
 				<q-tab name="defs" label="Definições" />
 			</q-tabs>
 
-			<q-tab-panels v-model="tab" animated id="row_buttons" class="bg-cs-l3">
+			<q-tab-panels v-model="tab" animated id="row_buttons" class="bg-cs-l2">
 				<q-tab-panel name="flow"> Botões de Esquema </q-tab-panel>
-
 				<q-tab-panel name="chart"> Botões de Esquemino </q-tab-panel>
-
 				<q-tab-panel name="defs"> Botões de Definições </q-tab-panel>
 			</q-tab-panels>
 		</div>
@@ -60,5 +55,25 @@ export default defineComponent({
 }
 
 .space {
+}
+.q-tab__indicator {
+	display: none !important;
+}
+
+.q-tab {
+	border-radius: 8px 8px 0 0;
+	font-variant-caps: small-caps !important;
+}
+.q-tab__content {
+	font-variant-caps: small-caps !important;
+}
+.q-tab--active {
+	border: none;
+	color: $color-d4;
+	font-weight: 500;
+	background-color: $color-l2;
+	box-shadow: $shadow2;
+	font-size: 1.25rem !important;
+	//-text-transform: uppercase;
 }
 </style>
