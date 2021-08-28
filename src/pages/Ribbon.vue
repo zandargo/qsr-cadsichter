@@ -9,9 +9,9 @@
 				id="row_tabs"
 				class="bg-cs-l4 q-mt-sm q-pl-md text-grey-8 text-caption"
 			>
-				<q-tab name="flow" label="Esquema" />
-				<q-tab name="chart" label="Esquemino" />
-				<q-tab name="defs" label="Definições" />
+				<q-tab name="flow" label="Esquema" style="width: 120px" />
+				<q-tab name="chart" label="Esquemino" style="width: 120px" />
+				<q-tab name="defs" label="Definições" style="width: 120px" />
 			</q-tabs>
 
 			<q-tab-panels v-model="tab" animated id="row_buttons" class="bg-cs-l2">
@@ -70,10 +70,7 @@ export default defineComponent({
 .q-tab--active {
 	border: none;
 	color: $color-d4;
-	font-weight: 500;
 	background-color: $color-l2;
 	box-shadow: $shadow2;
-	font-size: 1.25rem !important;
-	//-text-transform: uppercase;
 }
 </style>

@@ -50,7 +50,16 @@ div,
 	> div.q-tab.relative-position.self-stretch.flex.flex-center.text-center.q-tab--active.q-focusable.q-hoverable.cursor-pointer.text-bold
 	> div.q-tab__content.self-stretch.flex-center.relative-position.q-anchor--skip.non-selectable.column
 	> div {
-	font-weight: 500 !important;
 	font-size: 1.2em !important;
 	text-transform: uppercase;
+}
+
+.q-tab__label {
+	font-size: 1rem !important;
+}
+
+.q-tab--active {
+	text-transform: uppercase;
+	text-transform: uppercase;
+	font-weight: 700 !important;
 }
