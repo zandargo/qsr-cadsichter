@@ -1,46 +1,56 @@
 <template>
-	<div>
-		<!-- <div v-for="n in 20" :key="n" class="q-my-md">
-			{{ n }}. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis
-			praesentium cumque magnam odio iure quidem, quod illum numquam possimus
-			obcaecati commodi minima assumenda consectetur culpa fuga nulla ullam.
-			In, libero.
+	<q-page>
+		<!-- <div class="row">
+			<div class="col-1">
+				<q-scroll-area
+					:thumb-style="thumbStyle"
+					:bar-style="barStyle"
+					style="height: 300px; width: 430px"
+					class="fit"
+				>
+					<div v-for="n in 100" :key="n" class="q-pa-xs">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
+						do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+					</div>
+				</q-scroll-area>
+			</div>
+			<div class="col-8">
+				<q-scroll-area class="fit">
+					<div v-for="n in 100" :key="n" class="q-pa-xs">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
+						do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+					</div>
+				</q-scroll-area>
+			</div>
 		</div> -->
 
-		<q-splitter v-model="splitterModel">
-			<template v-slot:before>
-				<div class="q-pa-md">
-					<div class="text-h4 q-mb-md">Before</div>
-					<div v-for="n in 20" :key="n" class="q-my-md">
-						{{ n }}. Lorem ipsum dolor sit, amet consectetur adipisicing
-						elit. Quis praesentium cumque magnam odio iure quidem, quod
-						illum numquam possimus obcaecati commodi minima assumenda
-						consectetur culpa fuga nulla ullam. In, libero.
+		<div class="flex flex-center column">
+			<div
+				class="row bg-blue-grey-2"
+				style="min-height: 400px; width: 80%; padding: 0px"
+			>
+				<div
+					id="parent"
+					class="fit row wrap justify-start items-start content-start"
+					style="overflow: hidden; min-height: 100%"
+				>
+					<div
+						class="col-2 bg-cs-l3"
+						style="overflow: auto; min-height: 100%"
+					>
+						<q-card class="no-border-radius">
+							<q-card-section> Child #0 </q-card-section>
+						</q-card>
+					</div>
+					<div class="col-grow bg-cs-l4" style="overflow: auto">
+						<q-card class="no-border-radius">
+							<q-card-section> Child #1 </q-card-section>
+						</q-card>
 					</div>
 				</div>
-			</template>
-
-			<template v-slot:after>
-				<div class="q-pa-md">
-					<q-scroll-area
-						:thumb-style="thumbStyle"
-						:content-style="contentStyle"
-						:content-active-style="contentActiveStyle"
-						style="height: 200px; max-width: 300px"
-					>
-						<div class="text-h4 q-mb-md">After</div>
-						<div v-for="n in 20" :key="n" class="q-my-md">
-							{{ n }}. Lorem ipsum dolor sit, amet consectetur
-							adipisicing elit. Quis praesentium cumque magnam odio iure
-							quidem, quod illum numquam possimus obcaecati commodi
-							minima assumenda consectetur culpa fuga nulla ullam. In,
-							libero.
-						</div>
-					</q-scroll-area>
-				</div>
-			</template>
-		</q-splitter>
-	</div>
+			</div>
+		</div>
+	</q-page>
 </template>
 
 <script>
@@ -50,10 +60,8 @@ export default {
 	name: "MainPage",
 	setup() {
 		return {
-			splitterModel: ref(20), // start at 20%
-
 			contentStyle: {
-				backgroundColor: "rgba(0,0,0,0.02)",
+				backgroundColor: "rgba(0,0,0,0)",
 				color: "#555",
 			},
 
@@ -63,10 +71,10 @@ export default {
 			},
 
 			thumbStyle: {
-				right: "2px",
-				borderRadius: "5px",
+				right: "6px",
+				borderRadius: "3px",
 				backgroundColor: "#027be3",
-				width: "5px",
+				width: "12px",
 				opacity: 0.75,
 			},
 		};
@@ -80,3 +88,21 @@ export default {
 	},
 };
 </script>
+
+<style lang="scss" scoped>
+// div {
+// 	::-webkit-scrollbar {
+// 		display: auto;
+// 	}
+// 	-ms-overflow-style: none; /* IE and Edge */
+// 	scrollbar-width: none; /* Firefox */
+// }
+#c1 {
+	background-color: $color-l3;
+	height: 100%;
+}
+#c2 {
+	background-color: $color-l4;
+	height: 100%;
+}
+</style>

@@ -1,22 +1,29 @@
 <template>
-	<div id="main_div" class="no-scroll">
-		<!--
-	Anything after view="lHh lpr lFf" is only needed
-	so we can display this example in the documentation
-
-	Remove this part: container style="height: 400px" class="shadow-2 rounded-borders"
-	-->
-
-		<q-layout view="lHh lpr lFf">
+	<div id="main_div" class="no-scroll hide-scrollbar">
+		<q-layout view="hHh LpR fFf" class="no-scroll hide-scrollbar">
 			<q-header elevated>
-				<TitleBar id="row-title" elevated class="shadow-3" />
+				<TitleBar id="row-title" elevated class="shadow-3 absolute-top" />
+				<div class="space"></div>
 				<Ribbon id="row-ribbon" class="text-black" />
 			</q-header>
 
-			<q-page-container class="q-ma-none q-pa-none">
-				<!-- <router-view /> -->
+			<q-drawer
+				show-if-above
+				v-model="leftDrawerOpen"
+				side="left"
+				behavior="desktop"
+				elevated
+				class="bg-cs-l3"
+				style="overflow: auto; min-height: 100%"
+			>
+				<!-- drawer content -->
+			</q-drawer>
+			<q-page-container class="q-ma-none hide-scrollbar">
+				<router-view />
 				<!-- <Home /> -->
 			</q-page-container>
+
+			<q-footer></q-footer>
 		</q-layout>
 	</div>
 </template>
@@ -38,6 +45,7 @@ export default defineComponent({
 	// 	};
 	// },
 	setup() {
+		const leftDrawerOpen = ref(true);
 		// const $store = useStore();
 		// const winState = computed({
 		// 	get: () => $store.state.main.winState,
@@ -45,17 +53,15 @@ export default defineComponent({
 		// 		$store.commit("main/updateWinState", val);
 		// 	},
 		// });
-		return {
-			splitterModel: ref(320),
-		};
+		return {};
 	},
 });
 </script>
 
 <style lang="scss" scoped>
-#main_div {
-	overflow: hidden;
-}
+// #main_div {
+// 	overflow: hidden;
+// }
 #row-title {
 	// box-shadow: 0px 5px blue !important;
 	z-index: 9999;
@@ -63,5 +69,17 @@ export default defineComponent({
 
 #row-ribbon {
 	z-index: 9000;
+}
+
+.space {
+	height: 32px;
+}
+
+.scrolless {
+	::-webkit-scrollbar {
+		display: none;
+	}
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
 }
 </style>

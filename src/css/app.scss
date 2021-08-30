@@ -2,10 +2,17 @@
 @import "./quasar.variables.scss";
 
 * {
+	/* Hide scrollbar for Chrome, Safari and Opera */
+	// ::-webkit-scrollbar {
+	// 	display: none;
+	// }
+	// -ms-overflow-style: none; /* IE and Edge */
+	// scrollbar-width: none; /* Firefox */
 	font-family: "RobotoCondensed", Arial, Helvetica, sans-serif;
 	font-size: 12pt;
 	line-height: 14pt;
 	cursor: default !important;
+	overflow: hidden;
 }
 h1,
 h2,
