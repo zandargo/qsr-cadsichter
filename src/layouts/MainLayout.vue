@@ -13,17 +13,42 @@
 				side="left"
 				behavior="desktop"
 				elevated
-				class="bg-cs-l3"
-				style="overflow: auto; min-height: 100%"
+				class="bg-cs-l3 absolute-left shadow-2"
+				style="overflow: hidden; min-height: 100%"
 			>
 				<!-- drawer content -->
 			</q-drawer>
-			<q-page-container class="q-ma-none hide-scrollbar">
-				<router-view />
+
+			<q-drawer
+				v-model="rightDrawerOpen"
+				side="right"
+				behavior="desktop"
+				elevated
+				class="bg-cs-l3 absolute-right shadow-2"
+				style="overflow: hidden; min-height: 100%"
+			>
+				<!-- drawer content -->
+			</q-drawer>
+
+			<q-page-container
+				class="bg-cs-l5 q-mb-none row items-stretch window-height"
+			>
+				<q-scroll-area
+					:thumb-style="thumbStyle"
+					:bar-style="barStyle"
+					style="min-height: 300px; width: 100%"
+					class="q-py-none q-px-md q-ma-none"
+				>
+					<router-view />
+				</q-scroll-area>
 				<!-- <Home /> -->
 			</q-page-container>
 
-			<q-footer></q-footer>
+			<q-footer
+				elevated
+				class="bg-cs-d3 q-px-md q-py-xs shadow-up-2 absolute-bottom"
+				>Footer</q-footer
+			>
 		</q-layout>
 	</div>
 </template>
@@ -46,6 +71,7 @@ export default defineComponent({
 	// },
 	setup() {
 		const leftDrawerOpen = ref(true);
+		const rightDrawerOpen = ref(false);
 		// const $store = useStore();
 		// const winState = computed({
 		// 	get: () => $store.state.main.winState,
@@ -53,7 +79,35 @@ export default defineComponent({
 		// 		$store.commit("main/updateWinState", val);
 		// 	},
 		// });
-		return {};
+		return {
+			contentStyle: {
+				backgroundColor: "rgba(0,0,0,0)",
+				color: "#555",
+			},
+
+			contentActiveStyle: {
+				backgroundColor: "#eee",
+				color: "black",
+			},
+
+			thumbStyle: {
+				right: "0px",
+				borderRadius: "8px",
+				backgroundColor: "#607d8b",
+				width: "16px",
+				opacity: 0.5,
+			},
+
+			leftDrawerOpen,
+			toggleLeftDrawer() {
+				leftDrawerOpen.value = !leftDrawerOpen.value;
+			},
+
+			rightDrawerOpen,
+			toggleRightDrawer() {
+				rightDrawerOpen.value = !rightDrawerOpen.value;
+			},
+		};
 	},
 });
 </script>

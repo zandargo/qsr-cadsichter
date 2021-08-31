@@ -7,29 +7,77 @@
 				no-caps
 				align="left"
 				id="row_tabs"
-				class="bg-cs-l4 q-mt-sm q-pl-md text-grey-8 text-caption"
+				class="
+					bg-cs-l4
+					q-pl-md
+					text-grey-8 text-caption
+					justify-start
+					items-start
+				"
 			>
 				<q-tab name="flow" label="Esquema" style="width: 120px" />
 				<q-tab name="chart" label="Esquemino" style="width: 120px" />
 				<q-tab name="defs" label="Definições" style="width: 120px" />
 			</q-tabs>
 
-			<q-tab-panels v-model="tab" animated id="row_buttons" class="bg-cs-l2">
-				<q-tab-panel name="flow"> Botões de Esquema </q-tab-panel>
-				<q-tab-panel name="chart"> Botões de Esquemino </q-tab-panel>
-				<q-tab-panel name="defs"> Botões de Definições </q-tab-panel>
+			<q-tab-panels
+				v-model="tab"
+				animated
+				id="row_buttons"
+				class="bg-cs-l2 q-pt-sm"
+			>
+				<q-tab-panel
+					name="flow"
+					class="bg-cs-l2 q-py-xs row justify-start items-center no-scroll"
+				>
+					<Button v-for="btn in BtnsFlow" :key="btn.title" v-bind="btn" />
+				</q-tab-panel>
+				<q-tab-panel
+					name="chart"
+					class="bg-cs-l2 q-py-xs row justify-start items-center no-scroll"
+				>
+					Botões de Esquemino
+				</q-tab-panel>
+				<q-tab-panel
+					name="defs"
+					class="bg-cs-l2 q-py-xs row justify-start items-center no-scroll"
+				>
+					Botões de Definições
+				</q-tab-panel>
 			</q-tab-panels>
 		</div>
 	</div>
 </template>
 
 <script>
+import Button from "components/RbnButton.vue";
+const BtnsListFlow = [
+	{
+		title: "Novo",
+		icon: require("../assets/img/ribbon/new-file-96.png"),
+	},
+	{
+		title: "Abrir",
+		icon: require("../assets/img/ribbon/opened-folder.png"),
+	},
+	{
+		title: "Salvar",
+		icon: require("../assets/img/ribbon/save-96.png"),
+	},
+];
+
 import { defineComponent, ref } from "vue";
 
 export default defineComponent({
 	name: "Ribbon",
+
+	components: {
+		Button,
+	},
+
 	setup() {
 		return {
+			BtnsFlow: BtnsListFlow,
 			tab: ref("flow"),
 		};
 	},

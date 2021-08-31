@@ -1,54 +1,8 @@
 <template>
-	<q-page>
-		<!-- <div class="row">
-			<div class="col-1">
-				<q-scroll-area
-					:thumb-style="thumbStyle"
-					:bar-style="barStyle"
-					style="height: 300px; width: 430px"
-					class="fit"
-				>
-					<div v-for="n in 100" :key="n" class="q-pa-xs">
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-						do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-					</div>
-				</q-scroll-area>
-			</div>
-			<div class="col-8">
-				<q-scroll-area class="fit">
-					<div v-for="n in 100" :key="n" class="q-pa-xs">
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-						do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-					</div>
-				</q-scroll-area>
-			</div>
-		</div> -->
-
-		<div class="flex flex-center column">
-			<div
-				class="row bg-blue-grey-2"
-				style="min-height: 400px; width: 80%; padding: 0px"
-			>
-				<div
-					id="parent"
-					class="fit row wrap justify-start items-start content-start"
-					style="overflow: hidden; min-height: 100%"
-				>
-					<div
-						class="col-2 bg-cs-l3"
-						style="overflow: auto; min-height: 100%"
-					>
-						<q-card class="no-border-radius">
-							<q-card-section> Child #0 </q-card-section>
-						</q-card>
-					</div>
-					<div class="col-grow bg-cs-l4" style="overflow: auto">
-						<q-card class="no-border-radius">
-							<q-card-section> Child #1 </q-card-section>
-						</q-card>
-					</div>
-				</div>
-			</div>
+	<q-page class="q-pa-md">
+		<div v-for="n in 100" :key="n">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+			eiusmod tempor incididunt ut labore et dolore magna aliqua.
 		</div>
 	</q-page>
 </template>

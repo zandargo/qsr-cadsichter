@@ -12,7 +12,7 @@
 	font-size: 12pt;
 	line-height: 14pt;
 	cursor: default !important;
-	overflow: hidden;
+	// overflow: hidden;
 }
 h1,
 h2,
@@ -69,4 +69,7 @@ div,
 	text-transform: uppercase;
 	text-transform: uppercase;
 	font-weight: 700 !important;
+}
+.cs-caps {
+	font-variant-caps: petite-caps !important;
 }

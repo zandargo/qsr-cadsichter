@@ -81,6 +81,8 @@ $body-line-height: 1.5 !default;
 $animate-duration: 0.1s !important;
 $animate-delay: 0.1s !important;
 
+$button-border-radius: 8px !default;
+
 $h1: (
 	size: 2rem,
 	line-height: 2.25rem,
@@ -106,13 +108,13 @@ $h4: (
 	weight: 400,
 ) !default;
 $h5: (
-	size: 0.8rem,
+	size: 0.85rem,
 	line-height: 0.85rem,
 	letter-spacing: normal,
 	weight: 400,
 ) !default;
 $h6: (
-	size: 0.6rem,
+	size: 0.75rem,
 	line-height: 0.75rem,
 	letter-spacing: 0.0125em,
 	weight: 500,
@@ -154,6 +156,17 @@ $caption: (
 	weight: 400,
 ) !default;
 
+// $z-fab                : 990 !default;
+// $z-side               : 1000 !default;
+// $z-marginals          : 2000 !default;
+$z-fixed-drawer: 9999 !default;
+// $z-fullscreen         : 6000 !default;
+// $z-menu               : 6000 !default;
+// $z-top                : 7000 !default;
+// $z-tooltip            : 9000 !default;
+// $z-notify             : 9500 !default;
+// $z-max                : 9998 !default;
+
 .bg-cs-l1 {
 	background-color: $color-l1 !important;
 }
@@ -168,4 +181,40 @@ $caption: (
 }
 .bg-cs-l5 {
 	background-color: $color-l5 !important;
+}
+
+.bg-cs-d1 {
+	background-color: $color-d1 !important;
+}
+.bg-cs-d2 {
+	background-color: $color-d2 !important;
+}
+.bg-cs-d3 {
+	background-color: $color-d3 !important;
+}
+.bg-cs-d4 {
+	background-color: $color-d4 !important;
+}
+.bg-cs-d5 {
+	background-color: $color-d5 !important;
+}
+
+.txt-cs-d1 {
+	color: $color-d1 !important;
+}
+.txt-cs-d2 {
+	color: $color-d2 !important;
+}
+.txt-cs-d3 {
+	color: $color-d3 !important;
+}
+.txt-cs-d4 {
+	color: $color-d4 !important;
+}
+.txt-cs-d5 {
+	color: $color-d5 !important;
+}
+
+.cs-border {
+	border: 1px solid transparentize($primary, 0.75);
 }
