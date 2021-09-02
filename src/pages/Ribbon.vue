@@ -15,9 +15,24 @@
 					items-start
 				"
 			>
-				<q-tab name="flow" label="Esquema" style="width: 120px" />
-				<q-tab name="chart" label="Esquemino" style="width: 120px" />
-				<q-tab name="defs" label="Definições" style="width: 120px" />
+				<q-tab
+					name="flow"
+					label="Esquema"
+					style="width: 120px"
+					@click="setRoute('flow')"
+				/>
+				<q-tab
+					name="chart"
+					label="Esquemino"
+					style="width: 120px"
+					to="chart"
+				/>
+				<q-tab
+					name="defs"
+					label="Definições"
+					style="width: 120px"
+					to="defs"
+				/>
 			</q-tabs>
 
 			<q-tab-panels
@@ -28,18 +43,21 @@
 			>
 				<q-tab-panel
 					name="flow"
+					style="height: 80px"
 					class="bg-cs-l2 q-py-xs row justify-start items-center no-scroll"
 				>
 					<Button v-for="btn in BtnsFlow" :key="btn.title" v-bind="btn" />
 				</q-tab-panel>
 				<q-tab-panel
 					name="chart"
+					style="height: 80px"
 					class="bg-cs-l2 q-py-xs row justify-start items-center no-scroll"
 				>
 					Botões de Esquemino
 				</q-tab-panel>
 				<q-tab-panel
 					name="defs"
+					style="height: 80px"
 					class="bg-cs-l2 q-py-xs row justify-start items-center no-scroll"
 				>
 					Botões de Definições
@@ -80,6 +98,11 @@ export default defineComponent({
 			BtnsFlow: BtnsListFlow,
 			tab: ref("flow"),
 		};
+	},
+	methods: {
+		setRoute: function (name) {
+			this.$router.push(name);
+		},
 	},
 });
 </script>

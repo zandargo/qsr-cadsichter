@@ -1,7 +1,5 @@
 <template>
-	<q-page padding>
-		<!-- content -->
-	</q-page>
+	<q-page padding> Flow main </q-page>
 </template>
 
 <script>

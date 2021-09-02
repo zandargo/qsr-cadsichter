@@ -3,7 +3,7 @@
 		<q-layout view="hHh LpR fFf" class="no-scroll hide-scrollbar">
 			<q-header elevated>
 				<TitleBar id="row-title" elevated class="shadow-3 absolute-top" />
-				<div class="space"></div>
+				<div class="space bg-cs-l4"></div>
 				<Ribbon id="row-ribbon" class="text-black" />
 			</q-header>
 
@@ -39,7 +39,7 @@
 					style="min-height: 300px; width: 100%"
 					class="q-py-none q-px-md q-ma-none"
 				>
-					<router-view />
+					<router-view name="default" />
 				</q-scroll-area>
 				<!-- <Home /> -->
 			</q-page-container>
@@ -126,7 +126,7 @@ export default defineComponent({
 }
 
 .space {
-	height: 32px;
+	height: 42px;
 }
 
 .scrolless {
