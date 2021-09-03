@@ -218,3 +218,7 @@ $z-fixed-drawer: 9999 !default;
 .cs-border {
 	border: 1px solid transparentize($primary, 0.75);
 }
+
+.small-caps {
+	font-variant-caps: small-caps;
+}

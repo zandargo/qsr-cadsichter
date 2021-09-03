@@ -1,5 +1,5 @@
 <template>
-	<q-page padding> Chart footer... </q-page>
+	<q-page class="small-caps"> Chart footer</q-page>
 </template>
 
 <script>

@@ -7,15 +7,19 @@
 	"private": true,
 	"scripts": {
 		"lint": "eslint --ext .js,.vue ./",
-		"test": "echo \"No test specified\" && exit 0"
+		"test": "echo \"No test specified\" && exit 0",
+		"rebuild": "electron-rebuild -f -w sqlite3"
 	},
 	"dependencies": {
 		"@electron/remote": "^1.2.1",
 		"@quasar/extras": "^1.0.0",
 		"core-js": "^3.6.5",
+		"electron-builder": "^22.11.7",
 		"fs": "^0.0.1-security",
+		"knex": "^0.95.10",
 		"path": "^0.12.7",
 		"quasar": "^2.0.0",
+		"sqlite3": "^5.0.2",
 		"vue-i18n": "^9.0.0-beta.0",
 		"vuex": "^4.0.2"
 	},

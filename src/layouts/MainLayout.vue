@@ -16,7 +16,9 @@
 				class="bg-cs-l3 absolute-left shadow-2"
 				style="overflow: hidden; min-height: 100%"
 			>
-				<!-- drawer content -->
+				<keep-alive>
+					<router-view name="navbar" />
+				</keep-alive>
 			</q-drawer>
 
 			<q-drawer
@@ -24,10 +26,9 @@
 				side="right"
 				behavior="desktop"
 				elevated
-				class="bg-cs-l3 absolute-right shadow-2"
+				class="bg-cs-l3 absolute-right shadow-2 flex flex-center"
 				style="overflow: hidden; min-height: 100%"
 			>
-				<!-- drawer content -->
 			</q-drawer>
 
 			<q-page-container
@@ -39,16 +40,29 @@
 					style="min-height: 300px; width: 100%"
 					class="q-py-none q-px-md q-ma-none"
 				>
-					<router-view name="default" />
+					<keep-alive>
+						<router-view name="main" />
+					</keep-alive>
 				</q-scroll-area>
-				<!-- <Home /> -->
 			</q-page-container>
 
 			<q-footer
+				id="footer"
 				elevated
-				class="bg-cs-d3 q-px-md q-py-xs shadow-up-2 absolute-bottom"
-				>Footer</q-footer
+				class="
+					bg-cs-d3
+					q-pl-md q-py-sm
+					column
+					shadow-up-2
+					absolute-bottom
+					flex
+					justify-start
+				"
 			>
+				<keep-alive>
+					<router-view name="footer" />
+				</keep-alive>
+			</q-footer>
 		</q-layout>
 	</div>
 </template>
@@ -135,5 +149,9 @@ export default defineComponent({
 	}
 	-ms-overflow-style: none; /* IE and Edge */
 	scrollbar-width: none; /* Firefox */
+}
+
+#footer {
+	height: 32px;
 }
 </style>

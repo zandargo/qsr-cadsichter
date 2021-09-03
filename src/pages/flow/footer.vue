@@ -1,5 +1,5 @@
 <template>
-	<q-page padding> Flow footer... </q-page>
+	<q-page class="small-caps"> Flow footer... </q-page>
 </template>
 
 <script>

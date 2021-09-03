@@ -8,14 +8,14 @@ const routes = [
 				path: "",
 				component: () => import("pages/Index.vue"),
 				components: {
-					default: () => import("pages/Index.vue"),
+					main: () => import("pages/Index.vue"),
 				},
 			},
 			{
 				name: "flow",
 				path: "flow",
 				components: {
-					default: () => import("pages/flow/main.vue"),
+					main: () => import("pages/flow/main.vue"),
 					navbar: () => import("pages/flow/navbar.vue"),
 					footer: () => import("pages/flow/footer.vue"),
 				},
@@ -24,7 +24,7 @@ const routes = [
 				name: "chart",
 				path: "chart",
 				components: {
-					default: () => import("pages/chart/main.vue"),
+					main: () => import("pages/chart/main.vue"),
 					navbar: () => import("pages/chart/navbar.vue"),
 					footer: () => import("pages/chart/footer.vue"),
 				},
@@ -33,7 +33,7 @@ const routes = [
 				name: "defs",
 				path: "defs",
 				components: {
-					default: () => import("pages/defs/main.vue"),
+					main: () => import("pages/defs/main.vue"),
 					navbar: () => import("pages/defs/navbar.vue"),
 					footer: () => import("pages/defs/footer.vue"),
 				},

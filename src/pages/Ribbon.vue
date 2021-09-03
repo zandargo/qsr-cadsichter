@@ -25,13 +25,13 @@
 					name="chart"
 					label="Esquemino"
 					style="width: 120px"
-					to="chart"
+					@click="setRoute('chart')"
 				/>
 				<q-tab
 					name="defs"
 					label="Definições"
 					style="width: 120px"
-					to="defs"
+					@click="setRoute('defs')"
 				/>
 			</q-tabs>
 

@@ -1,5 +1,5 @@
 <template>
-	<q-page padding> Defs footer... </q-page>
+	<q-page class="small-caps"> Defs footer</q-page>
 </template>
 
 <script>
