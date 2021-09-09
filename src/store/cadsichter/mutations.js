@@ -2,6 +2,6 @@
 export function someMutation (state) {
 }
 */
-export function toggleTab(tab) {
-	state.main.tab = tab;
+export function SET_TAB(state, tab) {
+	state.tab = tab;
 }

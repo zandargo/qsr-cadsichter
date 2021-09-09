@@ -69,6 +69,9 @@
 
 <script>
 import Button from "components/RbnButton.vue";
+import { computed } from "vue";
+import { mapMutations, useStore } from "vuex";
+
 const BtnsListFlow = [
 	{
 		title: "Novo",
@@ -100,8 +103,10 @@ export default defineComponent({
 		};
 	},
 	methods: {
+		...mapMutations("main", { setTab: "SET_TAB" }),
 		setRoute: function (name) {
 			this.$router.push(name);
+			this.setTab(name);
 		},
 	},
 });

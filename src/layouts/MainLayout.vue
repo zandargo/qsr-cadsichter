@@ -86,13 +86,6 @@ export default defineComponent({
 	setup() {
 		const leftDrawerOpen = ref(true);
 		const rightDrawerOpen = ref(false);
-		// const $store = useStore();
-		// const winState = computed({
-		// 	get: () => $store.state.main.winState,
-		// 	set: (val) => {
-		// 		$store.commit("main/updateWinState", val);
-		// 	},
-		// });
 		return {
 			contentStyle: {
 				backgroundColor: "rgba(0,0,0,0)",
