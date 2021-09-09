@@ -1,15 +1,15 @@
 <template>
-	<q-page padding>
-		Flow main
-		<div v-for="n in 100" :key="n">
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-			eiusmod tempor incididunt ut labore et dolore magna aliqua.
-		</div>
-	</q-page>
+	<q-page padding> Flow main </q-page>
 </template>
 
 <script>
+import { computed } from "vue";
+import { useStore, mapState, mapMutations, mapActions } from "vuex";
+
 export default {
 	name: "FlowMain",
+	setup() {
+		return {};
+	},
 };
 </script>

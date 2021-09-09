@@ -5,5 +5,8 @@
 <script>
 export default {
 	name: "ChartNavbar",
+	setup() {
+		return {};
+	},
 };
 </script>
