@@ -5,6 +5,7 @@ import { createStore } from "vuex";
 // import Vuex from "vuex";
 
 import main from "./cadsichter";
+import flow from "./flow";
 
 // Vue.config.devtools = true;
 
@@ -14,6 +15,7 @@ export default store(function (/* { ssrContext } */) {
 	const Store = createStore({
 		modules: {
 			main,
+			flow,
 		},
 
 		// enable strict mode (adds overhead!)
