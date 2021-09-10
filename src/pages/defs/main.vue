@@ -1,5 +1,5 @@
 <template>
-	<q-page padding> Defs main </q-page>
+	<q-page> Defs main </q-page>
 </template>
 
 <script>

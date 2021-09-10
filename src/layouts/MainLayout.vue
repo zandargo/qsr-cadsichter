@@ -13,7 +13,7 @@
 				side="left"
 				behavior="desktop"
 				elevated
-				class="bg-cs-l3 absolute-left shadow-2"
+				class="bg-cs-l3 absolute-left shadow-2 q-pa-md"
 				style="overflow: hidden; min-height: 100%"
 			>
 				<keep-alive>
@@ -41,7 +41,7 @@
 					class="q-py-none q-px-md q-ma-none"
 				>
 					<keep-alive>
-						<router-view name="main" />
+						<router-view name="main" class="q-pa-md" />
 					</keep-alive>
 				</q-scroll-area>
 			</q-page-container>

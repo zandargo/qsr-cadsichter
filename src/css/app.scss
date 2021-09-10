@@ -83,3 +83,13 @@ div,
 .cs-caps {
 	font-variant-caps: petite-caps !important;
 }
+
+.text-h1,
+.text-h2,
+.text-h3,
+.text-h4,
+.text-h5,
+.text-h6 {
+	margin: 0 auto;
+	font-variant-caps: small-caps;
+}

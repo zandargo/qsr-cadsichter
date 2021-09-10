@@ -1,5 +1,5 @@
 <template>
-	<q-page padding> Chart Navbar </q-page>
+	<q-page> Chart Navbar </q-page>
 </template>
 
 <script>

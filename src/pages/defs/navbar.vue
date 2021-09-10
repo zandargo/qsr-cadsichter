@@ -1,5 +1,5 @@
 <template>
-	<q-page padding> Defs Navbar </q-page>
+	<q-page> Defs Navbar </q-page>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-	<q-page padding>
+	<q-page>
 		Chart main
 		<div v-for="n in 100" :key="n">
 			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
