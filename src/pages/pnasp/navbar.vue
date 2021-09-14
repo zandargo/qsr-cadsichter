@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import { useStore, mapState, mapMutations, mapActions } from "vuex";
 
 export default {
