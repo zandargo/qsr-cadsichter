@@ -1,16 +1,18 @@
 <template>
-	<q-page>
+	<q-page class="column">
+		<!-- //* ------------------------------ CARD NGAVS ------------------------------ *// -->
 		<q-card elevated class="bg-cs-hl-1 q-pa-sm cs-border">
-			<q-card-section class="cs-dense row justify-between">
+			<q-card-section class="cs-dense row">
 				<div class="col-grow text-h3">Número de Gavetas:</div>
-				<div class="col-shrink text-h3">{{ nGavs }}</div>
+				<div class="col-shrink text-h3">{{ valnGavs }}</div>
 			</q-card-section>
 
 			<q-separator color="primary" />
 
 			<q-card-section class="q-px-sm q-pb-xs">
 				<q-slider
-					v-model="nGavs"
+					v-model="valnGavs"
+					@change="onChangeNGavs"
 					:min="12"
 					:max="32"
 					:step="1"
@@ -20,17 +22,66 @@
 				/>
 			</q-card-section>
 		</q-card>
+
+		<div class="col-grow"></div>
+		<!-- //* ----------------------------- CARD LEGENDA ----------------------------- *// -->
+		<q-card elevated class="bg-cs-hl-1 q-pa-sm cs-border q-mt-md q-mb-lg">
+			<q-card-section class="cs-dense row">
+				<div class="col-grow text-h3">Legenda:</div>
+			</q-card-section>
+
+			<q-separator color="primary" />
+
+			<q-card-section class="q-px-sm q-pb-xs"> </q-card-section>
+			<div class="row">
+				<div class="col-4 q-my-xs text-right">Produto A</div>
+				<div class="col-1 q-ma-xs bg-prA rounded-borders"></div>
+				<div class="col-4 q-my-xs text-right">Produto B</div>
+				<div class="col-1 q-ma-xs bg-prB rounded-borders"></div>
+				<div class="col-4 q-my-xs text-right">Peneirado A</div>
+				<div class="col-1 q-ma-xs bg-pnA rounded-borders"></div>
+				<div class="col-4 q-my-xs text-right">Peneirado B</div>
+				<div class="col-1 q-ma-xs bg-pnB rounded-borders"></div>
+				<div class="col-4 q-my-xs text-right">Produto ?</div>
+				<div class="col-1 q-ma-xs bg-pr0 rounded-borders"></div>
+				<!-- <div class="col-4 q-my-xs text-right"></div>
+				<div class="col-1 q-ma-xs rounded-borders"></div> -->
+				<div class="col-4 q-my-xs text-right">Peneirado ?</div>
+				<div class="col-1 q-ma-xs bg-pn0 rounded-borders"></div>
+			</div>
+		</q-card>
 	</q-page>
 </template>
 
 <script>
-import { computed, ref } from "vue";
-import { useStore, mapState, mapMutations, mapActions } from "vuex";
+import { computed, ref, onMounted } from "vue";
+import { useStore } from "vuex";
 
 export default {
 	name: "FlowNavbar",
 	setup() {
-		return { nGavs: ref(28) };
+		const $store = useStore();
+		const nGavs = computed({
+			get: () => $store.state.flow.nGavs,
+			set: () => {
+				$store.commit("flow/SET_NGAVS", { value });
+			},
+		});
+		const setValNGavs = (value) => $store.commit("flow/SET_NGAVS", { value });
+		const valnGavs = ref(28);
+
+		onMounted(() => {
+			valnGavs.value = nGavs.value;
+		});
+		return {
+			nGavs,
+			setValNGavs,
+			// valnGavs: ref(28),
+			valnGavs,
+			onChangeNGavs(value) {
+				setValNGavs(value);
+			},
+		};
 	},
 };
 </script>

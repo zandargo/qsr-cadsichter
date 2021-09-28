@@ -16,9 +16,14 @@
 				class="bg-cs-l3 absolute-left shadow-2 q-pa-md"
 				style="overflow: hidden; min-height: 100%"
 			>
-				<keep-alive>
-					<router-view name="navbar" />
-				</keep-alive>
+				<!-- <keep-alive> -->
+				<router-view name="navbar" />
+				<!-- </keep-alive> -->
+				<!-- <router-view name="navbar">
+					<keep-alive>
+						<navbar :is="navbar" />
+					</keep-alive>
+				</router-view> -->
 			</q-drawer>
 
 			<q-drawer
@@ -36,13 +41,13 @@
 			>
 				<q-scroll-area
 					:thumb-style="thumbStyle"
-					:bar-style="barStyle"
 					style="min-height: 300px; width: 100%"
 					class="q-py-none q-px-md q-ma-none"
 				>
-					<keep-alive>
-						<router-view name="main" class="q-pa-md" />
-					</keep-alive>
+					<!-- :bar-style="barStyle" -->
+					<!-- <keep-alive> -->
+					<router-view name="main" class="q-pa-md" />
+					<!-- </keep-alive> -->
 				</q-scroll-area>
 			</q-page-container>
 
@@ -59,9 +64,9 @@
 					justify-start
 				"
 			>
-				<keep-alive>
-					<router-view name="footer" />
-				</keep-alive>
+				<!-- <keep-alive> -->
+				<router-view name="footer" />
+				<!-- </keep-alive> -->
 			</q-footer>
 		</q-layout>
 	</div>

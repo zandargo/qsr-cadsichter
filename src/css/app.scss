@@ -13,6 +13,12 @@
 	line-height: 14pt;
 	cursor: default !important;
 	// overflow: hidden;
+	user-select: none;
+	-webkit-user-drag: none;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
 }
 h1,
 h2,
@@ -92,4 +98,23 @@ div,
 .text-h6 {
 	margin: 0 auto;
 	font-variant-caps: small-caps;
+}
+
+.bg-prA {
+	background-color: $color_Pr_A;
+}
+.bg-pnA {
+	background-color: $color_Pn_A;
+}
+.bg-prB {
+	background-color: $color_Pr_B;
+}
+.bg-pnB {
+	background-color: $color_Pn_B;
+}
+.bg-pr0 {
+	background-color: $color_Pr_0;
+}
+.bg-pn0 {
+	background-color: $color_Pn_0;
 }

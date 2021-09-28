@@ -18,7 +18,7 @@
 // $negative  : #C10015;
 // $info      : #31CCEC;
 // $warning   : #F2C037;
-
+//* -------------------------------- COLORS -------------------------------- *//
 $primary: #607d8b;
 $secondary: #009688;
 $accent: #9c27b0;
@@ -29,6 +29,19 @@ $positive: #4caf50;
 $negative: #d32f2f;
 $info: #00acc1;
 $warning: #fdd835;
+
+$color_Pr_A: hsl(240, 100%, 25%);
+$color_Pn_A: hsl(200, 75%, 50%);
+
+$color_Pr_B: hsl(320, 100%, 25%);
+$color_Pn_B: hsl(280, 75%, 50%);
+
+$color_Pr_0: hsl(0, 0%, 50%);
+$color_Pn_0: hsl(0, 0%, 75%);
+
+$color_cham: hsl(0, 100%, 40%);
+
+//* --------------------------------- SIZES -------------------------------- *//
 
 $h_title: 36px;
 $h_tabs: 36px;
@@ -85,6 +98,7 @@ $button-border-radius: 8px !default;
 
 $layout-border: 3px solid $primary !default;
 
+//* ------------------------------- HEADINGS ------------------------------- *//
 $h1: (
 	size: 2rem,
 	line-height: 2.25rem,
@@ -158,6 +172,7 @@ $caption: (
 	weight: 400,
 ) !default;
 
+//* ------------------------------- VARIABLES ------------------------------ *//
 // $z-fab                : 990 !default;
 // $z-side               : 1000 !default;
 // $z-marginals          : 2000 !default;

@@ -15,7 +15,7 @@
 					items-start
 				"
 			>
-				<q-tab
+				<!-- <q-tab
 					name="flow"
 					label="Esquema"
 					style="width: 120px"
@@ -32,14 +32,40 @@
 					label="Definições"
 					style="width: 120px"
 					@click="setRoute('defs')"
+				/> -->
+				<q-route-tab
+					name="flow"
+					title="flow"
+					label="Esquema"
+					style="width: 120px"
+					to="/flow"
+					exact
+				/>
+				<q-route-tab
+					name="chart"
+					title="chart"
+					label="Esquemino"
+					style="width: 120px"
+					to="/chart"
+					exact
+				/>
+				<q-route-tab
+					name="defs"
+					title="defs"
+					label="Definições"
+					style="width: 120px"
+					to="/defs"
+					exact
 				/>
 			</q-tabs>
 
 			<q-tab-panels
 				v-model="tab"
-				animated
 				id="row_buttons"
 				class="bg-cs-l2 q-pt-sm"
+				animated
+				transition-prev="fade"
+				transition-next="fade"
 			>
 				<q-tab-panel
 					name="flow"
