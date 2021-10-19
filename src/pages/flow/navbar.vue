@@ -63,9 +63,7 @@ export default {
 		const $store = useStore();
 		const nGavs = computed({
 			get: () => $store.state.flow.nGavs,
-			set: () => {
-				$store.commit("flow/SET_NGAVS", { value });
-			},
+			set: () => $store.commit("flow/SET_NGAVS", { value }),
 		});
 		const setValNGavs = (value) => $store.commit("flow/SET_NGAVS", { value });
 		const valnGavs = ref(28);

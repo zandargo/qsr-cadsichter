@@ -1,5 +1,6 @@
 import { store } from "quasar/wrappers";
 import { createStore } from "vuex";
+import createPersistedState from "vuex-persistedstate";
 
 // import Vue from "vue";
 // import Vuex from "vuex";
@@ -17,11 +18,11 @@ export default store(function (/* { ssrContext } */) {
 			main,
 			flow,
 		},
-
 		// enable strict mode (adds overhead!)
 		// for dev mode and --debug builds only
 		// strict: process.env.DEBUGGING,
 		strict: true,
+		plugins: [createPersistedState()],
 	});
 
 	return Store;
