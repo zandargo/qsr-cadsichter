@@ -1,3 +1,3 @@
-export function SET_NGAVS(state, payload) {
-	state.nGavs = payload.value;
+export function mutSetNGavs(state, nGavs) {
+	state.nGavs = nGavs;
 }

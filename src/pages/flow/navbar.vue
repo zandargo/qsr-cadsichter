@@ -12,7 +12,6 @@
 			<q-card-section class="q-px-sm q-pb-xs">
 				<q-slider
 					v-model="valnGavs"
-					@change="onChangeNGavs"
 					:min="12"
 					:max="32"
 					:step="1"
@@ -54,31 +53,25 @@
 </template>
 
 <script>
-import { computed, ref, onMounted } from "vue";
+import { computed, watch, ref, onMounted } from "vue";
 import { useStore } from "vuex";
 
 export default {
 	name: "FlowNavbar",
 	setup() {
 		const $store = useStore();
-		const nGavs = computed({
-			get: () => $store.state.flow.nGavs,
-			set: () => $store.commit("flow/SET_NGAVS", { value }),
-		});
-		const setValNGavs = (value) => $store.commit("flow/SET_NGAVS", { value });
+
 		const valnGavs = ref(28);
+		watch(valnGavs, (currentValue, oldValue) => {
+			$store.dispatch("flow/actSetNGavs", currentValue);
+		});
 
 		onMounted(() => {
-			valnGavs.value = nGavs.value;
+			$store.dispatch("flow/actSetNGavs", valnGavs.value);
 		});
+
 		return {
-			nGavs,
-			setValNGavs,
-			// valnGavs: ref(28),
 			valnGavs,
-			onChangeNGavs(value) {
-				setValNGavs(value);
-			},
 		};
 	},
 };
