@@ -1,7 +1,7 @@
 <template>
 	<q-page class="column">
 		<!-- //* ------------------------------ CARD NGAVS ------------------------------ *// -->
-		<q-card elevated class="bg-cs-hl-1 q-pa-sm cs-border">
+		<q-card elevated class="bg-cs-hl-1 q-pa-sm cs-border q-mb-md">
 			<q-card-section class="cs-dense row">
 				<div class="col-grow text-h3">Número de Gavetas:</div>
 				<div class="col-shrink text-h3">{{ valnGavs }}</div>
@@ -22,8 +22,13 @@
 			</q-card-section>
 		</q-card>
 
-		<div class="col-grow"></div>
+		<!-- //* ------------------------------ CARD BOTTOM ----------------------------- *// -->
+		<q-card elevated class="bg-cs-hl-1 q-pa-sm cs-border flex flex-center">
+			<Bottom />
+		</q-card>
+
 		<!-- //* ----------------------------- CARD LEGENDA ----------------------------- *// -->
+		<div class="col-grow"></div>
 		<q-card elevated class="bg-cs-hl-1 q-pa-sm cs-border q-mt-md q-mb-lg">
 			<q-card-section class="cs-dense row">
 				<div class="col-grow text-h3">Legenda:</div>
@@ -55,9 +60,13 @@
 <script>
 import { computed, watch, ref, onMounted } from "vue";
 import { useStore } from "vuex";
+import Bottom from "components/FlowBottom.vue";
 
 export default {
 	name: "FlowNavbar",
+	components: {
+		Bottom,
+	},
 	setup() {
 		const $store = useStore();
 
