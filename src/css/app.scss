@@ -135,9 +135,10 @@ div,
 	stroke-width: 4px;
 }
 
-.btm-arrow {
+.btm-arw {
 	stroke: $color-d2;
-	stroke-width: 8px;
+	stroke-width: 6px;
+	marker-end: url(#btm-arwhead);
 }
 .btm-arrowhead {
 	fill: $color-d2;

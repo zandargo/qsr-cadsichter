@@ -4,7 +4,7 @@
 			elevated
 			dense
 			bordered
-			class="q-mx-sm cs-border q-mb-xs bg-cs-hl-1"
+			class="q-mx-sm cs-border q-mb-xs bg-cs-hl-2"
 			@click="action"
 		>
 			<q-avatar size="36px" rounded>

@@ -243,6 +243,7 @@ export const mFND = {
 			y: ycFND + wFND / 2 + 2 * offCH,
 		},
 	},
+
 	Di: {
 		pt1: {
 			x: xcFND + wFND / 2,
@@ -423,5 +424,201 @@ export const mFND = {
 			x: xcFND - offCH / 2,
 			y: ycFND - wFND / 2 - 2 * offCH,
 		},
+	},
+
+	F1i: {
+		pt4: {
+			x: xcFND + wFND / 2 - offCH / 2,
+			y: ycFND + wFND / 2 + offCH / 2,
+		},
+		pt1: {
+			x: xcFND + offCH * 1.5,
+			y: ycFND + wFND / 2 + offCH / 2,
+		},
+	},
+	F2i: {
+		pt4: {
+			x: xcFND - (wFND / 2 - offCH / 2),
+			y: ycFND + wFND / 2 + offCH / 2,
+		},
+		pt1: {
+			x: xcFND - offCH * 1.5,
+			y: ycFND + wFND / 2 + offCH / 2,
+		},
+	},
+	F1e: {
+		pt4: {
+			x: xcFND + wFND / 2 - offCH / 2,
+			y: ycFND + wFND / 2 + offCH * 1.5,
+		},
+		pt1: {
+			x: xcFND + offCH * 1.5,
+			y: ycFND + wFND / 2 + offCH * 1.5,
+		},
+	},
+	F2e: {
+		pt4: {
+			x: xcFND - (wFND / 2 - offCH / 2),
+			y: ycFND + wFND / 2 + offCH * 1.5,
+		},
+		pt1: {
+			x: xcFND - offCH * 1.5,
+			y: ycFND + wFND / 2 + offCH * 1.5,
+		},
+	},
+	D1i: {
+		pt4: {
+			x: xcFND + wFND / 2 + offCH / 2,
+			y: ycFND + wFND / 2 - offCH / 2,
+		},
+		pt3: {
+			x: xcFND + wFND / 2 + offCH / 2,
+			y: ycFND + offCH * 1.5,
+		},
+	},
+	D1e: {
+		pt4: {
+			x: xcFND + wFND / 2 + offCH * 1.5,
+			y: ycFND + wFND / 2 - offCH / 2,
+		},
+		pt3: {
+			x: xcFND + wFND / 2 + offCH * 1.5,
+			y: ycFND + offCH * 1.5,
+		},
+	},
+	D2i: {
+		pt4: {
+			x: xcFND + wFND / 2 + offCH / 2,
+			y: ycFND - (wFND / 2 - offCH / 2),
+		},
+		pt3: {
+			x: xcFND + wFND / 2 + offCH / 2,
+			y: ycFND - offCH * 1.5,
+		},
+	},
+	D2e: {
+		pt4: {
+			x: xcFND + wFND / 2 + offCH * 1.5,
+			y: ycFND - (wFND / 2 - offCH / 2),
+		},
+		pt3: {
+			x: xcFND + wFND / 2 + offCH * 1.5,
+			y: ycFND - offCH * 1.5,
+		},
+	},
+	E1i: {
+		pt4: {
+			x: xcFND - (wFND / 2 + offCH / 2),
+			y: ycFND + wFND / 2 - offCH / 2,
+		},
+		pt3: {
+			x: xcFND - (wFND / 2 + offCH / 2),
+			y: ycFND + offCH * 1.5,
+		},
+	},
+	E1e: {
+		pt4: {
+			x: xcFND - (wFND / 2 + offCH * 1.5),
+			y: ycFND + wFND / 2 - offCH / 2,
+		},
+		pt3: {
+			x: xcFND - (wFND / 2 + offCH * 1.5),
+			y: ycFND + offCH * 1.5,
+		},
+	},
+	E2i: {
+		pt4: {
+			x: xcFND - (wFND / 2 + offCH / 2),
+			y: ycFND - (wFND / 2 - offCH / 2),
+		},
+		pt3: {
+			x: xcFND - (wFND / 2 + offCH / 2),
+			y: ycFND - offCH * 1.5,
+		},
+	},
+	E2e: {
+		pt4: {
+			x: xcFND - (wFND / 2 + offCH * 1.5),
+			y: ycFND - (wFND / 2 - offCH / 2),
+		},
+		pt3: {
+			x: xcFND - (wFND / 2 + offCH * 1.5),
+			y: ycFND - offCH * 1.5,
+		},
+	},
+	T1i: {
+		pt4: {
+			x: xcFND + wFND / 2 - offCH / 2,
+			y: ycFND - (wFND / 2 + offCH / 2),
+		},
+		pt1: {
+			x: xcFND + offCH * 1.5,
+			y: ycFND - (wFND / 2 + offCH / 2),
+		},
+	},
+	T1e: {
+		pt4: {
+			x: xcFND + wFND / 2 - offCH / 2,
+			y: ycFND - (wFND / 2 + offCH * 1.5),
+		},
+		pt1: {
+			x: xcFND + offCH * 1.5,
+			y: ycFND - (wFND / 2 + offCH * 1.5),
+		},
+	},
+	T2i: {
+		pt4: {
+			x: xcFND - (wFND / 2 - offCH / 2),
+			y: ycFND - (wFND / 2 + offCH / 2),
+		},
+		pt1: {
+			x: xcFND - offCH * 1.5,
+			y: ycFND - (wFND / 2 + offCH / 2),
+		},
+	},
+	T2e: {
+		pt4: {
+			x: xcFND - (wFND / 2 - offCH / 2),
+			y: ycFND - (wFND / 2 + offCH * 1.5),
+		},
+		pt1: {
+			x: xcFND - offCH * 1.5,
+			y: ycFND - (wFND / 2 + offCH * 1.5),
+		},
+	},
+
+	tF1: {
+		x: xcFND - offCH / 2,
+		y: ycFND + wFND / 2 - offCH / 2,
+	},
+	tF2: {
+		x: xcFND + offCH / 2,
+		y: ycFND + wFND / 2 - offCH / 2,
+	},
+
+	tT1: {
+		x: xcFND - offCH / 2,
+		y: ycFND - (wFND / 2 - offCH / 2),
+	},
+	tT2: {
+		x: xcFND + offCH / 2,
+		y: ycFND - (wFND / 2 - offCH / 2),
+	},
+
+	tD1: {
+		x: xcFND + wFND / 2 - offCH / 2,
+		y: ycFND - offCH / 2,
+	},
+	tD2: {
+		x: xcFND + wFND / 2 - offCH / 2,
+		y: ycFND + offCH / 2,
+	},
+	tE1: {
+		x: xcFND - (wFND / 2 - offCH / 2),
+		y: ycFND - offCH / 2,
+	},
+	tE2: {
+		x: xcFND - (wFND / 2 - offCH / 2),
+		y: ycFND + offCH / 2,
 	},
 };

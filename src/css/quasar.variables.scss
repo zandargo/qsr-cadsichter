@@ -72,6 +72,7 @@ $color-d4: darken($primary, 40%);
 $color-d5: darken($primary, 45%);
 
 $color-l3-hl1: lighten($primary, 32%);
+$color-l2-hl1: lighten($primary, 25%);
 
 $bg1000: hsl(200, 19%, 18%);
 $bg0800: hsl(200, 18%, 26%);
@@ -220,6 +221,9 @@ $z-fixed-drawer: 9999 !default;
 
 .bg-cs-hl-1 {
 	background-color: $color-l3-hl1 !important;
+}
+.bg-cs-hl-2 {
+	background-color: $color-l2-hl1 !important;
 }
 
 .txt-cs-d1 {
