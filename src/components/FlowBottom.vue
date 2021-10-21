@@ -16,29 +16,29 @@
 			>
 				<polygon points="0 0, 4 1, 0 2, 0.5 1" class="btm-arrowhead" />
 			</marker>
-
-			<text
-				id="tF1"
-				x="125"
-				y="140"
-				text-anchor="middle"
-				dominant-baseline="middle"
-				class="txtF1"
-			></text>
 		</defs>
 
 		<!-- <polygon :points="flat(mFND.main)" style="opacity: 0" /> -->
 
-		<polygon :points="flat(mFND.F1)" class="bg-bottom-off" />
-		<polygon :points="flat(mFND.F2)" class="bg-bottom-off" />
-		<polygon :points="flat(mFND.D1)" class="bg-bottom-off" />
-		<polygon :points="flat(mFND.D2)" class="bg-bottom-off" />
+		<polygon :points="flat(mFND.F1)" class="bg-bottom-off PrA" />
+		<polygon :points="flat(mFND.F2)" class="bg-bottom-off PnA" />
+		<polygon :points="flat(mFND.D1)" class="bg-bottom-off PrB" />
+		<polygon :points="flat(mFND.D2)" class="bg-bottom-off PnB" />
 		<polygon :points="flat(mFND.E1)" class="bg-bottom-off" />
 		<polygon :points="flat(mFND.E2)" class="bg-bottom-off" />
-		<polygon :points="flat(mFND.T1)" class="bg-bottom-off" />
-		<polygon :points="flat(mFND.T2)" class="bg-bottom-off" />
+		<polygon :points="flat(mFND.T1)" class="bg-bottom-off Pr0" />
+		<polygon :points="flat(mFND.T2)" class="bg-bottom-off Pn0" />
 
-		<polygon :points="flat(mFND.Door)" class="bg-bottom" />
+		<!-- <polygon :points="flat(mFND.Door)" class="bg-bottom" />
+		<text
+			:x="mFND.tAc.x"
+			:y="mFND.tAc.y"
+			text-anchor="middle"
+			dominant-baseline="mathematical"
+			class="txt-Ac"
+		>
+			Porta
+		</text> -->
 
 		<polygon :points="flat(mFND.Fi)" class="bg-bottom" />
 		<polygon :points="flat(mFND.Fe)" class="bg-bottom" />
@@ -76,14 +76,17 @@
 			:y="mFND.tF1.y"
 			text-anchor="end"
 			dominant-baseline="text-top"
+			class="txt-ON"
 		>
-			F1
+			<!-- F1 -->
+			{{ FND.F1.name }}
 		</text>
 		<text
 			:x="mFND.tF2.x"
 			:y="mFND.tF2.y"
 			text-anchor="start"
 			dominant-baseline="text-top"
+			class="txt-ON"
 		>
 			F2
 		</text>
@@ -93,6 +96,7 @@
 			:y="mFND.tT1.y"
 			text-anchor="end"
 			dominant-baseline="hanging"
+			class="txt-ON"
 		>
 			T1
 		</text>
@@ -101,6 +105,7 @@
 			:y="mFND.tT2.y"
 			text-anchor="start"
 			dominant-baseline="hanging"
+			class="txt-ON"
 		>
 			T2
 		</text>
@@ -109,6 +114,7 @@
 			:y="mFND.tD1.y"
 			text-anchor="end"
 			dominant-baseline="text-top"
+			class="txt-ON"
 		>
 			D1
 		</text>
@@ -117,6 +123,7 @@
 			:y="mFND.tD2.y"
 			text-anchor="end"
 			dominant-baseline="hanging"
+			class="txt-ON"
 		>
 			D2
 		</text>
@@ -137,10 +144,12 @@
 			E2
 		</text>
 	</svg>
+
+	<div class="txt-Ac full-width text-center divAc q-mt-xs">Porta</div>
 </template>
 
 <script>
-import { toRefs, onMounted } from "vue";
+import { toRefs, onMounted, computed } from "vue";
 import { useStore } from "vuex";
 //_ import { useFlowBottom, gpfBottom } from "src/modules/xyBottom";
 import { objectFlattener } from "src/modules/helperFunction";
@@ -167,10 +176,16 @@ export default {
 			// }
 		});
 
+		const FND = computed({
+			get: () => $store.state.flow.FND,
+			// set: () => {},
+		});
+
 		return {
 			flat,
 			gpfBottom,
 			mFND,
+			FND,
 		};
 	},
 };
@@ -193,5 +208,39 @@ text {
 
 .txt-ON {
 	fill: $color-l5 !important;
+}
+
+.txt-Ac {
+	font-size: 20px;
+	fill: $color-d2;
+	color: $color-d2;
+	font-variant-caps: petite-caps;
+	letter-spacing: 2px;
+}
+
+.divAc {
+	height: 24px;
+	line-height: 24px;
+	border-radius: 0 0 24px 24px !important;
+	background-color: $color-l2;
+}
+
+.PrA {
+	fill: $color_Pr_A;
+}
+.PnA {
+	fill: $color_Pn_A;
+}
+.PrB {
+	fill: $color_Pr_B;
+}
+.PnB {
+	fill: $color_Pn_B;
+}
+.Pr0 {
+	fill: $color_Pr_0;
+}
+.Pn0 {
+	fill: $color_Pn_0;
 }
 </style>

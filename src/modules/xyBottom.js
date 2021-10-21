@@ -11,16 +11,16 @@
 
 export const gpfBottom = {
 	width: 250,
-	height: 280,
+	height: 250,
 };
 
 let offCH = 20;
-let hPorta = 25;
+let hPorta = 32;
 let hCH = parseInt(0.85 * offCH, 10);
 let wFND = gpfBottom.width - 4 * offCH;
 let wFNDs = gpfBottom.width / 4;
 let xcFND = gpfBottom.width / 2;
-let ycFND = gpfBottom.height / 2 - hCH;
+let ycFND = gpfBottom.height / 2; // - hCH;
 let xcPorta = xcFND;
 let ycPorta = ycFND + wFND / 2 + 2 * offCH + hPorta / 2;
 
@@ -587,6 +587,10 @@ export const mFND = {
 		},
 	},
 
+	tAc: {
+		x: xcFND,
+		y: ycFND + wFND / 2 + offCH * 2 + hPorta / 2 - 2,
+	},
 	tF1: {
 		x: xcFND - offCH / 2,
 		y: ycFND + wFND / 2 - offCH / 2,
