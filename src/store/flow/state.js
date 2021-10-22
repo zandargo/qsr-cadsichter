@@ -124,6 +124,11 @@ export default function () {
 		},
 	};
 
+	const varMain = {
+		width: 360,
+		height: 1200,
+	};
+
 	return {
 		nGavs: 0,
 		iGav: 0,
@@ -131,5 +136,6 @@ export default function () {
 		FND,
 		DV,
 		DI,
+		varMain,
 	};
 }
