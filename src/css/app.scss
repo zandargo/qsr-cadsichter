@@ -118,29 +118,3 @@ div,
 .bg-pn0 {
 	background-color: $color_Pn_0;
 }
-
-.bg-bottom {
-	fill: $color-l2;
-	stroke: $color-l3-hl1;
-	stroke-width: 4px;
-}
-.bg-bottom-off {
-	fill: $color-l2;
-	stroke: $color-l3-hl1;
-	stroke-width: 8px;
-}
-.bg-bottom-on {
-	fill: $color-d2;
-	stroke: $color-l3-hl1;
-	stroke-width: 4px;
-}
-
-.btm-arw {
-	stroke: $color-d2;
-	stroke-width: 6px;
-	marker-end: url(#btm-arwhead);
-}
-.btm-arrowhead {
-	fill: $color-d2;
-	stroke-width: 0;
-}
