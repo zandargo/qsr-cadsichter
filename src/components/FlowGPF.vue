@@ -61,38 +61,12 @@ export default {
 			return str;
 		};
 
-
-			// const circlex   = ref(20)                                ;
-			// const circley   = ref(20)                                ;
-		// const gpfMain = reactive(xyGPF)
-
-		onMounted(() => {
-			// console.log(xyGPF)
-			// const NS        = "http://www.w3.org/2000/svg"      ;
-
-			// const svg = document.getElementById("svgFlow");
-			// for (let i = 32; i >=1; i--) {
-			// 	let polygon = document.createElementNS(NS, "polygon");
-			// 	// polygon.setAttribute("id", "G" + ("0" + i).substring(-2));
-			// 	polygon.setAttribute("points", flat(xyGPF["G" + ("0" + i).slice(-2)].Shp0));
-			// 	polygon.setAttribute("class", "RxA");
-			// 	svg.appendChild(polygon);
-			// }
-
-
-
-		});
-
 		//* Return
 		return {
 			flat,
 			nGavs    ,
 			gpfMain  ,
 			xyGPF,
-			// svgCircle,
-			// NS        ,
-			// circlex   ,
-			// circley   ,
 		};
 	},
 };
