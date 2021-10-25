@@ -19,6 +19,7 @@ export default function () {
 	let testeProd = ["0", "0", "A", "A", "B", "B", "A", "B"];
 	let testeType = ["Rx", "Pn", "Rx", "Pn", "Rx", "Pn", "Rx", "Pn"];
 	let testenIE = [0, 1, 0, 1, 0, 1, 0, 1];
+	let testeAct = [true, true, false, true, false, true, true, false];
 
 	const FND = {};
 	for (let i = 1; i <= 8; i++) {
@@ -26,14 +27,18 @@ export default function () {
 		let obj = {
 			id: sLados[i - 1],
 			name: "",
-			act: true,
 			sel: false,
 			nFrom: 0,
-			nIE: testenIE[i - 1],
-			// type: "",
-			// prod: "",
-			type: testeType[i - 1],
-			prod: testeProd[i - 1],
+			//> Real
+			act: false,
+			nIE: 0,
+			type: "",
+			prod: "",
+			//> Teste
+			// act: testeAct[i - 1],
+			// nIE: testenIE[i - 1],
+			// type: testeType[i - 1],
+			// prod: testeProd[i - 1],
 		};
 		FND[element] = obj;
 	}

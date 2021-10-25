@@ -1,9 +1,9 @@
 <template>
 	<svg
-		id="svgBottom"
+		id="svgFlow"
 		xmlns="http://www.w3.org/2000/svg"
-		:width="gpfBottom.width"
-		:height="gpfBottom.height"
+		:width="gpfMain.width"
+		:height="gpfMain.yOff * (nGavs + 2)"
 	>
 		<defs>
 			<marker
@@ -17,14 +17,27 @@
 				<polygon points="0 0, 4 1, 0 2, 0.5 1" class="btmARWH" />
 			</marker>
 		</defs>
+
+		<!-- <polygon :points="flat(xyGPF.G01.Shp0)" class="gpf0" /> -->
+		<!-- <polygon v-for="(value, name) in xyGPF" :key="name" :points="flat(value.Shp0)" class="gpf0" />
+		<polygon v-for="(value, name) in xyGPF" :key="name" :points="flat(value.Shp0F)" class="gpf0" />
+		<polygon v-for="(value, name) in xyGPF" :key="name" :points="flat(value.Shp0D)" class="gpf0" /> -->
+		<polygon v-for="i in nGavs" :key="i" :points="flat(xyGPF['G' + ('0' + i).slice(-2)].Shp0)" class="gpf0" />
+		<polygon v-for="i in nGavs" :key="i" :points="flat(xyGPF['G' + ('0' + i).slice(-2)].Shp0F)" class="gpf0" />
+		<polygon v-for="i in nGavs" :key="i" :points="flat(xyGPF['G' + ('0' + i).slice(-2)].Shp0D)" class="gpf0" />
+		<polygon v-for="i in nGavs" :key="i" :points="flat(xyGPF['G' + ('0' + i).slice(-2)].Shp1)" class="gpf1" />
+		<polygon v-for="i in nGavs" :key="i" :points="flat(xyGPF['G' + ('0' + i).slice(-2)].Shp2)" class="gpf1" />
+		<polygon v-for="i in nGavs" :key="i" :points="flat(xyGPF['G' + ('0' + i).slice(-2)].Shp3)" class="gpf1" />
+		<polygon v-for="i in nGavs" :key="i" :points="flat(xyGPF['G' + ('0' + i).slice(-2)].Shp4)" class="gpf1" />
+
 	</svg>
 </template>
 
 <script>
-import { toRefs, onMounted, computed } from "vue";
+import { ref, toRefs, onMounted, computed } from "vue";
 import { useStore } from "vuex";
 import { objectFlattener } from "src/modules/helperFunction";
-import {} from "src/modules/xyGPFmain";
+import { gpfMain, xyGPF } from "src/modules/xyGPFmain";
 
 export default {
 	name: "svgFlowGPF",
@@ -33,165 +46,59 @@ export default {
 		const $store = useStore();
 		const flat = (obj) => objectFlattener(obj);
 
+		const nGavs = computed({
+			get: () => $store.state.flow.nGavs,
+			set: () => {},
+		});
+
+		const getClassGPF = (obj) => {
+			let str = "gpf0 ";
+			if (obj.act ) {
+				str += "isON";
+			} else {
+				str += "isOFF";
+			}
+			return str;
+		};
+
+
+			// const circlex   = ref(20)                                ;
+			// const circley   = ref(20)                                ;
+		// const gpfMain = reactive(xyGPF)
+
 		onMounted(() => {
-			// const svgCircle = document.getElementById("svgBottom");
-			// const NS = "http://www.w3.org/2000/svg";
-			// const circlex = 20;
-			// const circley = 20;
-			// for (let i = 0; i < 10; i++) {
-			// 	let circle = document.createElementNS(NS, "circle");
-			// 	console.log(circle);
-			// 	circle.setAttribute("cx", circlex + i * 15);
-			// 	circle.setAttribute("cy", circley + i * 15);
-			// 	circle.setAttribute("r", 8);
-			// 	svgCircle.appendChild(circle);
+			// console.log(xyGPF)
+			// const NS        = "http://www.w3.org/2000/svg"      ;
+
+			// const svg = document.getElementById("svgFlow");
+			// for (let i = 32; i >=1; i--) {
+			// 	let polygon = document.createElementNS(NS, "polygon");
+			// 	// polygon.setAttribute("id", "G" + ("0" + i).substring(-2));
+			// 	polygon.setAttribute("points", flat(xyGPF["G" + ("0" + i).slice(-2)].Shp0));
+			// 	polygon.setAttribute("class", "RxA");
+			// 	svg.appendChild(polygon);
 			// }
-		});
 
-		//* Outlet pannel state references
-		const FND = computed({
-			get: () => $store.state.flow.FND,
-			set: () => {},
-		});
-		const DV = computed({
-			get: () => $store.state.flow.DV,
-			set: () => {},
-		});
-		const DI = computed({
-			get: () => $store.state.flow.DI,
-			set: () => {},
-		});
 
-		//* Get outlet class
-		const getClassFr = (obj) => {
-			let str = "btmFr ";
-			if (obj.act) {
-				str += " bgON";
-			} else {
-				str += " bgOFF";
-			}
-			if (obj.sel) {
-				str += " " + obj.type + obj.prod;
-			}
-			return str;
-		};
-		//* Get text class
-		const getClassTxt = (obj) => {
-			let str = "";
-			if (obj.act && obj.sel) {
-				str += "txt-ON";
-			}
-			return str;
-		};
-		//* Get DV class
-		const getClassDV = (obj) => {
-			let str = "btmDV ";
-			if (obj.act) {
-				str += "isON";
-			} else {
-				str += "isOFF";
-			}
-			return str;
-		};
-		//* Get arrow class
-		const getClassArw = (obj) => {
-			let str = "btmARW ";
-			if (obj.act) {
-				str += "isON";
-			} else {
-				str += "isOFF";
-			}
-			return str;
-		};
 
-		//* Toggle exit selection state
-		const clkBtm = (obj) => $store.dispatch("flow/actClkBtm", obj);
-
-		//* Toggle DV selection state
-		const clkDV = (obj) => $store.dispatch("flow/actClkBtmDV", obj);
+		});
 
 		//* Return
 		return {
 			flat,
-			gpfBottom,
-			mFND,
-			FND,
-			DV,
-			DI,
-			getClassFr,
-			getClassTxt,
-			getClassDV,
-			getClassArw,
-			clkBtm,
-			clkDV,
+			nGavs    ,
+			gpfMain  ,
+			xyGPF,
+			// svgCircle,
+			// NS        ,
+			// circlex   ,
+			// circley   ,
 		};
 	},
 };
 </script>
 
 <style lang="scss" scoped>
-$bg-on: darken($color-l2, 5%);
-$bg-off: lighten($bg-on, 10%);
-
-.bgON {
-	background-color: $bg-on;
-	fill: $bg-on;
-}
-.bgOFF {
-	background-color: $bg-off;
-	fill: $bg-off;
-}
-
-.btmCh {
-	fill: $bg-off;
-	stroke: $color-l3-hl1;
-	stroke-width: 4px;
-}
-.btmFr {
-	stroke: $color-l3-hl1;
-	stroke-width: 8px;
-}
-.btmDV {
-	fill: $color-d2;
-	stroke: $color-l3-hl1;
-	stroke-width: 4px;
-}
-
-text {
-	font-size: 24px;
-	fill: $color-l1;
-	font-family: "RobotoCondensed", Arial, Helvetica, sans-serif;
-}
-
-.txt-ON {
-	fill: $color-l5 !important;
-}
-
-.txt-Ac {
-}
-
-.divAc {
-	height: 24px;
-	border-radius: 0 0 24px 24px !important;
-	background-color: $bg-off;
-	font-size: 20px;
-	line-height: 24px;
-	font-variant-caps: petite-caps;
-	letter-spacing: 2px;
-	fill: $color-d2;
-	color: $color-d2;
-}
-
-.btmARW {
-	stroke: $color-d2;
-	stroke-width: 6px;
-	marker-end: url(#btm-arwhead);
-}
-.btmARWH {
-	fill: $color-d2;
-	stroke-width: 0;
-}
-
 .isON {
 	// visibility: visible;
 	opacity: 100%;
@@ -199,6 +106,18 @@ text {
 .isOFF {
 	// visibility: hidden;
 	opacity: 0%;
+}
+
+.gpf0 {
+	fill: white;
+	stroke: $color-d2;
+	stroke-width: 2px;
+	stroke-linejoin: round;
+	stroke-linecap: round;
+}
+.gpf1 {
+	fill: black;
+	stroke: none;
 }
 
 .RxA {
