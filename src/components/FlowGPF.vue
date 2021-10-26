@@ -146,7 +146,6 @@ export default {
 			}
 			return obj
 		})
-		console.log('pCham', pCham.value)
 		const getClassCh = (obj) => {
 			let str = "cham";
 			if (obj.nIE==0 ) {
