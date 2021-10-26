@@ -51,9 +51,11 @@
 
 		<!-- //* ---------------------------- CONTROL POINTS ---------------------------- *// -->
 		<g id="grCP" v-if="bEditMode" >
-			<circle cx="50" cy="50" r="10" class="cpRxA" />
-			<circle cx="20" cy="50" r="10" class="cpPnA" />
-			<circle cx="80" cy="50" r="10" class="cpPnA" />
+			<circle v-for="i in nGavs" :key="i" :cx="xyCP['cp'+sID[i]]['RX']['X']" :cy="xyCP['cp'+sID[i]]['RX']['Y']" r="10" class="cpRxA" />
+			<circle v-for="i in nGavs" :key="i" :cx="xyCP['cp'+sID[i]]['P1']['X']" :cy="xyCP['cp'+sID[i]]['P1']['Y']" r="10" class="cpPnA" />
+			<circle v-for="i in nGavs" :key="i" :cx="xyCP['cp'+sID[i]]['P2']['X']" :cy="xyCP['cp'+sID[i]]['P2']['Y']" r="10" class="cpPnA" />
+			<!-- <circle cx="20" cy="50" r="10" class="cpPnA" />
+			<circle cx="80" cy="50" r="10" class="cpPnA" /> -->
 		</g>
 
 		//* TESTE........
@@ -74,7 +76,7 @@
 <script>
 import { ref, toRefs, onMounted, computed } from "vue";
 import { useStore } from "vuex";
-import { objectFlattener } from "src/modules/helperFunction";
+import { objectFlattener, convNLADO, convNIE } from "src/modules/helperFunction";
 import { gpfMain, xyGPF } from "src/modules/xyGPFmain";
 
 export default {
@@ -83,6 +85,8 @@ export default {
 		//* Initial definitions
 		const $store = useStore();
 		const flat = (obj) => objectFlattener(obj);
+		const cLado = (nLado) => convNLADO(nLado);
+		const cIE = (nIE) => convNIE(nIE);
 		const nGavs = computed({
 			get: () => $store.state.flow.varMain.nGavs,
 			set: () => {},
@@ -156,34 +160,47 @@ export default {
 		const xyCP = computed(() => {
 			let obj = {}
 			let tmpObj = GPF.value
+			// let xyObj = xyGPF.value
 			for (let i = 1; i <= nGavs.value; i++) {
 				let tmpID = 'G' + ('0' + i).slice(-2)
-				switch (tmpObj[tmpID]["RX"]["nLado"]) {
-					case 1:
-						obj['cham'+tmpID]=xyGPF[tmpID]["ChF"]
-						break;
-					case 2:
-						obj['cham'+tmpID]=xyGPF[tmpID]["ChD"]
-						break;
-					case 3:
-						obj['cham'+tmpID]=xyGPF[tmpID]["ChE"]
-						break;
-					case 4:
-						obj['cham'+tmpID]=xyGPF[tmpID]["ChT"]
-						break;
-					default:
-						obj['cham'+tmpID]={
-							X1: -100,
-							Y1: -100,
-							X2: -100,
-							Y2: -100,
-							X3: -100,
-							Y3: -100,
-							X4: -100,
-							Y4: -100,
-						}
-						break;
-				}
+				let tmpLado = ''
+				obj['cp'+tmpID] = {
+					RX: {
+						X: 0,
+						Y: 0,
+					},
+					P1: {
+						X: 0,
+						Y: 0,
+					},
+					P2: {
+						X: 0,
+						Y: 0,
+					},
+				 }
+				//* RX
+				cLado(tmpObj[tmpID]["RX"]["nLado"]) ?
+				tmpLado = cLado(tmpObj[tmpID]["RX"]["nLado"]) : tmpLado = "C"
+				cIE(tmpObj[tmpID]["RX"]["nIE"]) ?
+				tmpLado += cIE(tmpObj[tmpID]["RX"]["nIE"]) : tmpLado += ""
+				obj['cp'+tmpID]["RX"]["X"]=xyGPF[tmpID]['CPts'][tmpLado]["X"]
+				obj['cp'+tmpID]["RX"]["Y"]=xyGPF[tmpID]['CPts'][tmpLado]["Y"]
+				//* P1
+				cLado(tmpObj[tmpID]["P1"]["nLado"]) ?
+				tmpLado = cLado(tmpObj[tmpID]["P1"]["nLado"]) : tmpLado = "C"
+				cIE(tmpObj[tmpID]["P1"]["nIE"]) ?
+				tmpLado += cIE(tmpObj[tmpID]["P1"]["nIE"]) : tmpLado += ""
+				obj['cp'+tmpID]["P1"]["X"]=xyGPF[tmpID]['CPts'][tmpLado]["X"]
+				obj['cp'+tmpID]["P1"]["Y"]=xyGPF[tmpID]['CPts'][tmpLado]["Y"]
+				tmpLado == 'Ci' ? obj['cp'+tmpID]["P1"]["X"] -=25 : false
+				//* P2
+				cLado(tmpObj[tmpID]["P2"]["nLado"]) ?
+				tmpLado = cLado(tmpObj[tmpID]["P2"]["nLado"]) : tmpLado = "C"
+				cIE(tmpObj[tmpID]["P2"]["nIE"]) ?
+				tmpLado += cIE(tmpObj[tmpID]["P2"]["nIE"]) : tmpLado += ""
+				obj['cp'+tmpID]["P2"]["X"]=xyGPF[tmpID]['CPts'][tmpLado]["X"]
+				obj['cp'+tmpID]["P2"]["Y"]=xyGPF[tmpID]['CPts'][tmpLado]["Y"]
+				tmpLado == 'Ci' ? obj['cp'+tmpID]["P2"]["X"] +=25 : false
 			}
 			return obj
 		})
@@ -196,6 +213,7 @@ export default {
 			GPF,
 			gpfMain,
 			xyGPF,
+			xyCP,
 			bEditMode,
 			tglGuides,
 			pCham,

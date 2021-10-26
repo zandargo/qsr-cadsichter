@@ -45,3 +45,57 @@ export function romanize(num) {
 	}
 	return roman;
 }
+
+//* CONV nLado
+export function convNLADO(nLado) {
+	if (typeof nLado === "number") {
+		switch (nLado) {
+			case 1:
+				return "F";
+			case 2:
+				return "D";
+			case 3:
+				return "E";
+			case 4:
+				return "T";
+			default:
+				return null;
+		}
+	} else {
+		switch (nLado) {
+			case "F":
+				return 1;
+			case "D":
+				return 2;
+			case "E":
+				return 3;
+			case "T":
+				return 4;
+			default:
+				return null;
+		}
+	}
+}
+
+//* CONV nIE
+export function convNIE(nIE) {
+	if (typeof nIE === "number") {
+		switch (nIE) {
+			case 0:
+				return "i";
+			case 1:
+				return "e";
+			default:
+				return null;
+		}
+	} else {
+		switch (nIE) {
+			case "i":
+				return 0;
+			case "e":
+				return 1;
+			default:
+				return null;
+		}
+	}
+}

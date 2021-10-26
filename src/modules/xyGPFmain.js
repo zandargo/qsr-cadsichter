@@ -216,7 +216,7 @@ function calcMat(xC, yC, L, sk, k) {
 	}
 	let f
 	let CPts = {
-		C: {
+		Ci: {
 			X: xC,
 			Y: yC,
 		},
