@@ -36,14 +36,14 @@
 let lwid = 2
 
 export const gpfMain = {
-	width    : 400                      ,
+	width    : 360                      ,
 	height   : 250                      ,
 	gpfMax   : 32                       , //> Número de gavetas
 	gpfW     : 150                      , //> Largura da Gaveta
 	gpfH     : 8                        , //> Altura da gaveta
 	k        : 5                        , //> Proporção Gaveta/Coluna
 	x0       : 200                      , //> Posição inicial X
-	y0       : 54                       , //> Posição inicial Y
+	y0       : 120                      , //> Posição inicial Y
 	yOff     : 64                       , //> Offset entre gavetas
 	lwid     : lwid                     , //> Largura de linha geral
 	wLinBG   : 3.2                      , //> Fator espessura da linha branca
@@ -192,8 +192,8 @@ function calcMat(xC, yC, L, sk, k) {
 	let ChE = {
 		X1: Shp1.X2,
 		Y1: Shp1.Y2, //Corner 1 Point 2
-		X2: Shp1.X1,
-		Y2: Shp1.Y1, //Corner 2 Point 1
+		X2: Shp2.X1,
+		Y2: Shp2.Y1, //Corner 2 Point 1
 		X3: Shp2.X4,
 		Y3: Shp2.Y4, //Corner 2 Point 4
 		X4: Shp1.X3,
@@ -214,6 +214,75 @@ function calcMat(xC, yC, L, sk, k) {
 		// Xc: (Shp2.X4 + Shp2.X3 + Shp3.X2 + Shp3.X1) / 4, //xCenter
 		// Yc: (Shp2.Y4 + Shp2.Y3 + Shp3.Y2 + Shp3.Y1) / 4, //yCenter
 	}
+	let f
+	let CPts = {
+		C: {
+			X: xC,
+			Y: yC,
+		},
+		Fi: {
+			X: (Shp1.X4 + Shp1.X3 + Shp4.X2 + Shp4.X1) / 4,
+			Y: (Shp1.Y4 + Shp1.Y3 + Shp4.Y2 + Shp4.Y1) / 4,
+		},
+		Di: {
+			X: (Shp4.X2 + Shp3.X1 + Shp3.X4 + Shp4.X3) / 4,
+			Y: (Shp4.Y2 + Shp3.Y1 + Shp3.Y4 + Shp4.Y3) / 4,
+		},
+		Ei: {
+			X: (Shp1.X2 + Shp2.X1 + Shp2.X4 + Shp1.X3) / 4,
+			Y: (Shp1.Y2 + Shp2.Y1 + Shp2.Y4 + Shp1.Y3) / 4,
+		},
+		Ti: {
+			X: (Shp2.X4 + Shp2.X3 + Shp3.X2 + Shp3.X1) / 4,
+			Y: (Shp2.Y4 + Shp2.Y3 + Shp3.Y2 + Shp3.Y1) / 4,
+		},
+	}
+	f = 2.2
+	CPts["Fe"] = {
+		X: xC + 3 * f * (CPts.Fi.X - xC),
+		Y: yC + 3 * f * (CPts.Fi.Y - yC),
+	}
+	f = 1
+	CPts["De"] = {
+		X: xC + 3 * f * (CPts.Di.X - xC),
+		Y: yC + 3 * f * (CPts.Di.Y - yC),
+	}
+	f = 1
+	CPts["Ee"] = {
+		X: xC + 3 * f * (CPts.Ei.X - xC),
+		Y: yC + 3 * f * (CPts.Ei.Y - yC),
+	}
+	f = 2.2
+	CPts["Te"] = {
+		X: xC + 3 * f * (CPts.Ti.X - xC),
+		Y: yC + 3 * f * (CPts.Ti.Y - yC),
+	}
+
+	CPts["F"] = {
+		X1: CPts.Fi.X,
+		Y1: CPts.Fi.Y,
+		X2: CPts.Fe.X,
+		Y2: CPts.Fe.Y,
+	}
+	CPts["D"] = {
+		X1: CPts.Di.X,
+		Y1: CPts.Di.Y,
+		X2: CPts.De.X,
+		Y2: CPts.De.Y,
+	}
+	CPts["E"] = {
+		X1: CPts.Ei.X,
+		Y1: CPts.Ei.Y,
+		X2: CPts.Ee.X,
+		Y2: CPts.Ee.Y,
+	}
+	CPts["T"] = {
+		X1: CPts.Ti.X,
+		Y1: CPts.Ti.Y,
+		X2: CPts.Te.X,
+		Y2: CPts.Te.Y,
+	}
+
 
 	return {
 		Shp0,
@@ -227,6 +296,7 @@ function calcMat(xC, yC, L, sk, k) {
 		ChD,
 		ChE,
 		ChT,
+		CPts,
 	}
 
 }
@@ -235,7 +305,7 @@ let tmpArray = {};
 for (let i = 1; i <= 32; i++) {
 	let element = "G" + ("0" + i).slice(-2);
 	//[ ] Otimizar: Desnecessário calcular para cada gaveta qnd basta incrementar o y
-		tmpArray[element] = calcMat(gpfMain.x0, gpfMain.y0 + gpfMain.yOff * i, gpfMain.gpfW, gpfMain.sk,gpfMain.k)
+		tmpArray[element] = calcMat(gpfMain.width/2, gpfMain.y0 + gpfMain.yOff * i, gpfMain.gpfW, gpfMain.sk,gpfMain.k)
 	}
 
 	export const xyGPF = tmpArray

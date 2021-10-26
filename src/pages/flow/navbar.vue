@@ -12,7 +12,7 @@
 			<q-card-section class="q-px-sm q-pb-xs">
 				<q-slider
 					v-model="valnGavs"
-					:min="12"
+					:min="6"
 					:max="32"
 					:step="1"
 					snap
@@ -70,7 +70,7 @@ export default {
 	setup() {
 		const $store = useStore();
 
-		const valnGavs = ref(28);
+		const valnGavs = ref(6);
 		watch(valnGavs, (currentValue, oldValue) => {
 			$store.dispatch("flow/actSetNGavs", currentValue);
 		});

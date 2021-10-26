@@ -3,7 +3,8 @@
 		id="svgFlow"
 		xmlns="http://www.w3.org/2000/svg"
 		:width="gpfMain.width"
-		:height="gpfMain.yOff * (nGavs + 2)"
+		:height="gpfMain.y0 + gpfMain.yOff * (nGavs + 2)"
+
 	>
 		<defs>
 			<marker
@@ -18,17 +19,37 @@
 			</marker>
 		</defs>
 
+		<g id="grGuide" class="guides" v-if="bGuides">
+			<polyline v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].CPts.F)"/>
+			<polyline v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].CPts.D)"/>
+			<polyline v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].CPts.E)"/>
+			<polyline v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].CPts.T)"/>
+
+			<ellipse v-for="i in nGavs" :key="i" rx="4" ry="8"
+			:cx="xyGPF[sID[i]].CPts.Fe.X" :cy="xyGPF[sID[i]].CPts.Fe.Y" />
+			<ellipse v-for="i in nGavs" :key="i" rx="8" ry="8"
+			:cx="xyGPF[sID[i]].CPts.De.X" :cy="xyGPF[sID[i]].CPts.De.Y" />
+			<ellipse v-for="i in nGavs" :key="i" rx="8" ry="8"
+			:cx="xyGPF[sID[i]].CPts.Ee.X" :cy="xyGPF[sID[i]].CPts.Ee.Y" />
+			<ellipse v-for="i in nGavs" :key="i" rx="4" ry="8"
+			:cx="xyGPF[sID[i]].CPts.Te.X" :cy="xyGPF[sID[i]].CPts.Te.Y" />
+		</g>
+
 		<!-- <polygon :points="flat(xyGPF.G01.Shp0)" class="gpf0" /> -->
 		<!-- <polygon v-for="(value, name) in xyGPF" :key="name" :points="flat(value.Shp0)" class="gpf0" />
 		<polygon v-for="(value, name) in xyGPF" :key="name" :points="flat(value.Shp0F)" class="gpf0" />
 		<polygon v-for="(value, name) in xyGPF" :key="name" :points="flat(value.Shp0D)" class="gpf0" /> -->
-		<polygon v-for="i in nGavs" :key="i" :points="flat(xyGPF['G' + ('0' + i).slice(-2)].Shp0)" class="gpf0" />
-		<polygon v-for="i in nGavs" :key="i" :points="flat(xyGPF['G' + ('0' + i).slice(-2)].Shp0F)" class="gpf0" />
-		<polygon v-for="i in nGavs" :key="i" :points="flat(xyGPF['G' + ('0' + i).slice(-2)].Shp0D)" class="gpf0" />
-		<polygon v-for="i in nGavs" :key="i" :points="flat(xyGPF['G' + ('0' + i).slice(-2)].Shp1)" class="gpf1" />
-		<polygon v-for="i in nGavs" :key="i" :points="flat(xyGPF['G' + ('0' + i).slice(-2)].Shp2)" class="gpf1" />
-		<polygon v-for="i in nGavs" :key="i" :points="flat(xyGPF['G' + ('0' + i).slice(-2)].Shp3)" class="gpf1" />
-		<polygon v-for="i in nGavs" :key="i" :points="flat(xyGPF['G' + ('0' + i).slice(-2)].Shp4)" class="gpf1" />
+		<g id="grGPFs" @click.prevent="tglGuides" >
+			<polygon v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].Shp0)" class="gpf0" />
+			<polygon v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].Shp0F)" class="gpf0" />
+			<polygon v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].Shp0D)" class="gpf0" />
+			<polygon v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].Shp1)" class="gpf1" />
+			<polygon v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].Shp2)" class="gpf1" />
+			<polygon v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].Shp3)" class="gpf1" />
+			<polygon v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].Shp4)" class="gpf1" />
+
+			<polygon v-for="i in nGavs" :key="i" :points="flat(pCham['cham'+sID[i]])" :class="getClassCh(GPF[sID[i]]['RX'])" />
+		</g>
 
 	</svg>
 </template>
@@ -45,18 +66,73 @@ export default {
 		//* Initial definitions
 		const $store = useStore();
 		const flat = (obj) => objectFlattener(obj);
-
 		const nGavs = computed({
-			get: () => $store.state.flow.nGavs,
+			get: () => $store.state.flow.varMain.nGavs,
 			set: () => {},
 		});
+		const GPF = computed({
+			get: () => $store.state.flow.GPF,
+			set: () => {},
+		});
+		//* List of names
+		let tmpID = []
+		for (let i = 0; i <= 32; i++) {
+			tmpID.push('G' + ('0' + i).slice(-2))
+		}
+		const sID = tmpID
+		//* Edit Mode
+		const bGuides = computed({
+			get: () => $store.state.flow.varMain.bGuides,
+			set: () => $store.commit('flow/mutTglEditMode'),
+		});
+		const tglGuides = () => {
+			$store.commit('flow/mutTglEditMode')
+		}
+		//* Inner Channel
+		const pCham = computed(() => {
+			let obj = {}
+			let tmpObj = GPF.value
+			for (let i = 1; i <= nGavs.value; i++) {
+				let tmpID = 'G' + ('0' + i).slice(-2)
+				switch (tmpObj[tmpID]["RX"]["nLado"]) {
+					case 1:
+						console.log('xyGPF.ChF', xyGPF.ChF)
+						console.log('xyGPF[tmpID]["ChF"]', xyGPF[tmpID]["ChF"])
 
-		const getClassGPF = (obj) => {
-			let str = "gpf0 ";
-			if (obj.act ) {
-				str += "isON";
+						obj['cham'+tmpID]=xyGPF[tmpID]["ChF"]
+						break;
+					case 2:
+						obj['cham'+tmpID]=xyGPF[tmpID]["ChD"]
+						break;
+					case 3:
+						obj['cham'+tmpID]=xyGPF[tmpID]["ChE"]
+						break;
+					case 4:
+						obj['cham'+tmpID]=xyGPF[tmpID]["ChT"]
+						break;
+					default:
+						obj['cham'+tmpID]={
+							X1: 0,
+							Y1: 0,
+							X2: 0,
+							Y2: 0,
+							X3: 0,
+							Y3: 0,
+							X4: 0,
+							Y4: 0,
+						}
+						break;
+				}
+			}
+			return obj
+		})
+		console.log('pCham', pCham.value)
+		const getClassCh = (obj) => {
+			let str = "cham";
+			if (obj.nIE==0 ) {
+				str += "ON";
 			} else {
-				str += "isOFF";
+				str += "OFF";
 			}
 			return str;
 		};
@@ -64,9 +140,15 @@ export default {
 		//* Return
 		return {
 			flat,
-			nGavs    ,
-			gpfMain  ,
+			nGavs,
+			sID,
+			GPF,
+			gpfMain,
 			xyGPF,
+			bGuides,
+			tglGuides,
+			pCham,
+			getClassCh,
 		};
 	},
 };
@@ -83,16 +165,42 @@ export default {
 }
 
 .gpf0 {
-	fill: white;
-	stroke: $color-d2;
+	fill: rgba(255, 255, 255, 0.9);
+	stroke: $color-d4;
 	stroke-width: 2px;
 	stroke-linejoin: round;
 	stroke-linecap: round;
 }
 .gpf1 {
-	fill: black;
+	fill: $color-d4;
 	stroke: none;
+	stroke: $color-d4;
+	stroke-width: 2px;
+	stroke-linejoin: round;
+	stroke-linecap: round;
 }
+.guides {
+	stroke: $color-l1;
+	stroke-width: 1px;
+	fill: none;
+	opacity: 50%;
+}
+.chamON {
+	fill: none;
+	stroke: $color-d4;
+	stroke-width: 2px;
+	stroke-linejoin: round;
+	stroke-linecap: round;
+}
+.chamOFF {
+	fill: $color_cham;
+	stroke: $color-d4;
+	stroke-width: 2px;
+	stroke-linejoin: round;
+	stroke-linecap: round;
+}
+
+
 
 .RxA {
 	fill: $color_Pr_A;

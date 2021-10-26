@@ -57,7 +57,7 @@ module.exports = {
 	rules: {
 		"prefer-promise-reject-errors": "off",
 
-		"max-len": ["error", { code: 120, ignoreUrls: true }],
+		"max-len": ["error", { code: 150, ignoreUrls: true }],
 
 		"vue/max-len": [
 			"error",

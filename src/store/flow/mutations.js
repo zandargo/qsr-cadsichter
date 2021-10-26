@@ -1,6 +1,11 @@
 //* ---------------------------- SET NUMBER OF GPF --------------------------- */
 export function mutSetNGavs(state, nGavs) {
-	state.nGavs = nGavs;
+	state.varMain.nGavs = nGavs;
+}
+
+//* ---------------------------- TOGGLE EDIT MODE ---------------------------- */
+export function mutTglEditMode(state) {
+	state.varMain.bGuides = !state.varMain.bGuides;
 }
 
 //* ---------------------- TOGGLE OUTLET SELECTION STATE --------------------- */

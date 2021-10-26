@@ -16,7 +16,7 @@
 			"
 		>
 			<q-card elevated class="bg-cs-l4 q-pa-sm cs-border q-mb-md">
-				<GPF class="" />
+				<GPF class="_bg-cs-l3" />
 			</q-card>
 		</div>
 
@@ -45,6 +45,6 @@ export default {
 
 <style lang="scss" scoped>
 .divGPF {
-	min-width: 400px !important;
+	min-width: 420px !important;
 }
 </style>

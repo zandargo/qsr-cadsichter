@@ -1,4 +1,10 @@
 export default function () {
+	const varMain = {
+		bGuides: false,
+		nGavs: 0,
+		iGav: 0,
+	};
+
 	const GPF = {};
 	for (let i = 1; i <= 32; i++) {
 		let element = "G" + ("0" + i).slice(-2);
@@ -129,18 +135,11 @@ export default function () {
 		},
 	};
 
-	const varMain = {
-		width: 360,
-		height: 1200,
-	};
-
 	return {
-		nGavs: 0,
-		iGav: 0,
+		varMain,
 		GPF,
 		FND,
 		DV,
 		DI,
-		varMain,
 	};
 }
