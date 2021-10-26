@@ -1,7 +1,7 @@
 export default function () {
 	const varMain = {
-		bGuides: false,
-		nGavs: 0,
+		bEditMode: false,
+		nGavs: 6,
 		iGav: 0,
 	};
 

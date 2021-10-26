@@ -19,7 +19,8 @@
 			</marker>
 		</defs>
 
-		<g id="grGuide" class="guides" v-if="bGuides">
+		<!-- //* ------------------------------ GPF GUIDES ------------------------------ *// -->
+		<g id="grGuide" class="guides" v-if="bEditMode">
 			<polyline v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].CPts.F)"/>
 			<polyline v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].CPts.D)"/>
 			<polyline v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].CPts.E)"/>
@@ -35,10 +36,7 @@
 			:cx="xyGPF[sID[i]].CPts.Te.X" :cy="xyGPF[sID[i]].CPts.Te.Y" />
 		</g>
 
-		<!-- <polygon :points="flat(xyGPF.G01.Shp0)" class="gpf0" /> -->
-		<!-- <polygon v-for="(value, name) in xyGPF" :key="name" :points="flat(value.Shp0)" class="gpf0" />
-		<polygon v-for="(value, name) in xyGPF" :key="name" :points="flat(value.Shp0F)" class="gpf0" />
-		<polygon v-for="(value, name) in xyGPF" :key="name" :points="flat(value.Shp0D)" class="gpf0" /> -->
+		<!-- //* ------------------------------- MAIN GPF ------------------------------- *// -->
 		<g id="grGPFs" @click.prevent="tglGuides" >
 			<polygon v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].Shp0)" class="gpf0" />
 			<polygon v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].Shp0F)" class="gpf0" />
@@ -50,6 +48,25 @@
 
 			<polygon v-for="i in nGavs" :key="i" :points="flat(pCham['cham'+sID[i]])" :class="getClassCh(GPF[sID[i]]['RX'])" />
 		</g>
+
+		<!-- //* ---------------------------- CONTROL POINTS ---------------------------- *// -->
+		<g id="grCP" v-if="bEditMode" >
+			<circle cx="50" cy="50" r="10" class="cpRxA" />
+			<circle cx="20" cy="50" r="10" class="cpPnA" />
+			<circle cx="80" cy="50" r="10" class="cpPnA" />
+		</g>
+
+		//* TESTE........
+		<!-- <polyline points="20 20 20 90 80 90 80 220" fill="none" stroke= "teal"
+		stroke-width="4px" stroke-dasharray="8 10" stroke-linejoin="round" stroke-linecap="round">
+			<animate
+				attributeName="stroke-dashoffset"
+				from="18"
+				to="0"
+				dur="2s"
+				repeatCount="indefinite"
+			/>
+		</polyline> -->
 
 	</svg>
 </template>
@@ -70,6 +87,7 @@ export default {
 			get: () => $store.state.flow.varMain.nGavs,
 			set: () => {},
 		});
+
 		const GPF = computed({
 			get: () => $store.state.flow.GPF,
 			set: () => {},
@@ -81,10 +99,11 @@ export default {
 		}
 		const sID = tmpID
 		//* Edit Mode
-		const bGuides = computed({
-			get: () => $store.state.flow.varMain.bGuides,
+		const bEditMode = computed({
+			get: () => $store.state.flow.varMain.bEditMode,
 			set: () => $store.commit('flow/mutTglEditMode'),
 		});
+
 		const tglGuides = () => {
 			$store.commit('flow/mutTglEditMode')
 		}
@@ -96,9 +115,6 @@ export default {
 				let tmpID = 'G' + ('0' + i).slice(-2)
 				switch (tmpObj[tmpID]["RX"]["nLado"]) {
 					case 1:
-						console.log('xyGPF.ChF', xyGPF.ChF)
-						console.log('xyGPF[tmpID]["ChF"]', xyGPF[tmpID]["ChF"])
-
 						obj['cham'+tmpID]=xyGPF[tmpID]["ChF"]
 						break;
 					case 2:
@@ -112,14 +128,14 @@ export default {
 						break;
 					default:
 						obj['cham'+tmpID]={
-							X1: 0,
-							Y1: 0,
-							X2: 0,
-							Y2: 0,
-							X3: 0,
-							Y3: 0,
-							X4: 0,
-							Y4: 0,
+							X1: -100,
+							Y1: -100,
+							X2: -100,
+							Y2: -100,
+							X3: -100,
+							Y3: -100,
+							X4: -100,
+							Y4: -100,
 						}
 						break;
 				}
@@ -136,6 +152,41 @@ export default {
 			}
 			return str;
 		};
+		//* Control Points
+		const xyCP = computed(() => {
+			let obj = {}
+			let tmpObj = GPF.value
+			for (let i = 1; i <= nGavs.value; i++) {
+				let tmpID = 'G' + ('0' + i).slice(-2)
+				switch (tmpObj[tmpID]["RX"]["nLado"]) {
+					case 1:
+						obj['cham'+tmpID]=xyGPF[tmpID]["ChF"]
+						break;
+					case 2:
+						obj['cham'+tmpID]=xyGPF[tmpID]["ChD"]
+						break;
+					case 3:
+						obj['cham'+tmpID]=xyGPF[tmpID]["ChE"]
+						break;
+					case 4:
+						obj['cham'+tmpID]=xyGPF[tmpID]["ChT"]
+						break;
+					default:
+						obj['cham'+tmpID]={
+							X1: -100,
+							Y1: -100,
+							X2: -100,
+							Y2: -100,
+							X3: -100,
+							Y3: -100,
+							X4: -100,
+							Y4: -100,
+						}
+						break;
+				}
+			}
+			return obj
+		})
 
 		//* Return
 		return {
@@ -145,7 +196,7 @@ export default {
 			GPF,
 			gpfMain,
 			xyGPF,
-			bGuides,
+			bEditMode,
 			tglGuides,
 			pCham,
 			getClassCh,
@@ -220,4 +271,14 @@ export default {
 .Pn0 {
 	fill: $color_Pn_0;
 }
+
+.cpRxA {
+	fill: rgba($color_Pr_A, 0.75);
+	stroke: none;
+}
+.cpPnA {
+	fill: rgba($color_Pn_A, 0.75);
+	stroke: none;
+}
+
 </style>

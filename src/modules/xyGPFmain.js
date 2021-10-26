@@ -302,9 +302,9 @@ function calcMat(xC, yC, L, sk, k) {
 }
 
 let tmpArray = {};
+//[ ] Otimizar: Desnecessário calcular para cada gaveta qnd basta incrementar o y
 for (let i = 1; i <= 32; i++) {
 	let element = "G" + ("0" + i).slice(-2);
-	//[ ] Otimizar: Desnecessário calcular para cada gaveta qnd basta incrementar o y
 		tmpArray[element] = calcMat(gpfMain.width/2, gpfMain.y0 + gpfMain.yOff * i, gpfMain.gpfW, gpfMain.sk,gpfMain.k)
 	}
 

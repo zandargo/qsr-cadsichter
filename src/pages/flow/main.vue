@@ -2,19 +2,11 @@
 	<q-page class="row">
 		<!-- //* ---------------------------- DIV CÓDIGOS GPF --------------------------- *// -->
 		<div
-			class="col-4 col-md-3 col-lg-3 col-xl-3 q-pa-md items-center text-center"
+			class="col-3 col-md-3 col-lg-3 col-xl-3 q-pa-md items-center text-center"
 		></div>
 
 		<!-- //* ------------------------ DIV DESENHO DAS GAVETAS ----------------------- *// -->
-		<div
-			class="
-				col-6 col-md-6 col-lg-5 col-xl-4
-				divGPF
-				q-pa-md
-				items-center
-				text-center
-			"
-		>
+		<div class="col-auto divGPF q-pa-md items-center text-center">
 			<q-card elevated class="bg-cs-l4 q-pa-sm cs-border q-mb-md">
 				<GPF class="_bg-cs-l3" />
 			</q-card>

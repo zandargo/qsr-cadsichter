@@ -19,7 +19,7 @@ export default store(function (/* { ssrContext } */) {
 			flow,
 		},
 		// enable strict mode (adds overhead!)
-		// for dev mode and --debug builds only
+		// for dev mode and debug builds only
 		// strict: process.env.DEBUGGING,
 		strict: true,
 		plugins: [createPersistedState()],

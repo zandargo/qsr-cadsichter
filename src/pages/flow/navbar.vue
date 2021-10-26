@@ -76,6 +76,7 @@ export default {
 		});
 
 		onMounted(() => {
+			valnGavs.value = $store.state.flow.varMain.nGavs;
 			$store.dispatch("flow/actSetNGavs", valnGavs.value);
 		});
 

@@ -38,8 +38,8 @@ function createWindow() {
 		},
 	});
 
-	mainWindow.setSize(800, 1050);
-	mainWindow.setPosition(2560 - 800, 0);
+	mainWindow.setSize(1000, 1050);
+	mainWindow.setPosition(2560 - 1000, 0);
 
 	mainWindow.loadURL(process.env.APP_URL);
 

@@ -5,7 +5,7 @@ export function mutSetNGavs(state, nGavs) {
 
 //* ---------------------------- TOGGLE EDIT MODE ---------------------------- */
 export function mutTglEditMode(state) {
-	state.varMain.bGuides = !state.varMain.bGuides;
+	state.varMain.bEditMode = !state.varMain.bEditMode;
 }
 
 //* ---------------------- TOGGLE OUTLET SELECTION STATE --------------------- */
