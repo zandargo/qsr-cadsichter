@@ -1,16 +1,10 @@
 
 Todo:
   Vuex:
-    ☐ Item 2 - Descrição
-    ☐ Item 3
+    ☐ Criar Action que receba [id(incluir G## e RX/P1/P2 ), x, y], calcule o destino adequado e comite no state
   GPF:
-    ☐ Item 1
-    ☐ Item 2
-    ☐ Teste
-    ☐ Teste
-    ☐ Teste
-    Teste:
-      ☐ Item 2
-      ☐ Teste
+    CP:
+      ☐ Mover CP
+      ☐ Disparar action no Vuex onMouseUp
 
 

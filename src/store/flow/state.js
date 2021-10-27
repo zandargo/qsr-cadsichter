@@ -1,3 +1,5 @@
+import { xyGPF } from "src/modules/xyGPFmain";
+
 export default function () {
 	const varMain = {
 		bEditMode: false,
@@ -20,11 +22,16 @@ export default function () {
 		// };
 		GPF[element] = {};
 		let aCP = ["RX", "P1", "P2"];
+		let aOf = [0, -25, 25];
 		for (let n = 0; n < aCP.length; n++) {
 			GPF[element][aCP[n]] = {
 				nLado: 0,
 				nPara: 0,
 				nIE: 0,
+				pos: {
+					X: xyGPF[element]["CPts"]["C"]["X"] + aOf[n],
+					Y: xyGPF[element]["CPts"]["C"]["Y"],
+				},
 			};
 		}
 	}

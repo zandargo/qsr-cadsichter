@@ -51,34 +51,29 @@
 
 		<!-- //* ---------------------------- CONTROL POINTS ---------------------------- *// -->
 		<g id="grCP" v-if="bEditMode" >
-			<circle v-for="i in nGavs" :key="i" :cx="xyCP['cp'+sID[i]]['RX']['X']" :cy="xyCP['cp'+sID[i]]['RX']['Y']" r="10" class="cpRxA" />
-			<circle v-for="i in nGavs" :key="i" :cx="xyCP['cp'+sID[i]]['P1']['X']" :cy="xyCP['cp'+sID[i]]['P1']['Y']" r="10" class="cpPnA" />
-			<circle v-for="i in nGavs" :key="i" :cx="xyCP['cp'+sID[i]]['P2']['X']" :cy="xyCP['cp'+sID[i]]['P2']['Y']" r="10" class="cpPnA" />
+			<circle v-for="i in nGavs" :key="i" :cx="xyCP['cp'+sID[i]]['RX']['X']" :cy="xyCP['cp'+sID[i]]['RX']['Y']" r="9" class="cpRxA" />
+			<circle v-for="i in nGavs" :key="i" :cx="xyCP['cp'+sID[i]]['P1']['X']" :cy="xyCP['cp'+sID[i]]['P1']['Y']" r="6" class="cpPnA" />
+			<circle v-for="i in nGavs" :key="i" :cx="xyCP['cp'+sID[i]]['P2']['X']" :cy="xyCP['cp'+sID[i]]['P2']['Y']" r="6" class="cpPnA" />
 		</g>
 
+
+
 		//* TESTE........
-		<!-- <polyline points="20 20 20 90 80 90 80 220" fill="none" stroke= "teal"
-		stroke-width="4px" stroke-dasharray="8 10" stroke-linejoin="round" stroke-linecap="round">
-			<animate
-				attributeName="stroke-dashoffset"
-				from="18"
-				to="0"
-				dur="2s"
-				repeatCount="indefinite"
-			/>
-		</polyline> -->
+		<CP sID="cpG02" sType="P2" />
 
 	</svg>
 </template>
 
 <script>
-import { ref, toRefs, onMounted, computed } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { useStore } from "vuex";
 import { objectFlattener, convNLADO, convNIE } from "src/modules/helperFunction";
 import { gpfMain, xyGPF } from "src/modules/xyGPFmain";
+import CP from 'components/FlowCP.vue'
 
 export default {
 	name: "svgFlowGPF",
+	components: {CP},
 	setup() {
 		//* Initial definitions
 		const $store = useStore();
@@ -208,6 +203,38 @@ export default {
 			return obj
 		})
 
+		// //* MOVE CP
+		// const cp = {
+		// 	id: '',
+		// 	x: 0,
+		// 	y: 0,
+		// }
+		// const x = ref(50)
+		// const y = ref(50)
+
+		// const handleMouseDown = (e) => {
+		// 	let elementId = (e.target || e.srcElement).id
+		// 	console.log(elementId)
+		// 	cp.x = e.pageX,
+		// 	cp.y = e.pageY,
+		// 	document.addEventListener("mousemove", handleMouseMove);
+		// }
+		// const handleMouseMove = (e) => {
+    //   const xDiff = cp.x - e.pageX;
+    //   const yDiff = cp.y - e.pageY;
+
+    //   cp.x = e.pageX;
+    //   cp.y = e.pageY;
+
+		// 	x.value -= xDiff; //!  <--
+    //   y.value -= yDiff; //!  <--
+    // }
+    // const handleMouseUp = () => {
+    //   document.removeEventListener("mousemove", handleMouseMove);
+		// 	//! Criar action no Vuex
+
+    // }
+
 		//* Return
 		return {
 			flat,
@@ -221,6 +248,10 @@ export default {
 			tglGuides,
 			pCham,
 			getClassCh,
+			//x, y, //cp,
+			// handleMouseDown,
+			// handleMouseMove,
+			// handleMouseUp
 		};
 	},
 };
