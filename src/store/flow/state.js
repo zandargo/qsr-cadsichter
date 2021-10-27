@@ -8,16 +8,25 @@ export default function () {
 	const GPF = {};
 	for (let i = 1; i <= 32; i++) {
 		let element = "G" + ("0" + i).slice(-2);
-		let obj = {
-			nLado: 0,
-			nPara: 0,
-			nIE: 0,
-		};
-		GPF[element] = {
-			RX: obj,
-			P1: obj,
-			P2: obj,
-		};
+		// let obj = {
+		// 	nLado: 0,
+		// 	nPara: 0,
+		// 	nIE: 0,
+		// };
+		// GPF[element] = {
+		// 	RX: obj,
+		// 	P1: obj,
+		// 	P2: obj,
+		// };
+		GPF[element] = {};
+		let aCP = ["RX", "P1", "P2"];
+		for (let n = 0; n < aCP.length; n++) {
+			GPF[element][aCP[n]] = {
+				nLado: 0,
+				nPara: 0,
+				nIE: 0,
+			};
+		}
 	}
 
 	let sLados = ["F1", "F2", "D1", "D2", "E1", "E2", "T1", "T2"];

@@ -54,8 +54,6 @@
 			<circle v-for="i in nGavs" :key="i" :cx="xyCP['cp'+sID[i]]['RX']['X']" :cy="xyCP['cp'+sID[i]]['RX']['Y']" r="10" class="cpRxA" />
 			<circle v-for="i in nGavs" :key="i" :cx="xyCP['cp'+sID[i]]['P1']['X']" :cy="xyCP['cp'+sID[i]]['P1']['Y']" r="10" class="cpPnA" />
 			<circle v-for="i in nGavs" :key="i" :cx="xyCP['cp'+sID[i]]['P2']['X']" :cy="xyCP['cp'+sID[i]]['P2']['Y']" r="10" class="cpPnA" />
-			<!-- <circle cx="20" cy="50" r="10" class="cpPnA" />
-			<circle cx="80" cy="50" r="10" class="cpPnA" /> -->
 		</g>
 
 		//* TESTE........
@@ -159,10 +157,12 @@ export default {
 		const xyCP = computed(() => {
 			let obj = {}
 			let tmpObj = GPF.value
-			// let xyObj = xyGPF.value
+			let aCP = ['RX', 'P1', 'P2']
+			let tmpLado
+			let tmpPara
+			let cp
 			for (let i = 1; i <= nGavs.value; i++) {
 				let tmpID = 'G' + ('0' + i).slice(-2)
-				let tmpLado = ''
 				obj['cp'+tmpID] = {
 					RX: {
 						X: 0,
@@ -177,29 +177,33 @@ export default {
 						Y: 0,
 					},
 				 }
-				//* RX
-				cLado(tmpObj[tmpID]["RX"]["nLado"]) ?
-				tmpLado = cLado(tmpObj[tmpID]["RX"]["nLado"]) : tmpLado = "C"
-				cIE(tmpObj[tmpID]["RX"]["nIE"]) ?
-				tmpLado += cIE(tmpObj[tmpID]["RX"]["nIE"]) : tmpLado += ""
-				obj['cp'+tmpID]["RX"]["X"]=xyGPF[tmpID]['CPts'][tmpLado]["X"]
-				obj['cp'+tmpID]["RX"]["Y"]=xyGPF[tmpID]['CPts'][tmpLado]["Y"]
-				//* P1
-				cLado(tmpObj[tmpID]["P1"]["nLado"]) ?
-				tmpLado = cLado(tmpObj[tmpID]["P1"]["nLado"]) : tmpLado = "C"
-				cIE(tmpObj[tmpID]["P1"]["nIE"]) ?
-				tmpLado += cIE(tmpObj[tmpID]["P1"]["nIE"]) : tmpLado += ""
-				obj['cp'+tmpID]["P1"]["X"]=xyGPF[tmpID]['CPts'][tmpLado]["X"]
-				obj['cp'+tmpID]["P1"]["Y"]=xyGPF[tmpID]['CPts'][tmpLado]["Y"]
-				tmpLado == 'Ci' ? obj['cp'+tmpID]["P1"]["X"] -=25 : false
-				//* P2
-				cLado(tmpObj[tmpID]["P2"]["nLado"]) ?
-				tmpLado = cLado(tmpObj[tmpID]["P2"]["nLado"]) : tmpLado = "C"
-				cIE(tmpObj[tmpID]["P2"]["nIE"]) ?
-				tmpLado += cIE(tmpObj[tmpID]["P2"]["nIE"]) : tmpLado += ""
-				obj['cp'+tmpID]["P2"]["X"]=xyGPF[tmpID]['CPts'][tmpLado]["X"]
-				obj['cp'+tmpID]["P2"]["Y"]=xyGPF[tmpID]['CPts'][tmpLado]["Y"]
-				tmpLado == 'Ci' ? obj['cp'+tmpID]["P2"]["X"] +=25 : false
+				// console.log(`${tmpID}`)
+				for (let n = 0; n < aCP.length; n++) {
+					tmpLado = null
+					tmpPara = null
+					cp = aCP[n]
+					try {
+						if (cLado(tmpObj[tmpID][cp]["nLado"]) && cIE(tmpObj[tmpID][cp]["nIE"])) {
+							tmpLado = cLado(tmpObj[tmpID][cp]["nLado"]) + cIE(tmpObj[tmpID][cp]["nIE"])
+						} else { tmpLado = "C" }
+						if (tmpObj[tmpID][cp]["nPara"]>=i && tmpObj[tmpID][cp]["nPara"] <=nGavs.value) {
+							tmpPara = 'G' + ('0' + tmpObj[tmpID][cp]["nPara"]).slice(-2)
+						} else { tmpPara = tmpID }
+						obj['cp'+tmpID][cp]["X"]=xyGPF[tmpPara]['CPts'][tmpLado]["X"]
+						obj['cp'+tmpID][cp]["Y"]=xyGPF[tmpPara]['CPts'][tmpLado]["Y"]
+						if (tmpLado == "C") {
+							n == 1 ? obj['cp'+tmpID][cp]["X"] -=25 : false
+							n == 2 ? obj['cp'+tmpID][cp]["X"] +=25 : false
+						}
+						// console.log(`   	${cp}: -->  ${tmpPara} ${tmpLado}`)
+					} catch (error) {
+						console.log(`Erro xyCP ${cp}`, error)
+						console.log('tmpID:        ', tmpID)
+						console.log('tmpPara:      ', tmpPara)
+						console.log('tmpLado:      ', tmpLado)
+					}
+				}
+				// console.log(obj['cp'+tmpID])
 			}
 			return obj
 		})
