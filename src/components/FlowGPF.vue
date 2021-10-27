@@ -59,7 +59,9 @@
 
 
 		//* TESTE........
-		<CP sID="cpG02" sType="P2" />
+		<CP sID="cpG03" sType="RX" />
+		<CP sID="cpG04" sType="P1" />
+		<CP sID="cpG05" sType="P2" />
 
 	</svg>
 </template>

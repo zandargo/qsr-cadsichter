@@ -24,13 +24,16 @@ export default function () {
 		let aCP = ["RX", "P1", "P2"];
 		let aOf = [0, -25, 25];
 		for (let n = 0; n < aCP.length; n++) {
+			let tmpX = xyGPF[element]["CPts"]["C"]["X"] + aOf[n];
+			let tmpY = xyGPF[element]["CPts"]["C"]["Y"];
+
 			GPF[element][aCP[n]] = {
 				nLado: 0,
 				nPara: 0,
 				nIE: 0,
 				pos: {
-					X: xyGPF[element]["CPts"]["C"]["X"] + aOf[n],
-					Y: xyGPF[element]["CPts"]["C"]["Y"],
+					X: tmpX,
+					Y: tmpY,
 				},
 			};
 		}

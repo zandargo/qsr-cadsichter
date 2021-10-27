@@ -59,7 +59,11 @@ export default {
 		onMounted(() => {
 			let tmpID = props.sID.slice(-3);
 			let tmpType = props.sType;
-
+			let tmpOff = {
+				RX: 0,
+				P1: -25,
+				P2: 25,
+			};
 			console.log("tmpID=", tmpID);
 			console.log("tmpType=", tmpType);
 			x.value = $store.state.flow.GPF[tmpID][tmpType]["pos"]["X"];
