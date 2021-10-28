@@ -21,23 +21,27 @@
 
 		<!-- //* ------------------------------ GPF GUIDES ------------------------------ *// -->
 		<g id="grGuide" class="guides" v-if="bEditMode">
-			<polyline v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].CPts.F)"/>
-			<polyline v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].CPts.D)"/>
-			<polyline v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].CPts.E)"/>
-			<polyline v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].CPts.T)"/>
+			<polyline v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].CPts.F)" stroke-dasharray="3 2"/>
+			<polyline v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].CPts.D)" stroke-dasharray="3 2"/>
+			<polyline v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].CPts.E)" stroke-dasharray="3 2"/>
+			<polyline v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].CPts.T)" stroke-dasharray="3 2"/>
 
-			<ellipse v-for="i in nGavs" :key="i" rx="4" ry="8"
+			<ellipse v-for="i in nGavs" :key="i" rx="6" ry="10"
 			:cx="xyGPF[sID[i]].CPts.Fe.X" :cy="xyGPF[sID[i]].CPts.Fe.Y" />
-			<ellipse v-for="i in nGavs" :key="i" rx="8" ry="8"
+			<ellipse v-for="i in nGavs" :key="i" rx="10" ry="10"
 			:cx="xyGPF[sID[i]].CPts.De.X" :cy="xyGPF[sID[i]].CPts.De.Y" />
-			<ellipse v-for="i in nGavs" :key="i" rx="8" ry="8"
+			<ellipse v-for="i in nGavs" :key="i" rx="10" ry="10"
 			:cx="xyGPF[sID[i]].CPts.Ee.X" :cy="xyGPF[sID[i]].CPts.Ee.Y" />
-			<ellipse v-for="i in nGavs" :key="i" rx="4" ry="8"
+			<ellipse v-for="i in nGavs" :key="i" rx="6" ry="10"
 			:cx="xyGPF[sID[i]].CPts.Te.X" :cy="xyGPF[sID[i]].CPts.Te.Y" />
+
 		</g>
+
+
 
 		<!-- //* ------------------------------- MAIN GPF ------------------------------- *// -->
 		<g id="grGPFs" @click.prevent="tglGuides" >
+
 			<polygon v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].Shp0)" class="gpf0" />
 			<polygon v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].Shp0F)" class="gpf0" />
 			<polygon v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].Shp0D)" class="gpf0" />
@@ -49,19 +53,31 @@
 			<polygon v-for="i in nGavs" :key="i" :points="flat(pCham['cham'+sID[i]])" :class="getClassCh(GPF[sID[i]]['RX'])" />
 		</g>
 
+
+
+
 		<!-- //* ---------------------------- CONTROL POINTS ---------------------------- *// -->
 		<g id="grCP" v-if="bEditMode" >
-			<circle v-for="i in nGavs" :key="i" :cx="xyCP['cp'+sID[i]]['RX']['X']" :cy="xyCP['cp'+sID[i]]['RX']['Y']" r="9" class="cpRxA" />
-			<circle v-for="i in nGavs" :key="i" :cx="xyCP['cp'+sID[i]]['P1']['X']" :cy="xyCP['cp'+sID[i]]['P1']['Y']" r="6" class="cpPnA" />
-			<circle v-for="i in nGavs" :key="i" :cx="xyCP['cp'+sID[i]]['P2']['X']" :cy="xyCP['cp'+sID[i]]['P2']['Y']" r="6" class="cpPnA" />
+			<CP v-for="i in nGavs" :key="i" :sID="'cpG'+('0'+i).slice(-2)" sType="RX" />
+			<CP v-for="i in nGavs" :key="i" :sID="'cpG'+('0'+i).slice(-2)" sType="P1" />
+			<CP v-for="i in nGavs" :key="i" :sID="'cpG'+('0'+i).slice(-2)" sType="P2" />
 		</g>
 
-
+		<!-- //* ----------------------------- CP SNAP AREAS ---------------------------- *// -->
+		<g v-if="bCPdrag">
+			<SnapArea v-for="i in nGavs" :key="i" :gpf="i" pos="C" />
+			<SnapArea v-for="i in nGavs" :key="i" :gpf="i" pos="Fi" />
+			<SnapArea v-for="i in nGavs" :key="i" :gpf="i" pos="Di" />
+			<SnapArea v-for="i in nGavs" :key="i" :gpf="i" pos="Ei" />
+			<SnapArea v-for="i in nGavs" :key="i" :gpf="i" pos="Ti" />
+			<SnapArea v-for="i in nGavs" :key="i" :gpf="i" pos="Fe" />
+			<SnapArea v-for="i in nGavs" :key="i" :gpf="i" pos="De" />
+			<SnapArea v-for="i in nGavs" :key="i" :gpf="i" pos="Ee" />
+			<SnapArea v-for="i in nGavs" :key="i" :gpf="i" pos="Te" />
+		</g>
 
 		//* TESTE........
-		<CP sID="cpG03" sType="RX" />
-		<CP sID="cpG04" sType="P1" />
-		<CP sID="cpG05" sType="P2" />
+
 
 	</svg>
 </template>
@@ -72,10 +88,11 @@ import { useStore } from "vuex";
 import { objectFlattener, convNLADO, convNIE } from "src/modules/helperFunction";
 import { gpfMain, xyGPF } from "src/modules/xyGPFmain";
 import CP from 'components/FlowCP.vue'
+import SnapArea from 'components/FlowSnapArea.vue'
 
 export default {
 	name: "svgFlowGPF",
-	components: {CP},
+	components: {CP, SnapArea},
 	setup() {
 		//* Initial definitions
 		const $store = useStore();
@@ -102,6 +119,12 @@ export default {
 			get: () => $store.state.flow.varMain.bEditMode,
 			set: () => $store.commit('flow/mutTglEditMode'),
 		});
+		//* CP Drag
+		const bCPdrag = computed({
+			get: () => $store.state.flow.varMain.bCPdrag,
+			set: () => $store.commit('flow/mutSetCPdrag', false),
+		});
+
 
 		const tglGuides = () => {
 			$store.commit('flow/mutTglEditMode')
@@ -205,37 +228,7 @@ export default {
 			return obj
 		})
 
-		// //* MOVE CP
-		// const cp = {
-		// 	id: '',
-		// 	x: 0,
-		// 	y: 0,
-		// }
-		// const x = ref(50)
-		// const y = ref(50)
 
-		// const handleMouseDown = (e) => {
-		// 	let elementId = (e.target || e.srcElement).id
-		// 	console.log(elementId)
-		// 	cp.x = e.pageX,
-		// 	cp.y = e.pageY,
-		// 	document.addEventListener("mousemove", handleMouseMove);
-		// }
-		// const handleMouseMove = (e) => {
-    //   const xDiff = cp.x - e.pageX;
-    //   const yDiff = cp.y - e.pageY;
-
-    //   cp.x = e.pageX;
-    //   cp.y = e.pageY;
-
-		// 	x.value -= xDiff; //!  <--
-    //   y.value -= yDiff; //!  <--
-    // }
-    // const handleMouseUp = () => {
-    //   document.removeEventListener("mousemove", handleMouseMove);
-		// 	//! Criar action no Vuex
-
-    // }
 
 		//* Return
 		return {
@@ -247,13 +240,10 @@ export default {
 			xyGPF,
 			xyCP,
 			bEditMode,
+			bCPdrag,
 			tglGuides,
 			pCham,
 			getClassCh,
-			//x, y, //cp,
-			// handleMouseDown,
-			// handleMouseMove,
-			// handleMouseUp
 		};
 	},
 };
@@ -285,11 +275,13 @@ export default {
 	stroke-linecap: round;
 }
 .guides {
-	stroke: $color-l1;
+	stroke: $color-l2;
 	stroke-width: 1px;
-	fill: none;
-	opacity: 50%;
+	fill: $color-l5;
+	// opacity: 50%;
 }
+
+
 .chamON {
 	fill: none;
 	stroke: $color-d4;
@@ -306,33 +298,5 @@ export default {
 }
 
 
-
-.RxA {
-	fill: $color_Pr_A;
-}
-.PnA {
-	fill: $color_Pn_A;
-}
-.RxB {
-	fill: $color_Pr_B;
-}
-.PnB {
-	fill: $color_Pn_B;
-}
-.Rx0 {
-	fill: $color_Pr_0;
-}
-.Pn0 {
-	fill: $color_Pn_0;
-}
-
-.cpRxA {
-	fill: rgba($color_Pr_A, 0.75);
-	stroke: none;
-}
-.cpPnA {
-	fill: rgba($color_Pn_A, 0.75);
-	stroke: none;
-}
 
 </style>

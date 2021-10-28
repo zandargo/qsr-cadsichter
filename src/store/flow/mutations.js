@@ -3,10 +3,9 @@ export function mutSetNGavs(state, nGavs) {
 	state.varMain.nGavs = nGavs;
 }
 
-//* ---------------------------- TOGGLE EDIT MODE ---------------------------- */
-export function mutTglEditMode(state) {
-	state.varMain.bEditMode = !state.varMain.bEditMode;
-}
+//* -------------------------------------------------------------------------- */
+//*                               BOTTOM (OUTLET)                              */
+//* -------------------------------------------------------------------------- */
 
 //* ---------------------- TOGGLE OUTLET SELECTION STATE --------------------- */
 export function mutTglBTMsel(state, obj) {
@@ -58,4 +57,42 @@ export function mutSetBtmArwOn(state, obj) {
 export function mutSetBtmArwOff(state, obj) {
 	state.DI[obj.id]["i"]["act"] = false;
 	state.DI[obj.id]["e"]["act"] = false;
+}
+
+//* -------------------------------------------------------------------------- */
+//*                                MAIN GPF FLOW                               */
+//* -------------------------------------------------------------------------- */
+
+//* ---------------------------- TOGGLE EDIT MODE ---------------------------- */
+export function mutTglEditMode(state) {
+	state.varMain.bEditMode = !state.varMain.bEditMode;
+}
+//* ----------------------------- CONTROL POINTS ----------------------------- */
+export function mutSetCPdrag(state, value) {
+	state.varMain.bCPdrag = value;
+}
+export function mutSetCPxy(state, obj) {
+	let id = obj.id;
+	let type = obj.type;
+	let X = obj.X;
+	let Y = obj.Y;
+	state.GPF[id][type]["pos"]["X"] = X;
+	state.GPF[id][type]["pos"]["Y"] = Y;
+}
+export function mutSetGPFprod(state, obj) {
+	let id = obj.id;
+	let ab = obj.ab;
+	state.GPF[id]["sProd"] = ab;
+}
+//* ----------------------------- INLET POSITION ----------------------------- */
+export function mutSetPosEnt(state, pos) {
+	pos == "T" ? (state.varMain.posEnt = "T") : (state.varMain.posEnt = "F");
+}
+
+//* ----------------------------- HOVER SNAP AREA ---------------------------- */
+export function mutSetHoverArea(state, obj) {
+	let nGav = obj.nGav;
+	let pos = obj.pos;
+	state.varMain.hover.nGav = nGav;
+	state.varMain.hover.pos = pos;
 }

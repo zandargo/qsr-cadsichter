@@ -1,10 +1,14 @@
 
 Todo:
   Vuex:
-    ☐ Criar Action que receba [id(incluir G## e RX/P1/P2 ), x, y], calcule o destino adequado e comite no state
+    ☐ Criar Hover Info ao passar sobre as snap areas
+    ☐ Criar Action que receba [id(incluir G## e RX/P1/P2 ), x, y], calcule o destino adequado e comite
   GPF:
+    Geral:
+      ✔ Criar controle de posição da entrada no canal @done(21-10-28 14:05)
     CP:
-      ☐ Mover CP
+      ✔ Mover CP @done(21-10-28 08:20)
+      ✔ Disparar action no Vuex onMouseMove @done(21-10-28 09:09)
       ☐ Disparar action no Vuex onMouseUp
 
 

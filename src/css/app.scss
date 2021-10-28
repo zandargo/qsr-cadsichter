@@ -2,17 +2,10 @@
 @import "./quasar.variables.scss";
 
 * {
-	/* Hide scrollbar for Chrome, Safari and Opera */
-	// ::-webkit-scrollbar {
-	// 	display: none;
-	// }
-	// -ms-overflow-style: none; /* IE and Edge */
-	// scrollbar-width: none; /* Firefox */
 	font-family: "RobotoCondensed", Arial, Helvetica, sans-serif;
-	font-size: 12pt;
-	line-height: 14pt;
+	// font-size: 12pt;	//! CAUSA ERRO NO Q-TOGGLE
+	// line-height: 14pt;
 	cursor: default !important;
-	// overflow: hidden;
 	user-select: none;
 	-webkit-user-drag: none;
 	user-select: none;
@@ -54,6 +47,38 @@ div,
 	-ms-overflow-style: none; /* IE and Edge */
 	scrollbar-width: none; /* Firefox */
 }
+
+//* -------------------------------- TOGGLE -------------------------------- *//
+.q-toggle__label {
+	font-variant-caps: small-caps;
+	font-size: 1.2em !important;
+}
+.q-toggle__thumb::before {
+	background-color: $primary;
+}
+.q-toggle__thumb::after {
+	background-color: $color-l4;
+}
+//* -------------------------------- SLIDER -------------------------------- *//
+.q-slider__track-container {
+	height: 5px;
+	border-radius: 2px;
+	background-color: $primary;
+	opacity: 50%;
+}
+
+$sliderThumbSize: 24px;
+
+.q-slider__thumb {
+	width: $sliderThumbSize;
+	height: $sliderThumbSize;
+}
+.q-slider__focus-ring {
+	width: $sliderThumbSize;
+	height: $sliderThumbSize;
+}
+
+//* --------------------------------- TABS --------------------------------- *//
 .q-tab__indicator {
 	display: none !important;
 }
@@ -70,7 +95,6 @@ div,
 .q-tab__label {
 	font-size: 1rem !important;
 }
-
 .q-tab--active {
 	text-transform: uppercase;
 	text-transform: uppercase;
@@ -86,6 +110,8 @@ div,
 	text-transform: uppercase;
 	font-weight: 700 !important;
 }
+
+//* --------------------------------- FONT --------------------------------- *//
 .cs-caps {
 	font-variant-caps: petite-caps !important;
 }
@@ -99,6 +125,8 @@ div,
 	margin: 0 auto;
 	font-variant-caps: small-caps;
 }
+
+//* ------------------------------ BACKGROUND ------------------------------ *//
 
 .bg-prA {
 	background-color: $color_Pr_A;

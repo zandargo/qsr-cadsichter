@@ -27,17 +27,6 @@
 		<polygon :points="flat(mFND.T1)" :class="getClassFr(FND.T1)" @click="clkBtm(FND.T1)" />
 		<polygon :points="flat(mFND.T2)" :class="getClassFr(FND.T2)" @click="clkBtm(FND.T2)" />
 
-		<!-- <polygon :points="flat(mFND.Door)" class="bg-btm" />
-		<text
-			:x="mFND.tAc.x"
-			:y="mFND.tAc.y"
-			text-anchor="middle"
-			dominant-baseline="mathematical"
-			class="txt-Ac"
-		>
-			Porta
-		</text> -->
-
 		<polygon :points="flat(mFND.Fi)" class="btmCh" />
 		<polygon :points="flat(mFND.Fe)" class="btmCh" />
 		<polygon :points="flat(mFND.Di)" class="btmCh" />

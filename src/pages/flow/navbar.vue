@@ -1,15 +1,10 @@
 <template>
 	<q-page class="column">
 		<!-- //* ------------------------------ CARD NGAVS ------------------------------ *// -->
-		<q-card elevated class="bg-cs-hl-1 q-pa-sm cs-border q-mb-md">
-			<q-card-section class="cs-dense row">
+		<q-card elevated class="bg-cs-hl-1 cs-border q-py-sm q-px-sm q-mb-md">
+			<q-card-section class="q-pt-none q-px-md row">
 				<div class="col-grow text-h3">Número de Gavetas:</div>
 				<div class="col-shrink text-h3">{{ valnGavs }}</div>
-			</q-card-section>
-
-			<q-separator color="primary" />
-
-			<q-card-section class="q-px-sm q-pb-xs">
 				<q-slider
 					v-model="valnGavs"
 					:min="6"
@@ -20,14 +15,60 @@
 					color="primary"
 				/>
 			</q-card-section>
+
+			<q-separator color="primary " />
+
+			<q-card-section class="q-mt-md q-mb-xs q-px-md q-py-none row">
+				<div class="col-grow text-h3">Altura Total:</div>
+				<div class="col-shrink text-h3">0000 mm</div>
+				<div class="col-grow text-h3">Altura Total:</div>
+				<div class="col-shrink text-h3">0000 mm</div>
+			</q-card-section>
 		</q-card>
 
 		<!-- //* ------------------------------ CARD BOTTOM ----------------------------- *// -->
-		<q-card elevated class="bg-cs-hl-1 q-pa-sm cs-border flex flex-center">
+		<q-card
+			elevated
+			class="bg-cs-hl-1 q-pa-sm q-mb-md cs-border flex flex-center"
+		>
 			<Bottom />
 		</q-card>
+		<!-- //* ----------------------------- CARD SETTINGS ---------------------------- *// -->
+		<q-card elevated class="bg-cs-hl-1 q-pa-sm cs-border q-mb-md">
+			<q-card-section class="cs-dense row">
+				<div class="col-grow text-h3">Controles</div>
+			</q-card-section>
 
-		<!-- //* ----------------------------- CARD LEGENDA ----------------------------- *// -->
+			<q-separator color="primary" />
+
+			<q-card-section class="q-px-md q-py-xs row">
+				<div class="col-grow text-h3">Modo Edição</div>
+				<q-toggle
+					class="col-srhink"
+					dense
+					size="45px"
+					v-model="bEditMode"
+					icon="edit"
+					unchecked-icon="close"
+					keep-color
+				/>
+			</q-card-section>
+			<q-card-section class="q-px-md q-py-xs row">
+				<div class="col-grow text-h3">Entrada</div>
+				<q-btn-toggle
+					:disable="!bEditMode"
+					size="1rem"
+					padding="0 12px"
+					v-model="posEnt"
+					toggle-color="primary"
+					:options="[
+						{ label: 'Std', value: 'F' },
+						{ label: 'Inv', value: 'T' },
+					]"
+				/>
+			</q-card-section>
+		</q-card>
+		<!-- //* ----------------------------- CARD DETAILS ----------------------------- *// -->
 		<div class="col-grow"></div>
 		<q-card elevated class="bg-cs-hl-1 q-pa-sm cs-border q-mt-md q-mb-lg">
 			<q-card-section class="cs-dense row">
@@ -36,22 +77,25 @@
 
 			<q-separator color="primary" />
 
-			<q-card-section class="q-px-sm q-pb-xs"> </q-card-section>
-			<div class="row">
-				<div class="col-4 q-my-xs text-right">Produto A</div>
-				<div class="col-1 q-ma-xs bg-prA rounded-borders"></div>
-				<div class="col-4 q-my-xs text-right">Produto B</div>
-				<div class="col-1 q-ma-xs bg-prB rounded-borders"></div>
-				<div class="col-4 q-my-xs text-right">Peneirado A</div>
-				<div class="col-1 q-ma-xs bg-pnA rounded-borders"></div>
-				<div class="col-4 q-my-xs text-right">Peneirado B</div>
-				<div class="col-1 q-ma-xs bg-pnB rounded-borders"></div>
-				<div class="col-4 q-my-xs text-right">Produto ?</div>
-				<div class="col-1 q-ma-xs bg-pr0 rounded-borders"></div>
-				<!-- <div class="col-4 q-my-xs text-right"></div>
-				<div class="col-1 q-ma-xs rounded-borders"></div> -->
-				<div class="col-4 q-my-xs text-right">Peneirado ?</div>
-				<div class="col-1 q-ma-xs bg-pn0 rounded-borders"></div>
+			<q-card-section class="q-px-sm q-py-xs"> </q-card-section>
+			<div class="row text-h4">
+				<div class="col-4 q-my-none text-right">Produto A</div>
+				<div class="col-1 q-mx-xs q-my-xs bg-prA rounded-borders"></div>
+				<div class="col-grow"></div>
+				<div class="col-4 q-my-none text-right">Produto B</div>
+				<div class="col-1 q-mx-xs q-my-xs bg-prB rounded-borders"></div>
+
+				<div class="col-4 q-my-none text-right">Peneirado A</div>
+				<div class="col-1 q-mx-xs q-my-xs bg-pnA rounded-borders"></div>
+				<div class="col-grow"></div>
+				<div class="col-4 q-my-none text-right">Peneirado B</div>
+				<div class="col-1 q-mx-xs q-my-xs bg-pnB rounded-borders"></div>
+
+				<div class="col-4 q-my-none text-right">Produto ?</div>
+				<div class="col-1 q-mx-xs q-my-xs bg-pr0 rounded-borders"></div>
+				<div class="col-grow"></div>
+				<div class="col-4 q-my-none text-right">Peneirado ?</div>
+				<div class="col-1 q-mx-xs q-my-xs bg-pn0 rounded-borders"></div>
 			</div>
 		</q-card>
 	</q-page>
@@ -70,9 +114,21 @@ export default {
 	setup() {
 		const $store = useStore();
 
+		// const bEditMode = ref(true);
+		const bEditMode = computed({
+			get: () => $store.state.flow.varMain.bEditMode,
+			set: () => $store.commit("flow/mutTglEditMode"),
+		});
+
 		const valnGavs = ref(6);
 		watch(valnGavs, (currentValue, oldValue) => {
 			$store.dispatch("flow/actSetNGavs", currentValue);
+		});
+
+		// const posEnt = ref("F");
+		const posEnt = computed({
+			get: () => $store.state.flow.varMain.posEnt,
+			set: (value) => $store.commit("flow/mutSetPosEnt", value),
 		});
 
 		onMounted(() => {
@@ -82,7 +138,15 @@ export default {
 
 		return {
 			valnGavs,
+			bEditMode,
+			posEnt,
 		};
 	},
 };
 </script>
+
+<style lang="scss" scoped>
+// .material-icons {
+// 	font-size: 24px !important;
+// }
+</style>

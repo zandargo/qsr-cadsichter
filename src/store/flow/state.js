@@ -2,25 +2,25 @@ import { xyGPF } from "src/modules/xyGPFmain";
 
 export default function () {
 	const varMain = {
-		bEditMode: false,
+		bEditMode: true,
+		bCPinfo: true,
 		nGavs: 6,
 		iGav: 0,
+		posEnt: "F",
+		bCPdrag: false,
+		hover: {
+			nGav: null,
+			pos: null,
+		},
 	};
 
 	const GPF = {};
 	for (let i = 1; i <= 32; i++) {
 		let element = "G" + ("0" + i).slice(-2);
-		// let obj = {
-		// 	nLado: 0,
-		// 	nPara: 0,
-		// 	nIE: 0,
-		// };
-		// GPF[element] = {
-		// 	RX: obj,
-		// 	P1: obj,
-		// 	P2: obj,
-		// };
-		GPF[element] = {};
+		GPF[element] = {
+			sProd: "",
+		};
+
 		let aCP = ["RX", "P1", "P2"];
 		let aOf = [0, -25, 25];
 		for (let n = 0; n < aCP.length; n++) {

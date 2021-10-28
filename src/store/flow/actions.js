@@ -1,3 +1,6 @@
+import { dist } from "src/modules/helperFunction";
+import { xyGPF } from "src/modules/xyGPFmain";
+
 //* ---------------------------- SET NUMBER OF GPF --------------------------- */
 export function actSetNGavs({ commit }, nGavs) {
 	// commit("flow/mutSetNGavs", nGavs, { root: true });  //> Tbm funciona
@@ -16,6 +19,10 @@ function changeSide(str) {
 			break;
 	}
 }
+
+//* -------------------------------------------------------------------------- */
+//*                               BOTTOM (OUTLET)                              */
+//* -------------------------------------------------------------------------- */
 
 //* ------------------------- TOGGLE ARROWS (HELPER) ------------------------- */
 export function actTglArrows({ commit, state }, obj) {
@@ -70,4 +77,20 @@ export function actClkBtmDV({ commit, state }, obj) {
 	actTglArrows({ commit, state }, tmpObj);
 
 	// [ ] Adicionar lógica p/ mudar nome das saídas
+}
+
+//* -------------------------------------------------------------------------- */
+//*                                  MAIN GPF                                  */
+//* -------------------------------------------------------------------------- */
+
+export function actSnapCP({ commit, state }, obj) {
+	//> Quando soltar o CP:
+	//> 1) Informar a origem
+	//> 2) Verificar se existe um hover ativo
+	//> 3) 	SIM: Localizar o centro do hover
+	//> 4) 	NÃO: volta ao centro da GPF de origem
+	// commit("mutSetCPxy", obj);
+	// commit("mutSetGPFprod", obj);
+	// let tmpObj;
+	// otherAction({ commit, state }, tmpObj);
 }
