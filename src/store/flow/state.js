@@ -8,6 +8,10 @@ export default function () {
 		iGav: 0,
 		posEnt: "F",
 		bCPdrag: false,
+		drag: {
+			nGav: null,
+			type: null,
+		},
 		hover: {
 			nGav: null,
 			pos: null,

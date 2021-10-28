@@ -1,8 +1,9 @@
 
 Todo:
   Vuex:
-    ☐ Criar Hover Info ao passar sobre as snap areas
+    ✔ Criar Hover Info ao passar sobre as snap areas @done(21-10-28 18:15)
     ☐ Criar Action que receba [id(incluir G## e RX/P1/P2 ), x, y], calcule o destino adequado e comite
+    ☐ Definir rotina para varrer e setar AB nas gavetas
   GPF:
     Geral:
       ✔ Criar controle de posição da entrada no canal @done(21-10-28 14:05)

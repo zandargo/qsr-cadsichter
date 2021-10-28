@@ -68,8 +68,14 @@ export function mutTglEditMode(state) {
 	state.varMain.bEditMode = !state.varMain.bEditMode;
 }
 //* ----------------------------- CONTROL POINTS ----------------------------- */
-export function mutSetCPdrag(state, value) {
-	state.varMain.bCPdrag = value;
+export function mutSetCPdrag(state, obj) {
+	let isDrag = obj.isDrag;
+	let gpf = obj.gpf;
+	let type = obj.type;
+
+	state.varMain.bCPdrag = isDrag;
+	state.varMain.drag.nGav = gpf;
+	state.varMain.drag.type = type;
 }
 export function mutSetCPxy(state, obj) {
 	let id = obj.id;

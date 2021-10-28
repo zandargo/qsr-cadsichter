@@ -8,6 +8,7 @@
 		class="snapArea"
 		:onmouseover="hoverIn"
 		:onmouseout="hoverOut"
+		@mouseup="handleMouseUp"
 	/>
 	<!-- <text :x="x" :y="y" text-anchor="middle" dominant-baseline="text-top">
 		{{ sGPF }}
@@ -58,9 +59,28 @@ export default {
 			};
 			$store.commit("flow/mutSetHoverArea", obj);
 		};
+		const handleMouseUp = () => {
+			$store.dispatch("flow/actSnapCP");
+			$store.commit("flow/mutSetCPdrag", {
+				isDrag: false,
+				gpf: null,
+				type: null,
+			});
+		};
 
 		//* RETURN
-		return { ...toRefs(props), sGPF, sPos, x, y, Rx, Ry, hoverIn, hoverOut };
+		return {
+			...toRefs(props),
+			sGPF,
+			sPos,
+			x,
+			y,
+			Rx,
+			Ry,
+			hoverIn,
+			hoverOut,
+			handleMouseUp,
+		};
 	},
 };
 </script>

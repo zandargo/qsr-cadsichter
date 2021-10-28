@@ -83,14 +83,45 @@ export function actClkBtmDV({ commit, state }, obj) {
 //*                                  MAIN GPF                                  */
 //* -------------------------------------------------------------------------- */
 
-export function actSnapCP({ commit, state }, obj) {
+export function actSnapCP({ commit, state }) {
 	//> Quando soltar o CP:
 	//> 1) Informar a origem
 	//> 2) Verificar se existe um hover ativo
 	//> 3) 	SIM: Localizar o centro do hover
 	//> 4) 	NÃO: volta ao centro da GPF de origem
+	let tmpX;
+	let tmpY;
+
+	let hvGPF = state.varMain.hover.nGav;
+	let hvPos = state.varMain.hover.pos;
+	let dgGPF = state.varMain.drag.nGav;
+	let dType = state.varMain.drag.type;
+
+	if (!hvGPF || !hvPos || !dgGPF || !dType) {
+		return;
+	}
+
+	let iDrag = parseInt(dgGPF.slice(-2), 10);
+	let iHovr = parseInt(hvGPF.slice(-2), 10);
+	//> Se o movimento é para baixo
+	if (iHovr >= iDrag) {
+		//> Localizar centro
+		tmpX = xyGPF[hvGPF]["CPts"][hvPos]["X"];
+		tmpY = xyGPF[hvGPF]["CPts"][hvPos]["Y"];
+		//> Caso contrário, retornar para origem
+	} else {
+		//> Localizar centro origem
+		tmpX = xyGPF[dgGPF]["CPts"]["C"]["X"];
+		tmpY = xyGPF[dgGPF]["CPts"]["C"]["Y"];
+	}
+	commit("mutSetCPxy", {
+		id: dgGPF,
+		type: dType,
+		X: tmpX,
+		Y: tmpY,
+	});
 	// commit("mutSetCPxy", obj);
-	// commit("mutSetGPFprod", obj);
+
 	// let tmpObj;
 	// otherAction({ commit, state }, tmpObj);
 }

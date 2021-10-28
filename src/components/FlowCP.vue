@@ -61,6 +61,10 @@ export default {
 			get: () => $store.state.flow.varMain.bCPinfo,
 			set: () => $store.commit("module/mutName"),
 		});
+		const isDrag = computed({
+			get: () => $store.state.flow.varMain.bCPdrag,
+			set: () => {},
+		});
 
 		const cpID = props.sID.slice(-3);
 		const cpType = props.sType.slice(0);
@@ -89,10 +93,15 @@ export default {
 			tmpPos.id = (e.target || e.srcElement).id;
 			tmpPos.x = e.pageX;
 			tmpPos.y = e.pageY;
+			$store.commit("flow/mutSetCPdrag", {
+				isDrag: true,
+				gpf: cpID,
+				type: cpType,
+			});
 			document.addEventListener("mousemove", handleMouseMove);
-			$store.commit("flow/mutSetCPdrag", true);
 		};
 		const handleMouseMove = (e) => {
+			// while (isDrag.value) {
 			const xDiff = tmpPos.x - e.pageX;
 			const yDiff = tmpPos.y - e.pageY;
 
@@ -101,16 +110,15 @@ export default {
 
 			x.value -= xDiff; //!  <--
 			y.value -= yDiff; //!  <--
+			// }
 		};
 		const handleMouseUp = () => {
-			let tmpX = x.value;
-			let tmpY = y.value;
-			$store.dispatch("flow/actSnapCP", {
-				gpf: cpID,
-				type: cpType,
+			$store.dispatch("flow/actSnapCP");
+			$store.commit("flow/mutSetCPdrag", {
+				isDrag: false,
+				gpf: null,
+				type: null,
 			});
-			$store.commit("flow/mutSetCPdrag", false);
-			//! Criar action no Vuex
 			document.removeEventListener("mousemove", handleMouseMove);
 		};
 
@@ -145,7 +153,7 @@ circle {
 .txtCPin {
 	font-size: 10pt;
 	fill: rgba(255, 255, 255, 0.85);
-	cursor: move !important;
+	// cursor: move !important;
 }
 
 .txtCPout {
