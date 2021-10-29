@@ -50,7 +50,8 @@
 			<polygon v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].Shp3)" class="gpf1" />
 			<polygon v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].Shp4)" class="gpf1" />
 
-			<polygon v-for="i in nGavs" :key="i" :points="flat(pCham['cham'+sID[i]])" :class="getClassCh(GPF[sID[i]]['RX'])" />
+			<!-- <polygon v-for="i in nGavs" :key="i" :points="flat(pCham['cham'+sID[i]])" :class="getClassCh(GPF[sID[i]]['RX'])" /> -->
+			<polygon v-for="i in nGavs" :key="i" :points="flat(pCham['cham'+sID[i]])" :class="getClassCh(i)" />
 		</g>
 
 
@@ -164,9 +165,10 @@ export default {
 			}
 			return obj
 		})
-		const getClassCh = (obj) => {
+		const getClassCh = (i) => {
 			let str = "cham";
-			if (obj.nIE==0 ) {
+			let obj = GPF.value[sID[i]]['RX']
+			if (obj.nIE==0 && obj.nPara == i ) {
 				str += "ON";
 			} else {
 				str += "OFF";

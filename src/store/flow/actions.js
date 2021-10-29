@@ -148,3 +148,42 @@ export function actSnapCP({ commit, state }) {
 		pos: null,
 	});
 }
+
+export function actSetProdAll({ commit, state }) {
+	// commit('mutName', obj)
+	// let tmpObj
+	// otherAction({ commit, state }, tmpObj)
+	let toID;
+	let aType = ["RX", "P1", "P2"];
+	let aProd = [""];
+	for (let i = 1; i <= 32; i++) {
+		aProd.push("");
+	}
+
+	// let nGavs = state.varMain.nGavs
+
+	for (let i = 1; i <= 32; i++) {
+		let sID = "G" + ("0" + i).slice(-2);
+		let prod = state.GPF[sID]["prod"];
+		if (prod) {
+			for (let j = 0; j <= 2; j++) {
+				let nPara = state.GPF[sID][aType[j]]["nPara"];
+				let nIE = state.GPF[sID][aType[j]]["nIE"];
+				if (nIE == 0) {
+					//> Internal, gpf below
+					if (nPara > i) {
+						aProd[nPara] += prod;
+					}
+					//> Internal, same gpf (RX only)
+					if (nPara == i) {
+						aProd[i + 1] += prod;
+					}
+				}
+			}
+		}
+	}
+}
+
+//> var temp = "This is a string.";
+//> var count = (temp.match(/is/g) || []).length;
+//> console.log(count);
