@@ -10,6 +10,7 @@
 		:onmouseout="hoverOut"
 		@mouseup="handleMouseUp"
 	/>
+
 	<!-- <text :x="x" :y="y" text-anchor="middle" dominant-baseline="text-top">
 		{{ sGPF }}
 	</text>
@@ -41,30 +42,33 @@ export default {
 
 		const x = xyGPF[sGPF]["CPts"][sPos]["X"];
 		const y = xyGPF[sGPF]["CPts"][sPos]["Y"];
-		const Rx = sPos.slice(-1) == "e" ? 14 : 8;
-		const Ry = sPos.slice(-1) == "e" ? 14 : 12;
+		const Rx = sPos.slice(-1) == "e" ? 18 : 14;
+		const Ry = sPos.slice(-1) == "e" ? 18 : 14;
 
 		//* SNAP AREAS
 		const hoverIn = () => {
-			let obj = {
+			$store.commit("flow/mutSetHoverArea", {
 				nGav: sGPF,
 				pos: sPos,
-			};
-			$store.commit("flow/mutSetHoverArea", obj);
+			});
 		};
 		const hoverOut = () => {
-			let obj = {
+			$store.commit("flow/mutSetHoverArea", {
 				nGav: null,
 				pos: null,
-			};
-			$store.commit("flow/mutSetHoverArea", obj);
+			});
 		};
-		const handleMouseUp = () => {
-			$store.dispatch("flow/actSnapCP");
+		const handleMouseUp = async () => {
+			$store.commit("flow/mutSetCPstamp");
+			await $store.dispatch("flow/actSnapCP");
 			$store.commit("flow/mutSetCPdrag", {
 				isDrag: false,
 				gpf: null,
 				type: null,
+			});
+			$store.commit("flow/mutSetHoverArea", {
+				nGav: null,
+				pos: null,
 			});
 		};
 
@@ -87,8 +91,10 @@ export default {
 
 <style lang="scss" scoped>
 .snapArea {
-	fill: rgba(255, 255, 255, 0.1);
-	stroke: rgba(0, 0, 0, 0.2);
+	stroke: $color-l2;
+	stroke-width: 1px;
+	fill: $color-l4;
 	opacity: 0%;
+	// pointer-events: none;
 }
 </style>

@@ -1,3 +1,5 @@
+import { Date } from "core-js";
+
 //* ---------------------------- SET NUMBER OF GPF --------------------------- */
 export function mutSetNGavs(state, nGavs) {
 	state.varMain.nGavs = nGavs;
@@ -77,6 +79,10 @@ export function mutSetCPdrag(state, obj) {
 	state.varMain.drag.nGav = gpf;
 	state.varMain.drag.type = type;
 }
+export function mutSetCPstamp(state) {
+	state.varMain.drag.lastDrop = Date.now();
+}
+
 export function mutSetCPxy(state, obj) {
 	let id = obj.id;
 	let type = obj.type;
@@ -85,11 +91,23 @@ export function mutSetCPxy(state, obj) {
 	state.GPF[id][type]["pos"]["X"] = X;
 	state.GPF[id][type]["pos"]["Y"] = Y;
 }
+export function mutSetCPstatus(state, obj) {
+	let id = obj.id;
+	let type = obj.type;
+	let nLado = obj.nLado;
+	let nIE = obj.nIE;
+	let nPara = obj.nPara;
+	state.GPF[id][type]["nLado"] = nLado;
+	state.GPF[id][type]["nIE"] = nIE;
+	state.GPF[id][type]["nPara"] = nPara;
+}
+
 export function mutSetGPFprod(state, obj) {
 	let id = obj.id;
 	let ab = obj.ab;
 	state.GPF[id]["sProd"] = ab;
 }
+
 //* ----------------------------- INLET POSITION ----------------------------- */
 export function mutSetPosEnt(state, pos) {
 	pos == "T" ? (state.varMain.posEnt = "T") : (state.varMain.posEnt = "F");

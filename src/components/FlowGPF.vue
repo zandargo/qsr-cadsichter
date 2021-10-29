@@ -58,14 +58,14 @@
 
 		<!-- //* ---------------------------- CONTROL POINTS ---------------------------- *// -->
 		<g id="grCP" v-if="bEditMode" >
-			<CP v-for="i in nGavs" :key="i" :sID="'cpG'+('0'+i).slice(-2)" sType="RX" />
-			<CP v-for="i in nGavs" :key="i" :sID="'cpG'+('0'+i).slice(-2)" sType="P1" />
-			<CP v-for="i in nGavs" :key="i" :sID="'cpG'+('0'+i).slice(-2)" sType="P2" />
+			<CP v-for="i in nGavs" :key="i" :sID="'cpG'+('0'+i).slice(-2)" sType="RX" @changed="cpChanged" />
+			<CP v-for="i in nGavs" :key="i" :sID="'cpG'+('0'+i).slice(-2)" sType="P1" @changed="cpChanged"/>
+			<CP v-for="i in nGavs" :key="i" :sID="'cpG'+('0'+i).slice(-2)" sType="P2" @changed="cpChanged"/>
 		</g>
 
 		<!-- //* ----------------------------- CP SNAP AREAS ---------------------------- *// -->
 		<g v-if="bCPdrag">
-			<SnapArea v-for="i in nGavs" :key="i" :gpf="i" pos="C" />
+			<!-- <SnapArea v-for="i in nGavs" :key="i" :gpf="i" pos="C" /> -->
 			<SnapArea v-for="i in nGavs" :key="i" :gpf="i" pos="Fi" />
 			<SnapArea v-for="i in nGavs" :key="i" :gpf="i" pos="Di" />
 			<SnapArea v-for="i in nGavs" :key="i" :gpf="i" pos="Ei" />
@@ -228,7 +228,12 @@ export default {
 			return obj
 		})
 
+		//* CP changed
+		const cpChanged = ()=>{
+			let svg = document.querySelector("#svgFlow")
+			let circles = document.querySelectorAll("circle, ellipse")
 
+		}
 
 		//* Return
 		return {
@@ -244,6 +249,7 @@ export default {
 			tglGuides,
 			pCham,
 			getClassCh,
+			cpChanged,
 		};
 	},
 };
@@ -278,7 +284,7 @@ export default {
 	stroke: $color-l2;
 	stroke-width: 1px;
 	fill: $color-l5;
-	// opacity: 50%;
+	// opacity: 25%;
 }
 
 

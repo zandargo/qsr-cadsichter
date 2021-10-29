@@ -45,8 +45,10 @@
 </template>
 
 <script>
-import { ref, toRefs, toRef, onMounted, computed } from "vue";
+import { ref, toRefs, toRef, onMounted, computed, watch } from "vue";
 import { useStore } from "vuex";
+import { xyGPF } from "src/modules/xyGPFmain";
+import { convNIE, convNLADO } from "src/modules/helperFunction";
 
 export default {
 	name: "svgFlowCP",
@@ -54,7 +56,8 @@ export default {
 		sID: String,
 		sType: String,
 	},
-	setup(props) {
+	emits: ["changed"],
+	setup(props, { emit }) {
 		//* INITIAL DEFINITIONS
 		const $store = useStore();
 		const bCPinfo = computed({
@@ -68,6 +71,7 @@ export default {
 
 		const cpID = props.sID.slice(-3);
 		const cpType = props.sType.slice(0);
+		const nGav = parseInt(cpID.slice(-2), 10);
 
 		const R = cpType == "RX" ? 13 : 11;
 		const sAB = computed({
@@ -83,6 +87,23 @@ export default {
 		//* MOVE CP
 		const x = ref(10);
 		const y = ref(10);
+		const xSto = computed({
+			get: () => $store.state.flow.GPF[cpID][cpType]["pos"]["X"],
+			set: () => {},
+		});
+		const ySto = computed({
+			get: () => $store.state.flow.GPF[cpID][cpType]["pos"]["Y"],
+			set: () => {},
+		});
+		watch(xSto, (curValue, oldValue) => {
+			x.value = curValue;
+			emit("changed");
+		});
+		watch(ySto, (curValue, oldValue) => {
+			y.value = curValue;
+			emit("changed");
+		});
+
 		const tmpPos = {
 			id: "",
 			x: 0,
@@ -93,6 +114,7 @@ export default {
 			tmpPos.id = (e.target || e.srcElement).id;
 			tmpPos.x = e.pageX;
 			tmpPos.y = e.pageY;
+
 			$store.commit("flow/mutSetCPdrag", {
 				isDrag: true,
 				gpf: cpID,
@@ -112,26 +134,88 @@ export default {
 			y.value -= yDiff; //!  <--
 			// }
 		};
-		const handleMouseUp = () => {
-			$store.dispatch("flow/actSnapCP");
-			$store.commit("flow/mutSetCPdrag", {
-				isDrag: false,
-				gpf: null,
-				type: null,
-			});
-			document.removeEventListener("mousemove", handleMouseMove);
+		const handleMouseUp = async () => {
+			$store.commit("flow/mutSetCPstamp");
+			try {
+				document.removeEventListener("mousemove", handleMouseMove);
+			} catch (error) {
+				console.log(error);
+			}
+			await $store.dispatch("flow/actSnapCP");
+			x.value = $store.state.flow.GPF[cpID][cpType]["pos"]["X"];
+			y.value = $store.state.flow.GPF[cpID][cpType]["pos"]["Y"];
 		};
+
+		//* Watch status
+		const nLado = computed({
+			get: () => $store.state.flow.GPF[cpID][cpType]["nLado"],
+			set: () => {},
+		});
+		const nIE = computed({
+			get: () => $store.state.flow.GPF[cpID][cpType]["nIE"],
+			set: () => {},
+		});
+		const nPara = computed({
+			get: () => $store.state.flow.GPF[cpID][cpType]["nPara"],
+			set: () => {},
+		});
+		//* Function position
+		const calPos = () => {
+			//* Default: GPF center
+			let gpf = parseInt(cpID.slice(-2), 10);
+			let pos = "C";
+			let isOk = nPara.value && nLado.value ? true : false;
+			//* Other cases
+			//> External: any
+			if (isOk && nIE.value == 1) {
+				gpf = nPara.value;
+				pos = convNLADO(nLado.value) + "e";
+			}
+			//> Internal: same GPF (RX only)
+			if (isOk && cpType == "RX" && nIE.value == 0 && nPara.value == nGav) {
+				gpf = nGav;
+				pos = convNLADO(nLado.value) + "i";
+			}
+			//> Internal: any below
+			if (isOk && nIE.value == 0 && nPara.value > nGav) {
+				gpf = nPara.value;
+				pos = convNLADO(nLado.value) + "i";
+			}
+
+			let sGav = "G" + ("0" + gpf).slice(-2);
+			x.value = xyGPF[sGav]["CPts"][pos]["X"];
+			y.value = xyGPF[sGav]["CPts"][pos]["Y"];
+			pos == "C" && cpType == "P1" ? (x.value -= 25) : false;
+			pos == "C" && cpType == "P2" ? (x.value += 25) : false;
+		};
+
+		watch(nLado, calPos);
+		watch(nIE, calPos);
+		watch(nPara, calPos);
+		watch(isDrag, (currentValue, oldValue) => {
+			if (!currentValue) {
+				try {
+					document.removeEventListener("mousemove", handleMouseMove);
+				} catch (error) {}
+			}
+			calPos;
+		});
+		const dropStamp = computed({
+			get: () => $store.state.flow.varMain.drag.lastDrop,
+			set: () => {},
+		});
+		watch(dropStamp, calPos);
 
 		//* ON MOUNTED
 		onMounted(() => {
 			x.value = $store.state.flow.GPF[cpID][cpType]["pos"]["X"];
 			y.value = $store.state.flow.GPF[cpID][cpType]["pos"]["Y"];
-			// $store.dispatch("flow/actSetNGavs", valnGavs.value);
 		});
 		//* RETURN
 		return {
 			cpID,
 			cpType,
+			nGav,
 			x,
 			y,
 			R,

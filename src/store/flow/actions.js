@@ -1,5 +1,6 @@
-import { dist } from "src/modules/helperFunction";
+// import { dist } from "src/modules/helperFunction";
 import { xyGPF } from "src/modules/xyGPFmain";
+import { convNLADO, convNIE } from "src/modules/helperFunction";
 
 //* ---------------------------- SET NUMBER OF GPF --------------------------- */
 export function actSetNGavs({ commit }, nGavs) {
@@ -84,44 +85,66 @@ export function actClkBtmDV({ commit, state }, obj) {
 //* -------------------------------------------------------------------------- */
 
 export function actSnapCP({ commit, state }) {
-	//> Quando soltar o CP:
-	//> 1) Informar a origem
-	//> 2) Verificar se existe um hover ativo
-	//> 3) 	SIM: Localizar o centro do hover
-	//> 4) 	NÃO: volta ao centro da GPF de origem
 	let tmpX;
 	let tmpY;
-
+	let tmpLado;
+	let tmpIE;
+	let tmpPara;
 	let hvGPF = state.varMain.hover.nGav;
 	let hvPos = state.varMain.hover.pos;
 	let dgGPF = state.varMain.drag.nGav;
 	let dType = state.varMain.drag.type;
 
-	if (!hvGPF || !hvPos || !dgGPF || !dType) {
-		return;
-	}
-
-	let iDrag = parseInt(dgGPF.slice(-2), 10);
-	let iHovr = parseInt(hvGPF.slice(-2), 10);
-	//> Se o movimento é para baixo
-	if (iHovr >= iDrag) {
-		//> Localizar centro
-		tmpX = xyGPF[hvGPF]["CPts"][hvPos]["X"];
-		tmpY = xyGPF[hvGPF]["CPts"][hvPos]["Y"];
-		//> Caso contrário, retornar para origem
+	if (hvGPF && hvPos && dgGPF && dType) {
+		let iDrag = parseInt(dgGPF.slice(-2), 10);
+		let iHovr = parseInt(hvGPF.slice(-2), 10);
+		if (iHovr >= iDrag) {
+			tmpX = xyGPF[hvGPF]["CPts"][hvPos]["X"];
+			tmpY = xyGPF[hvGPF]["CPts"][hvPos]["Y"];
+			tmpLado = convNLADO(hvPos.slice(0, 1));
+			tmpIE = convNIE(hvPos.slice(-1));
+			tmpPara = iHovr;
+		} else {
+			tmpX = xyGPF[dgGPF]["CPts"]["C"]["X"];
+			tmpY = xyGPF[dgGPF]["CPts"]["C"]["Y"];
+			tmpLado = 0;
+			tmpIE = 0;
+			tmpPara = 0;
+			dType == "P1" ? (tmpX -= 25) : false;
+			dType == "P2" ? (tmpX += 25) : false;
+		}
 	} else {
-		//> Localizar centro origem
 		tmpX = xyGPF[dgGPF]["CPts"]["C"]["X"];
 		tmpY = xyGPF[dgGPF]["CPts"]["C"]["Y"];
+		tmpLado = 0;
+		tmpIE = 0;
+		tmpPara = 0;
+		dType == "P1" ? (tmpX -= 25) : false;
+		dType == "P2" ? (tmpX += 25) : false;
 	}
+
 	commit("mutSetCPxy", {
 		id: dgGPF,
 		type: dType,
 		X: tmpX,
 		Y: tmpY,
 	});
-	// commit("mutSetCPxy", obj);
 
-	// let tmpObj;
-	// otherAction({ commit, state }, tmpObj);
+	commit("mutSetCPstatus", {
+		id: dgGPF,
+		type: dType,
+		nLado: tmpLado,
+		nIE: tmpIE,
+		nPara: tmpPara,
+	});
+
+	commit("mutSetCPdrag", {
+		isDrag: false,
+		gpf: null,
+		type: null,
+	});
+	commit("mutSetHoverArea", {
+		nGav: null,
+		pos: null,
+	});
 }

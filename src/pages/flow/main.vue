@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import { computed } from "vue";
-import { useStore, mapState, mapMutations, mapActions } from "vuex";
+import { computed, onMounted } from "vue";
+import { useStore } from "vuex";
 import GPF from "components/FlowGPF.vue";
 
 export default {
@@ -30,6 +30,14 @@ export default {
 		GPF,
 	},
 	setup() {
+		const $store = useStore();
+
+		onMounted(() => {
+			$store.commit("flow/mutSetGPFprod", {
+				id: "G01",
+				ab: "A",
+			});
+		});
 		return {};
 	},
 };

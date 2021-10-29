@@ -11,6 +11,7 @@ export default function () {
 		drag: {
 			nGav: null,
 			type: null,
+			lastDrop: null,
 		},
 		hover: {
 			nGav: null,
