@@ -84,7 +84,7 @@ export function actClkBtmDV({ commit, state }, obj) {
 //*                                  MAIN GPF                                  */
 //* -------------------------------------------------------------------------- */
 
-export function actSnapCP({ commit, state }) {
+export function actSnapCP({ commit, dispatch, state }) {
 	let tmpX;
 	let tmpY;
 	let tmpLado;
@@ -147,25 +147,35 @@ export function actSnapCP({ commit, state }) {
 		nGav: null,
 		pos: null,
 	});
+
+	dispatch("actSetProdAll");
 }
 
 export function actSetProdAll({ commit, state }) {
-	// commit('mutName', obj)
-	// let tmpObj
-	// otherAction({ commit, state }, tmpObj)
-	let toID;
 	let aType = ["RX", "P1", "P2"];
 	let aProd = [""];
 	for (let i = 1; i <= 32; i++) {
 		aProd.push("");
 	}
+	let nGavs = state.varMain.nGavs;
 
-	// let nGavs = state.varMain.nGavs
+	//* External "A"
+	if (state.GPF["G00"]["A"]["nPara"] > 0) {
+		aProd[nPara] += "A";
+	}
+	//* External "B"
+	if (state.GPF["G00"]["B"]["nPara"] > 0) {
+		aProd[nPara] += "B";
+	}
 
+	//* Other GPF
+	//! A primeira sempre tem A
+	aProd[1] += "A";
 	for (let i = 1; i <= 32; i++) {
 		let sID = "G" + ("0" + i).slice(-2);
-		let prod = state.GPF[sID]["prod"];
+		let prod = state.GPF[sID]["sProd"];
 		if (prod) {
+			// let n = nGavs - i;
 			for (let j = 0; j <= 2; j++) {
 				let nPara = state.GPF[sID][aType[j]]["nPara"];
 				let nIE = state.GPF[sID][aType[j]]["nIE"];
@@ -181,6 +191,14 @@ export function actSetProdAll({ commit, state }) {
 				}
 			}
 		}
+	}
+
+	console.log(aProd);
+	for (let i = 1; i <= 32; i++) {
+		let strProd = "";
+		(aProd[i].match(/A/g) || []).length > 0 ? (strProd += "A") : false;
+		(aProd[i].match(/B/g) || []).length > 0 ? (strProd += "B") : false;
+		commit("mutSetGPFprod", { id: "G" + ("0" + i).slice(-2), ab: strProd });
 	}
 }
 

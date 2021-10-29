@@ -20,6 +20,27 @@ export default function () {
 	};
 
 	const GPF = {};
+	GPF["G00"] = {
+		A: {
+			nLado: 0,
+			nPara: 0,
+			nIE: 0,
+			pos: {
+				X: 0,
+				Y: 0,
+			},
+		},
+		B: {
+			nLado: 0,
+			nPara: 0,
+			nIE: 0,
+			pos: {
+				X: 0,
+				Y: 0,
+			},
+		},
+	};
+
 	for (let i = 1; i <= 32; i++) {
 		let element = "G" + ("0" + i).slice(-2);
 		GPF[element] = {
