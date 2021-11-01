@@ -9,6 +9,23 @@ export function mutSetNGavs(state, nGavs) {
 //*                               BOTTOM (OUTLET)                              */
 //* -------------------------------------------------------------------------- */
 
+//* ------------------------------ RESET BOTTOM ------------------------------ */
+export function mutResetBtm(state) {
+	let sLados = ["F1", "F2", "D1", "D2", "E1", "E2", "T1", "T2"];
+	for (let i = 0; i < sLados.length; i++) {
+		state.FND[sLados[i]]["act"] = false;
+		state.FND[sLados[i]]["sel"] = false;
+		state.FND[sLados[i]]["nFrom"] = 0;
+		state.FND[sLados[i]]["nIE"] = 0;
+		state.FND[sLados[i]]["sType"] = "";
+		state.FND[sLados[i]]["sProd"] = "";
+		state.FND[sLados[i]]["name"] = "";
+
+		state.DI[sLados[i]]["i"]["act"] = false;
+		state.DI[sLados[i]]["e"]["act"] = false;
+	}
+}
+
 //* ---------------------- TOGGLE OUTLET SELECTION STATE --------------------- */
 export function mutTglBTMsel(state, obj) {
 	if (obj.act) {
@@ -61,6 +78,14 @@ export function mutSetBtmArwOff(state, obj) {
 	state.DI[obj.id]["e"]["act"] = false;
 }
 
+//* ------------------------------ SET FND PROPS ----------------------------- */
+export function mutSetBtmProp(state, obj) {
+	let sID = obj.sID;
+	let prop = obj.prop;
+	let val = obj.val;
+	state.FND[sID][prop] = val;
+}
+
 //* -------------------------------------------------------------------------- */
 //*                                MAIN GPF FLOW                               */
 //* -------------------------------------------------------------------------- */
@@ -91,6 +116,12 @@ export function mutSetCPxy(state, obj) {
 	state.GPF[id][type]["pos"]["X"] = X;
 	state.GPF[id][type]["pos"]["Y"] = Y;
 }
+
+export function mutSetCPsel(state, obj) {
+	let sID = obj.sID;
+	state.varMain.cpSelID = sID;
+}
+
 export function mutSetCPstatus(state, obj) {
 	let id = obj.id;
 	let type = obj.type;

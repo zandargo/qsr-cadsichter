@@ -36,7 +36,7 @@
 let lwid = 2
 
 export const gpfMain = {
-	width    : 360                      ,
+	width    : 400                      ,
 	height   : 250                      ,
 	gpfMax   : 32                       , //> Número de gavetas
 	gpfW     : 150                      , //> Largura da Gaveta

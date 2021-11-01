@@ -54,7 +54,13 @@
 			<polygon v-for="i in nGavs" :key="i" :points="flat(pCham['cham'+sID[i]])" :class="getClassCh(i)" />
 		</g>
 
-
+		<!-- //* ------------------------------ FLOW LINES ------------------------------ *// -->
+		<CPLine sID="Ai"/>
+		<!-- <CPLine sID="Ae"/> -->
+		<!-- <CPLine sID="Be"/> -->
+		<CPLine sID="G01RX"/>
+		<CPLine sID="G01P1"/>
+		<CPLine sID="G01P2"/>
 
 
 		<!-- //* ---------------------------- CONTROL POINTS ---------------------------- *// -->
@@ -90,10 +96,12 @@ import { objectFlattener, convNLADO, convNIE } from "src/modules/helperFunction"
 import { gpfMain, xyGPF } from "src/modules/xyGPFmain";
 import CP from 'components/FlowCP.vue'
 import SnapArea from 'components/FlowSnapArea.vue'
+import CPLine from 'components/FlowLine.vue'
+
 
 export default {
 	name: "svgFlowGPF",
-	components: {CP, SnapArea},
+	components: {CP, SnapArea, CPLine},
 	setup() {
 		//* Initial definitions
 		const $store = useStore();

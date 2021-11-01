@@ -1,4 +1,13 @@
 <template>
+	//* Selection circle
+	<g v-if="cpSelID == (sID + sType).slice(-5)">
+		<circle :cx="x" :cy="y" :r="R" class="SelC SelC1" />
+		<circle :cx="x" :cy="y" :r="R" class="SelC SelC2" />
+		<circle :cx="x" :cy="y" :r="R" class="SelC SelC3" />
+		<circle :cx="x" :cy="y" :r="R" class="SelC SelC4" />
+	</g>
+
+	//* Main circle
 	<circle
 		:id="sID"
 		:cx="x"
@@ -8,7 +17,7 @@
 		@mousedown="handleMouseDown"
 		@mouseup="handleMouseUp"
 	/>
-
+	//* P1 aux
 	<circle
 		:id="sID + 'P1'"
 		:cx="x - R * 0.85"
@@ -19,6 +28,7 @@
 		@mousedown="handleMouseDown"
 		@mouseup="handleMouseUp"
 	/>
+	//* P2 aux
 	<circle
 		:id="sID + 'P2'"
 		:cx="x + R * 0.85"
@@ -29,7 +39,7 @@
 		@mousedown="handleMouseDown"
 		@mouseup="handleMouseUp"
 	/>
-
+	//* Text
 	<text
 		:x="x"
 		:y="y"
@@ -47,7 +57,7 @@
 <script>
 import { ref, toRefs, toRef, onMounted, computed, watch } from "vue";
 import { useStore } from "vuex";
-import { xyGPF } from "src/modules/xyGPFmain";
+import { gpfMain, xyGPF } from "src/modules/xyGPFmain";
 import { convNIE, convNLADO } from "src/modules/helperFunction";
 
 export default {
@@ -84,6 +94,19 @@ export default {
 			return tmpStr;
 		});
 
+		const nGavs = computed({
+			get: () => $store.state.flow.varMain.nGavs,
+			set: () => {},
+		});
+		const svgW = gpfMain.width;
+		const svgH = gpfMain.y0 + gpfMain.yOff * (nGavs.value + 2);
+
+		//* Selected CP
+		const cpSelID = computed({
+			get: () => $store.state.flow.varMain.cpSelID,
+			set: () => $store.commit("flow/mutName"),
+		});
+
 		//* MOVE CP
 		const x = ref(10);
 		const y = ref(10);
@@ -114,7 +137,6 @@ export default {
 			tmpPos.id = (e.target || e.srcElement).id;
 			tmpPos.x = e.pageX;
 			tmpPos.y = e.pageY;
-
 			$store.commit("flow/mutSetCPdrag", {
 				isDrag: true,
 				gpf: cpID,
@@ -122,18 +144,24 @@ export default {
 			});
 			document.addEventListener("mousemove", handleMouseMove);
 		};
+
 		const handleMouseMove = (e) => {
-			// while (isDrag.value) {
 			const xDiff = tmpPos.x - e.pageX;
 			const yDiff = tmpPos.y - e.pageY;
-
 			tmpPos.x = e.pageX;
 			tmpPos.y = e.pageY;
-
-			x.value -= xDiff; //!  <--
-			y.value -= yDiff; //!  <--
-			// }
+			x.value -= xDiff;
+			y.value -= yDiff;
+			if (
+				x.value - 10 <= 0 ||
+				x.value + 10 >= svgW ||
+				y.value - 10 <= 0 ||
+				y.value + 10 >= svgH
+			) {
+				handleMouseUp();
+			}
 		};
+
 		const handleMouseUp = async () => {
 			$store.commit("flow/mutSetCPstamp");
 			try {
@@ -221,6 +249,7 @@ export default {
 			R,
 			classCP,
 			bCPinfo,
+			cpSelID,
 			handleMouseDown,
 			handleMouseMove,
 			handleMouseUp,
@@ -280,5 +309,52 @@ circle {
 	fill: rgba($color_Pn_A, 0.75);
 	stroke: rgba($color_Pn_B, 0.75);
 	stroke-width: 3px;
+}
+
+// #sel01 {
+// 	transform-origin: center;
+// }
+//* Selection Circle
+.SelC {
+	transform-box: fill-box;
+	transform-origin: center;
+	stroke: rgba($positive, 0.75);
+	fill: none;
+}
+.SelC1 {
+	animation: sel01 4s ease-in-out -3s infinite forwards;
+}
+
+.SelC2 {
+	animation: sel01 4s ease-in-out -2s infinite forwards;
+}
+.SelC3 {
+	animation: sel01 4s ease-in-out -1s infinite forwards;
+}
+.SelC4 {
+	animation: sel01 4s ease-in-out 0s infinite forwards;
+}
+
+@keyframes sel01 {
+	0% {
+		transform: scale(0.5);
+		stroke-width: 0px;
+		opacity: 0%;
+	}
+	10% {
+		transform: scale(0.5);
+		stroke-width: 5px;
+		opacity: 100%;
+	}
+	90% {
+		transform: scale(2);
+		stroke-width: 0.1px;
+		opacity: 100%;
+	}
+	100% {
+		transform: scale(2.5);
+		stroke-width: 0.1px;
+		opacity: 0%;
+	}
 }
 </style>

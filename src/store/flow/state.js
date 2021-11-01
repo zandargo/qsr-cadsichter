@@ -4,6 +4,7 @@ export default function () {
 	const varMain = {
 		bEditMode: true,
 		bCPinfo: true,
+		cpSelID: "G01RX",
 		nGavs: 6,
 		iGav: 0,
 		posEnt: "F",
@@ -22,6 +23,7 @@ export default function () {
 	const GPF = {};
 	GPF["G00"] = {
 		A: {
+			act: false,
 			nLado: 0,
 			nPara: 0,
 			nIE: 0,
@@ -31,6 +33,7 @@ export default function () {
 			},
 		},
 		B: {
+			act: false,
 			nLado: 0,
 			nPara: 0,
 			nIE: 0,
@@ -57,6 +60,7 @@ export default function () {
 				nLado: 0,
 				nPara: 0,
 				nIE: 0,
+				act: false,
 				pos: {
 					X: tmpX,
 					Y: tmpY,
@@ -82,14 +86,14 @@ export default function () {
 			nFrom: 0,
 			//> Real
 			act: false,
-			nIE: 0,
-			type: "",
-			prod: "",
+			nIE: 1,
+			sType: "",
+			sProd: "",
 			//> Teste
 			// act: testeAct[i - 1],
 			// nIE: testenIE[i - 1],
-			// type: testeType[i - 1],
-			// prod: testeProd[i - 1],
+			// sType: testeType[i - 1],
+			// sProd: testeProd[i - 1],
 		};
 		FND[element] = obj;
 	}

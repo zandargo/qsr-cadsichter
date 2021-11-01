@@ -27,34 +27,34 @@ function changeSide(str) {
 
 //* ------------------------- TOGGLE ARROWS (HELPER) ------------------------- */
 export function actTglArrows({ commit, state }, obj) {
-	let idX = obj.id; //> Lado atual
-	let idY = changeSide(obj.id); //> Lado oposto
+	let idS = obj.id; //> Lado atual
+	let idO = changeSide(obj.id); //> Lado oposto
 	//[x] Verificar se outro lado está selecionado.
-	if (state.FND[idX]["sel"] && state.FND[idY]["sel"]) {
+	if (state.FND[idS]["sel"] && state.FND[idO]["sel"]) {
 		if (!state.DV[obj.id.charAt(0)]["act"]) {
 			commit("mutSetBtmDVoff", state.DV[obj.id.charAt(0)]);
-			commit("mutSetBtmArwOn", state.FND[idX]);
-			commit("mutSetBtmArwOn", state.FND[idY]);
+			commit("mutSetBtmArwOn", state.FND[idS]);
+			commit("mutSetBtmArwOn", state.FND[idO]);
 		} else {
 			commit("mutSetBtmDVon", state.DV[obj.id.charAt(0)]);
-			commit("mutSetBtmArwOff", state.FND[idX]);
-			commit("mutSetBtmArwOff", state.FND[idY]);
+			commit("mutSetBtmArwOff", state.FND[idS]);
+			commit("mutSetBtmArwOff", state.FND[idO]);
 		}
 	}
-	if (state.FND[idX]["sel"] && !state.FND[idY]["sel"]) {
+	if (state.FND[idS]["sel"] && !state.FND[idO]["sel"]) {
 		commit("mutSetBtmDVoff", state.DV[obj.id.charAt(0)]);
-		commit("mutSetBtmArwOn", state.FND[idX]);
-		commit("mutSetBtmArwOff", state.FND[idY]);
+		commit("mutSetBtmArwOn", state.FND[idS]);
+		commit("mutSetBtmArwOff", state.FND[idO]);
 	}
-	if (!state.FND[idX]["sel"] && state.FND[idY]["sel"]) {
+	if (!state.FND[idS]["sel"] && state.FND[idO]["sel"]) {
 		commit("mutSetBtmDVoff", state.DV[obj.id.charAt(0)]);
-		commit("mutSetBtmArwOff", state.FND[idX]);
-		commit("mutSetBtmArwOn", state.FND[idY]);
+		commit("mutSetBtmArwOff", state.FND[idS]);
+		commit("mutSetBtmArwOn", state.FND[idO]);
 	}
-	if (!state.FND[idX]["sel"] && !state.FND[idY]["sel"]) {
+	if (!state.FND[idS]["sel"] && !state.FND[idO]["sel"]) {
 		commit("mutSetBtmDVoff", state.DV[obj.id.charAt(0)]);
-		commit("mutSetBtmArwOff", state.FND[idX]);
-		commit("mutSetBtmArwOff", state.FND[idY]);
+		commit("mutSetBtmArwOff", state.FND[idS]);
+		commit("mutSetBtmArwOff", state.FND[idO]);
 	}
 }
 
@@ -62,6 +62,15 @@ export function actTglArrows({ commit, state }, obj) {
 export function actClkBtm({ commit, state }, obj) {
 	commit("mutTglBTMsel", obj);
 	commit("mutSetBTMtxt", obj);
+
+	let cpSelID = state.varMain.cpSelID;
+	const sGPF = cpSelID.length > 2 ? cpSelID.slice(-5, -2) : cpSelID;
+	const nGav = cpSelID.length > 2 ? parseInt(cpSelID.slice(-4, -2), 10) : 0;
+	const sType = cpSelID.length > 2 ? cpSelID.slice(-2) : "RX";
+
+	let nIE = cpSelID.length > 2 ? state.GPF[sGPF][sType]["nIE"] : 1;
+	obj.nIE = nIE;
+
 	actTglArrows({ commit, state }, obj);
 	//! Qnd a lógica da GPF estiver funcionando, será feita uma verificação p/
 	//! ver qual ponto está selecionado.
@@ -123,6 +132,10 @@ export function actSnapCP({ commit, dispatch, state }) {
 		dType == "P2" ? (tmpX += 25) : false;
 	}
 
+	commit("mutSetCPsel", {
+		sID: dgGPF + dType,
+	});
+
 	commit("mutSetCPxy", {
 		id: dgGPF,
 		type: dType,
@@ -151,57 +164,107 @@ export function actSnapCP({ commit, dispatch, state }) {
 	dispatch("actSetProdAll");
 }
 
+//* ----------------------- SWEEP GPF AND SET SET PROPS ---------------------- */
 export function actSetProdAll({ commit, state }) {
-	let aType = ["RX", "P1", "P2"];
+	const aType = ["RX", "P1", "P2"];
+	const aFNDid = ["F1", "F2", "D1", "D2", "E1", "E2", "T1", "T2"];
+	let nLado;
+	let nPara;
+	let nIE;
 	let aProd = [""];
 	for (let i = 1; i <= 32; i++) {
 		aProd.push("");
 	}
+	let aFNDprops = {};
+	for (let i = 0; i < aFNDid.length; i++) {
+		aFNDprops[aFNDid[i]] = {
+			act: false,
+			nFrom: 0,
+			nIE: 0,
+			sType: "",
+			sProd: "",
+			name: "",
+		};
+	}
+	// console.log("aFNDprops: ", aFNDprops);
 	let nGavs = state.varMain.nGavs;
 
 	//* External "A"
-	if (state.GPF["G00"]["A"]["nPara"] > 0) {
+	nPara = state.GPF["G00"]["A"]["nPara"];
+	if (nPara > 0) {
 		aProd[nPara] += "A";
 	}
 	//* External "B"
-	if (state.GPF["G00"]["B"]["nPara"] > 0) {
+	nPara = state.GPF["G00"]["B"]["nPara"];
+	if (nPara > 0) {
 		aProd[nPara] += "B";
 	}
 
 	//* Other GPF
 	//! A primeira sempre tem A
 	aProd[1] += "A";
+	// console.log("aProd start ", aProd);
 	for (let i = 1; i <= 32; i++) {
 		let sID = "G" + ("0" + i).slice(-2);
-		let prod = state.GPF[sID]["sProd"];
+		let prod = aProd[i];
+		// console.log(sID, prod);
 		if (prod) {
-			// let n = nGavs - i;
 			for (let j = 0; j <= 2; j++) {
-				let nPara = state.GPF[sID][aType[j]]["nPara"];
-				let nIE = state.GPF[sID][aType[j]]["nIE"];
+				nPara = state.GPF[sID][aType[j]]["nPara"];
+				nIE = state.GPF[sID][aType[j]]["nIE"];
+				// console.log(`  ${aType[j]}: nPara=${nPara} nIE=${nIE}`);
 				if (nIE == 0) {
+					// console.log("    nIE == 0");
 					//> Internal, gpf below
 					if (nPara > i) {
 						aProd[nPara] += prod;
+						// console.log("      nPara > i", `aProd[${nPara}] += ${prod}`);
 					}
 					//> Internal, same gpf (RX only)
-					if (nPara == i) {
-						aProd[i + 1] += prod;
+					if (nPara == i && j == 0) {
+						if (i < nGavs) {
+							aProd[i + 1] += prod;
+						} else {
+							//> Last GPF
+							nLado = convNLADO(state.GPF[sID][aType[j]]["nLado"]) + "1";
+							aFNDprops[nLado]["act"] = true;
+							nLado = convNLADO(state.GPF[sID][aType[j]]["nLado"]) + "2";
+							aFNDprops[nLado]["act"] = true;
+						}
+						// console.log("      nPara == i", `aProd[${i + 1}] += ${prod}`);
+					}
+				} else {
+					//> If nIE external, check if goes down with:
+					if (nPara > i) {
+						nLado = convNLADO(state.GPF[sID][aType[j]]["nLado"]) + "1";
+						aFNDprops[nLado]["act"] = true;
+
+						nLado = convNLADO(state.GPF[sID][aType[j]]["nLado"]) + "2";
+						aFNDprops[nLado]["act"] = true;
+						// console.log("      nPara > i", `aProd[${nPara}] += ${prod}`);
 					}
 				}
 			}
 		}
 	}
 
-	console.log(aProd);
+	// console.log("aProd end ", aProd);
+	// console.log("aFNDprops: ", aFNDprops);
+	//* Populate state.GPF
+	commit("mutResetBtm");
 	for (let i = 1; i <= 32; i++) {
 		let strProd = "";
 		(aProd[i].match(/A/g) || []).length > 0 ? (strProd += "A") : false;
 		(aProd[i].match(/B/g) || []).length > 0 ? (strProd += "B") : false;
 		commit("mutSetGPFprod", { id: "G" + ("0" + i).slice(-2), ab: strProd });
 	}
+	//* Populate state.FND
+	for (let i = 0; i < aFNDid.length; i++) {
+		//> Active
+		commit("mutSetBtmProp", {
+			sID: aFNDid[i],
+			prop: "act",
+			val: aFNDprops[aFNDid[i]]["act"],
+		});
+	}
 }
-
-//> var temp = "This is a string.";
-//> var count = (temp.match(/is/g) || []).length;
-//> console.log(count);

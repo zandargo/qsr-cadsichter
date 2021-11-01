@@ -1,18 +1,29 @@
 
 Todo:
-  Vuex:
-    ✔ Criar Hover Info ao passar sobre as snap areas @done(21-10-28 18:15)
-    ✔ Criar Action que receba [id(incluir G## e RX/P1/P2 ), x, y], calcule o destino adequado e comite @done(21-10-29 12:12)
-    ☐ BUG: no primeiro drop, o snap está ok. Mas no segundo no mesmo ponto, dá erro
-    ☐ Definir rotina para varrer e setar AB nas gavetas
-  GPF:
-    Geral:
-      ✔ Criar controle de posição da entrada no canal @done(21-10-28 14:05)
-      ☐ Mudar lógica da chaminé se nIE=1 OU (nIE=0 & outros (RX != PN))
-    CP:
-      ✔ Mover CP @done(21-10-28 08:20)
-      ✔ Disparar action no Vuex onMouseMove @done(21-10-28 09:09)
-      ☐ Disparar action no Vuex onMouseUp
-      ☐ Adic Destino na gpf
+  FLOW:
+    Vuex:
+      ✔ Criar Hover Info ao passar sobre as snap areas @done(21-10-28 18:15)
+      ✔ Criar Action que receba [id(incluir G## e RX/P1/P2 ), x, y], calcule o destino adequado e comite @done(21-10-29 12:12)
+      ✔ BUG: no primeiro drop, o snap está ok. Mas no segundo no mesmo ponto, dá erro @done(21-10-29 19:00)
+      ✔ Definir rotina para varrer e setar AB nas gavetas @done(21-11-01 08:15)
+      ✔ Caso nIE = 1 OU nGav == nGavs, comitar na matrix do fundo @done(21-11-01 16:38)
+      FND:
+        ☐ Revisar Actions e Mutations p/ receber sID, não obj
+        ☐ Ao clicar, capturar informações a partir do CPsel
+
+    GPF:
+      Geral:
+        ✔ Criar controle de posição da entrada no canal @done(21-10-28 14:05)
+        ✔ Mudar lógica da chaminé se nIE=1 OU (nIE=0 & outros (RX != PN)) @done(21-10-29 17:00)
+        ✔ Componente Linha: setup inicial @done(21-11-01 11:54)
+        ✔ Desenho do produto inicial (Entrada F ou T) @done(21-11-01 16:38)
+      CP:
+        ✔ Mover CP @done(21-10-28 08:20)
+        ✔ Disparar action no Vuex onMouseMove @done(21-10-28 09:09)
+        ✔ Disparar action no Vuex onMouseUp @done(21-10-29 16:00)
+        ✘ Adic Destino na gpf @cancelled(21-11-01 08:19)
+        ✔ Restrição caso CP saia da área do SVG @done(21-11-01 09:18)
+        ✔ Círculo de seleção @done(21-11-01 16:38)
+
 
 
