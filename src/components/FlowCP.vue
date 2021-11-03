@@ -324,7 +324,6 @@ circle {
 .SelC1 {
 	animation: sel01 4s ease-in-out -3s infinite forwards;
 }
-
 .SelC2 {
 	animation: sel01 4s ease-in-out -2s infinite forwards;
 }

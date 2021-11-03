@@ -5,6 +5,7 @@ export default function () {
 		bEditMode: true,
 		bCPinfo: true,
 		cpSelID: "G01RX",
+		cpSelLine: "",
 		nGavs: 6,
 		iGav: 0,
 		posEnt: "F",

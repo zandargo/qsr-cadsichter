@@ -17,7 +17,12 @@
 			>
 				<polygon points="0 0, 4 1, 0 2, 0.5 1" class="btmARWH" />
 			</marker>
+
+
 		</defs>
+
+		<SelLine v-if="bEditMode" />
+
 
 		<!-- //* ------------------------------ GPF GUIDES ------------------------------ *// -->
 		<g id="grGuide" class="guides" v-if="bEditMode">
@@ -40,8 +45,8 @@
 
 
 		<!-- //* ------------------------------- MAIN GPF ------------------------------- *// -->
-		<g id="grGPFs" @click.prevent="tglGuides" >
-
+		<g id="grGPFs"  @click.prevent="tglGuides">
+				<!-- @click.prevent="tglGuides" -->
 			<polygon v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].Shp0)" class="gpf0" />
 			<polygon v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].Shp0F)" class="gpf0" />
 			<polygon v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].Shp0D)" class="gpf0" />
@@ -55,12 +60,15 @@
 		</g>
 
 		<!-- //* ------------------------------ FLOW LINES ------------------------------ *// -->
-		<CPLine sID="Ai"/>
+
+		<!-- <CPLine sID="Ai"/> -->
 		<!-- <CPLine sID="Ae"/> -->
 		<!-- <CPLine sID="Be"/> -->
-		<CPLine sID="G01RX"/>
-		<CPLine sID="G01P1"/>
-		<CPLine sID="G01P2"/>
+		<CPLine v-for="i in nGavs" :key="i" :sID="'G'+('0'+i).slice(-2)+'RX'"/>
+		<CPLine v-for="i in nGavs" :key="i" :sID="'G'+('0'+i).slice(-2)+'P1'"/>
+		<CPLine v-for="i in nGavs" :key="i" :sID="'G'+('0'+i).slice(-2)+'P2'"/>
+		<!-- <CPLine sID="G01P1"/>
+		<CPLine sID="G01P2"/> -->
 
 
 		<!-- //* ---------------------------- CONTROL POINTS ---------------------------- *// -->
@@ -97,11 +105,12 @@ import { gpfMain, xyGPF } from "src/modules/xyGPFmain";
 import CP from 'components/FlowCP.vue'
 import SnapArea from 'components/FlowSnapArea.vue'
 import CPLine from 'components/FlowLine.vue'
+import SelLine from 'components/FlowLineSel.vue'
 
 
 export default {
 	name: "svgFlowGPF",
-	components: {CP, SnapArea, CPLine},
+	components: {CP, SnapArea, CPLine, SelLine},
 	setup() {
 		//* Initial definitions
 		const $store = useStore();
@@ -314,5 +323,9 @@ export default {
 }
 
 
-
+// .flwARWH {
+// 	fill: red;
+// 	stroke: red;
+// 	stroke-width: 6px;
+// }
 </style>

@@ -139,6 +139,11 @@ export function mutSetGPFprod(state, obj) {
 	state.GPF[id]["sProd"] = ab;
 }
 
+//* -------------------------- SELECTED LINE POINTS -------------------------- */
+export function mutSetSLpts(state, val) {
+	state.varMain.cpSelLine = val;
+}
+
 //* ----------------------------- INLET POSITION ----------------------------- */
 export function mutSetPosEnt(state, pos) {
 	pos == "T" ? (state.varMain.posEnt = "T") : (state.varMain.posEnt = "F");

@@ -7,6 +7,8 @@ Todo:
       ✔ BUG: no primeiro drop, o snap está ok. Mas no segundo no mesmo ponto, dá erro @done(21-10-29 19:00)
       ✔ Definir rotina para varrer e setar AB nas gavetas @done(21-11-01 08:15)
       ✔ Caso nIE = 1 OU nGav == nGavs, comitar na matrix do fundo @done(21-11-01 16:38)
+      ☐ Criar estado para armazenar a string de pts da linha Selec
+
       FND:
         ☐ Revisar Actions e Mutations p/ receber sID, não obj
         ☐ Ao clicar, capturar informações a partir do CPsel
