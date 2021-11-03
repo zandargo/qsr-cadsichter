@@ -1,21 +1,21 @@
 <template>
 	//* SELECTION LINE
 	<defs>
-		<mask id="maskSL" maskunits="userSpaceOnUse">
+		<!-- <mask id="maskSL" maskunits="userSpaceOnUse">
 			<polyline :points="aPoly()" stroke="white" stroke-width="30" />
 			<polyline :points="aPoly()" stroke="black" stroke-width="8" />
 		</mask>
 		<mask id="maskSLTeste" maskunits="userSpaceOnUse">
 			<polyline points="200 192 65 192" stroke="white" stroke-width="30" />
 			<polyline points="200 192 65 192" stroke="black" stroke-width="8" />
-		</mask>
+		</mask> -->
 	</defs>
 
 	//* SELECTION LINE
-	<!-- <g id="gSelLin" mask="url(#maskSL_)">
-		<polyline :points="aPoly()" class="SelLin SelLin1" />
-		<polyline :points="aPoly()" class="mSelLin mSelLin1" />
-	</g> -->
+	<g id="gSelLin" mask="url(#maskSL_)">
+		<polyline :points="aPoly" class="SelLin SelLin1" />
+		<polyline :points="aPoly" class="mSelLin mSelLin1" />
+	</g>
 </template>
 
 <script>
@@ -110,51 +110,56 @@ export default {
 		});
 
 		//* Define main polyline points
-		const aPoly = () => {
-			let sPts = "";
-			let sLado;
-			let iPara;
-			// if (sGPF == "Ai" || objCP.value == {}) {
-			// 	sPts = "0 0 0 0";
-			// 	return sPts;
-			// }
-			switch (sGPF.value) {
-				case "Ai":
-					sPts += xyGPF["G01"]["CPts"][posEnt.value + "i"]["X"] + ",";
-					sPts += xyGPF["G01"]["CPts"][posEnt.value + "i"]["Y"] - 150 + " ";
-					sPts += flat(xyGPF["G01"]["CPts"][posEnt.value + "i"]) + " ";
-					sPts += flat(xyGPF["G01"]["CPts"]["C"]);
-					break;
+		const aPoly = computed({
+			get: () => $store.state.flow.varMain.cpSelLine,
+			set: () => {},
+		});
+		const sPoly = () => aPoly.value;
+		// const aPoly = () => {
+		// 	let sPts = "";
+		// 	let sLado;
+		// 	let iPara;
+		// 	// if (sGPF == "Ai" || objCP.value == {}) {
+		// 	// 	sPts = "0 0 0 0";
+		// 	// 	return sPts;
+		// 	// }
+		// 	switch (sGPF.value) {
+		// 		case "Ai":
+		// 			sPts += xyGPF["G01"]["CPts"][posEnt.value + "i"]["X"] + ",";
+		// 			sPts += xyGPF["G01"]["CPts"][posEnt.value + "i"]["Y"] - 150 + " ";
+		// 			sPts += flat(xyGPF["G01"]["CPts"][posEnt.value + "i"]) + " ";
+		// 			sPts += flat(xyGPF["G01"]["CPts"]["C"]);
+		// 			break;
 
-				case "Ae":
-					sPts += xyGPF["G01"]["CPts"][posEnt.value + "i"]["X"] + ",";
-					sPts += xyGPF["G01"]["CPts"][posEnt.value + "i"]["Y"] - 75 + " ";
-					sPts += flat(xyGPF["G01"]["CPts"][posEnt.value + "i"]) + " ";
-					break;
+		// 		case "Ae":
+		// 			sPts += xyGPF["G01"]["CPts"][posEnt.value + "i"]["X"] + ",";
+		// 			sPts += xyGPF["G01"]["CPts"][posEnt.value + "i"]["Y"] - 75 + " ";
+		// 			sPts += flat(xyGPF["G01"]["CPts"][posEnt.value + "i"]) + " ";
+		// 			break;
 
-				case "Be":
-					sPts = "180 20 180 180 200 180"; //! <-- TODO: Calc pts Be
-					break;
+		// 		case "Be":
+		// 			sPts = "180 20 180 180 200 180"; //! <-- TODO: Calc pts Be
+		// 			break;
 
-				default:
-					if (objCP.value.nLado || objCP.value.nIE) {
-						let yOff = sType.value == "RX" ? 0 : gpfMain.gpfH;
-						sPts += xyGPF[sGPF.value]["CPts"]["C"]["X"] + " ";
-						sPts += xyGPF[sGPF.value]["CPts"]["C"]["Y"] + yOff + " ";
+		// 		default:
+		// 			if (objCP.value.nLado || objCP.value.nIE) {
+		// 				let yOff = sType.value == "RX" ? 0 : gpfMain.gpfH;
+		// 				sPts += xyGPF[sGPF.value]["CPts"]["C"]["X"] + " ";
+		// 				sPts += xyGPF[sGPF.value]["CPts"]["C"]["Y"] + yOff + " ";
 
-						sLado = cLado(objCP.value.nLado) + cIE(objCP.value.nIE);
-						sPts += xyGPF[sGPF.value]["CPts"][sLado]["X"] + " ";
-						sPts += xyGPF[sGPF.value]["CPts"][sLado]["Y"] + yOff + " ";
-					} else {
-						sPts = "-20 -20 -20 -20";
-					}
-					break;
-			}
-			//> VERTICAL LINE
+		// 				sLado = cLado(objCP.value.nLado) + cIE(objCP.value.nIE);
+		// 				sPts += xyGPF[sGPF.value]["CPts"][sLado]["X"] + " ";
+		// 				sPts += xyGPF[sGPF.value]["CPts"][sLado]["Y"] + yOff + " ";
+		// 			} else {
+		// 				sPts = "-20 -20 -20 -20";
+		// 			}
+		// 			break;
+		// 	}
+		// 	//> VERTICAL LINE
 
-			//> RETURN
-			return sPts;
-		};
+		// 	//> RETURN
+		// 	return sPts;
+		// };
 
 		//* Get Main Line class
 		const clsLin = () => {
@@ -191,7 +196,7 @@ export default {
 		};
 
 		//* RETURN
-		return { cpSelID, sGPF, sType, cLado, cIE, aPoly, clsLin, daLin };
+		return { cpSelID, sGPF, sType, cLado, cIE, aPoly, sPoly, clsLin, daLin };
 	},
 };
 </script>

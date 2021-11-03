@@ -199,16 +199,17 @@ export default {
 								sPts += xyGPF[sGPF]["CPts"][sLado]["Y"] + yOff + 12 + " ";
 							} else {
 								//> Internal
-
+								nxGPF = "G" + ("0" + (nGav + 1)).slice(-2);
 								if (nGav < nGavs.value) {
 									//> Not last GPF
-									nxGPF = "G" + ("0" + (nGav + 1)).slice(-2);
 									sPts += xyGPF[nxGPF]["CPts"][sLado]["X"] + " ";
 									sPts += xyGPF[nxGPF]["CPts"][sLado]["Y"] + yOff + " ";
 									sPts += xyGPF[nxGPF]["CPts"]["C"]["X"] + " ";
 									sPts += xyGPF[nxGPF]["CPts"]["C"]["Y"] + yOff + " ";
 								} else {
 									//> Last GPF
+									sPts += xyGPF[nxGPF]["CPts"][sLado]["X"] + " ";
+									sPts += xyGPF[nxGPF]["CPts"][sLado]["Y"] + " ";
 								}
 							}
 						} else {
@@ -390,14 +391,12 @@ export default {
 			set: () => {},
 		});
 
-		watch(
-			() => timeStamp,
-			(newValue, oldValue) => {
-				if ($store.state.flow.varMain.cpSelID == props.sID.slice(-5)) {
-					$store.commit("flow/mutSetSLpts", aPoly());
-				}
+		watch(timeStamp, () => {
+			if ($store.state.flow.varMain.cpSelID == sGPF + sType) {
+				console.log("Vou comitar");
+				$store.commit("flow/mutSetSLpts", aPoly());
 			}
-		);
+		});
 
 		//* RETURN
 		return {
