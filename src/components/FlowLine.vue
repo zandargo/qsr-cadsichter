@@ -16,20 +16,6 @@
 			/>
 		</mask>
 
-		<!-- <marker
-			:id="'flw-arwhead' + sID"
-			markerWidth="18"
-			markerHeight="3"
-			refX="2.8"
-			refY="50%"
-			orient="auto"
-		>
-			<polygon
-				points="0 0, 5 1.5, 0 3, 0.5 1.5"
-				:class="'flwARWH arw' + clsLin()"
-			/>
-		</marker> -->
-
 		<marker
 			:id="'flw-arwhd' + sID"
 			refX="-1.333"
@@ -93,7 +79,7 @@ export default {
 			set: () => {},
 		});
 		const cpSelID = computed({
-			get: () => $store.state.flow.varMain.cpSelID,
+			get: () => $store.state.flow.varMain.cpSel.id,
 			set: () => $store.commit("flow/mutName"),
 		});
 		const sGPF = props.sID.length > 2 ? props.sID.slice(-5, -2) : props.sID;
@@ -162,6 +148,9 @@ export default {
 					(nGav == nGavs.value && tmpObj["nIE"] == 0)
 				) {
 					bTmp = true;
+				}
+				if (!sProd.value) {
+					bTmp = false;
 				}
 				return bTmp;
 			},
@@ -279,7 +268,7 @@ export default {
 					sProd.value == "A" ? (sClass += "A") : false;
 					sProd.value == "B" ? (sClass += "B") : false;
 					sProd.value == "AB" ? (sClass += "AB") : false;
-					!sProd.value ? (sClass += "0") : false;
+					!sProd.value || sProd.value == "0" ? (sClass += "0") : false;
 					break;
 			}
 			return sClass;
@@ -288,9 +277,13 @@ export default {
 		const daLin = () => {
 			let sDA = "";
 			if (props.sID.slice(-2, -1) == "P") {
-				sDA = "6 12";
+				let lt = 18;
+				let l0 = 6;
+				sDA = l0 + " " + (lt - l0);
 			} else {
-				sDA = "12 6";
+				let lt = 36;
+				let l0 = 28;
+				sDA = l0 + " " + (lt - l0);
 			}
 			return sDA;
 		};
@@ -409,8 +402,7 @@ export default {
 		});
 
 		watch(timeStamp, () => {
-			if ($store.state.flow.varMain.cpSelID == sGPF + sType) {
-				console.log("Vou comitar");
+			if ($store.state.flow.varMain.cpSel.id == sGPF + sType) {
 				$store.commit("flow/mutSetSLpts", aPoly());
 			}
 		});
@@ -474,11 +466,13 @@ $PnW: 4px;
 
 .Rx0 {
 	stroke: $color_Pr_0;
-	stroke-width: $RxW;
+	stroke-width: $RxW/2;
+	opacity: 85%;
 }
 .Pn0 {
 	stroke: $color_Pn_0;
-	stroke-width: $PnW;
+	stroke-width: $PnW/2;
+	opacity: 85%;
 }
 .RxA {
 	stroke: $color_Pr_A;

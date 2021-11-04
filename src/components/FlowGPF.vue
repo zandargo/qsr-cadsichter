@@ -45,6 +45,17 @@
 		<SelLine v-if="bEditMode" />
 
 		<!-- //* ------------------------------- MAIN GPF ------------------------------- *// -->
+		<g id="grGPFtxttag" v-if="bEditMode">
+			<text v-for="i in nGavs" :key="i"
+				:x="xyGPF[sID[i]].Shp0.X3"
+				:y="xyGPF[sID[i]].Shp0.Y3-3"
+				text-anchor="end"
+				dominant-baseline="text-top"
+				class="txtTag"
+			>
+				{{ sID[i] }}
+			</text>
+		</g>
 		<g id="grGPFs"  @click.prevent="tglGuides">
 				<!-- @click.prevent="tglGuides" -->
 			<polygon v-for="i in nGavs" :key="i" :points="flat(xyGPF[sID[i]].Shp0)" class="gpf0" />
@@ -71,9 +82,11 @@
 
 		<!-- //* ---------------------------- CONTROL POINTS ---------------------------- *// -->
 		<g id="grCP" v-if="bEditMode" >
-			<CP v-for="i in nGavs" :key="i" :sID="'cpG'+('0'+i).slice(-2)" sType="RX" @changed="cpChanged" />
-			<CP v-for="i in nGavs" :key="i" :sID="'cpG'+('0'+i).slice(-2)" sType="P1" @changed="cpChanged"/>
-			<CP v-for="i in nGavs" :key="i" :sID="'cpG'+('0'+i).slice(-2)" sType="P2" @changed="cpChanged"/>
+			<!-- <CP sID="Ae" sType="RX"/> -->
+			<!-- <CP sID="Be" sType="RX"/> -->
+			<CP v-for="i in nGavs" :key="i" :sID="'cpG'+('0'+i).slice(-2)" sType="RX"/>
+			<CP v-for="i in nGavs" :key="i" :sID="'cpG'+('0'+i).slice(-2)" sType="P1"/>
+			<CP v-for="i in nGavs" :key="i" :sID="'cpG'+('0'+i).slice(-2)" sType="P2"/>
 		</g>
 
 		<!-- //* ----------------------------- CP SNAP AREAS ---------------------------- *// -->
@@ -140,8 +153,6 @@ export default {
 			get: () => $store.state.flow.varMain.bCPdrag,
 			set: () => $store.commit('flow/mutSetCPdrag', false),
 		});
-
-
 		const tglGuides = () => {
 			$store.commit('flow/mutTglEditMode')
 		}
@@ -246,11 +257,11 @@ export default {
 		})
 
 		//* CP changed
-		const cpChanged = ()=>{
-			let svg = document.querySelector("#svgFlow")
-			let circles = document.querySelectorAll("circle, ellipse")
+		// const cpChanged = ()=>{
+		// 	let svg = document.querySelector("#svgFlow")
+		// 	let circles = document.querySelectorAll("circle, ellipse")
 
-		}
+		// }
 
 		//* Return
 		return {
@@ -266,7 +277,7 @@ export default {
 			tglGuides,
 			pCham,
 			getClassCh,
-			cpChanged,
+			// cpChanged,
 		};
 	},
 };
@@ -326,4 +337,12 @@ export default {
 // 	stroke: red;
 // 	stroke-width: 6px;
 // }
+
+
+.txtTag {
+		font-size: 14px;
+		fill: $color-d1;
+		opacity: 0.8;
+		font-family: "RobotoCondensed", Arial, Helvetica, sans-serif;
+	}
 </style>

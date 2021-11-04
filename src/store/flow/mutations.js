@@ -118,8 +118,22 @@ export function mutSetCPxy(state, obj) {
 }
 
 export function mutSetCPsel(state, obj) {
-	let sID = obj.sID;
-	state.varMain.cpSelID = sID;
+	// let sID = obj.sID;
+	let sID = obj.id || "";
+	let nLado = obj.nLado || 0;
+	let nOrig = obj.nOrig || "";
+	let nIE = obj.nIE || "";
+	let sProd = obj.sProd || "";
+	let sType = obj.sType || "";
+	state.varMain.cpSel.id = sID;
+	state.varMain.cpSel.nLado = nLado;
+	state.varMain.cpSel.nOrig = nOrig;
+	state.varMain.cpSel.nIE = nIE;
+	state.varMain.cpSel.sProd = sProd;
+	state.varMain.cpSel.sType = sType;
+}
+export function mutSelCPselGoBtm(state, val) {
+	state.varMain.cpSel.bGoBtm = val;
 }
 
 export function mutSetCPstatus(state, obj) {
@@ -141,7 +155,7 @@ export function mutSetGPFprod(state, obj) {
 
 //* -------------------------- SELECTED LINE POINTS -------------------------- */
 export function mutSetSLpts(state, val) {
-	state.varMain.cpSelLine = val;
+	state.varMain.cpSel.sLine = val;
 }
 
 //* ----------------------------- INLET POSITION ----------------------------- */

@@ -26,6 +26,9 @@ Todo:
         ✘ Adic Destino na gpf @cancelled(21-11-01 08:19)
         ✔ Restrição caso CP saia da área do SVG @done(21-11-01 09:18)
         ✔ Círculo de seleção @done(21-11-01 16:38)
+        ☐ BUG: Linha seleção qnd nGav==nGavs
+        ☐ Criar CPs Ae e Be
+        ☐ Gerar Pontos de homing p/ Ae e Be, a depender da ordem AB/BA
 
 
 

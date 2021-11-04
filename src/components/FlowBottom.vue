@@ -156,7 +156,8 @@
 	</g>
 
 	<!-- //* ------------------------ BOTTOM SELECTION SHAPE ------------------------ *// -->
-	<BtmSel v-if="bEditMode"/>
+	<SelBTM />
+	<!-- <SelBTM v-if="bEditMode"/> -->
 	</svg>
 
 	<div class="divAc txt-Ac full-width text-center  q-mt-xs">Porta</div>
@@ -168,11 +169,11 @@ import { useStore } from "vuex";
 //_ import { useFlowBottom, gpfBottom } from "src/modules/xyBottom";
 import { objectFlattener } from "src/modules/helperFunction";
 import { gpfBottom, mFND } from "src/modules/xyBottom";
-import BtmSel from "components/FlowBottomSel.vue"
+import SelBTM from "components/FlowBottomSel.vue"
 
 export default {
 	name: "svgFlowBottom",
-	components: {BtmSel
+	components: {SelBTM
 	},
 	setup() {
 		//* Initial definitions

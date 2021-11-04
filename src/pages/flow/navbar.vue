@@ -67,6 +67,20 @@
 					]"
 				/>
 			</q-card-section>
+			<q-card-section class="q-px-md q-py-xs row">
+				<div class="col-grow text-h3">Ordem</div>
+				<q-btn-toggle
+					:disable="!bEditMode"
+					size="1rem"
+					padding="0 15px"
+					v-model="posAB"
+					toggle-color="primary"
+					:options="[
+						{ label: 'AB', value: 'AB' },
+						{ label: 'BA', value: 'BA' },
+					]"
+				/>
+			</q-card-section>
 		</q-card>
 		<!-- //* ----------------------------- CARD DETAILS ----------------------------- *// -->
 		<div class="col-grow"></div>
@@ -79,23 +93,26 @@
 
 			<q-card-section class="q-px-sm q-py-xs"> </q-card-section>
 			<div class="row text-h4">
-				<div class="col-4 q-my-none text-right">Produto A</div>
-				<div class="col-1 q-mx-xs q-my-xs bg-prA rounded-borders"></div>
-				<div class="col-grow"></div>
-				<div class="col-4 q-my-none text-right">Produto B</div>
-				<div class="col-1 q-mx-xs q-my-xs bg-prB rounded-borders"></div>
+				<div class="col row">
+					<div class="col-grow q-my-none text-right">Prod/Rech A</div>
+					<div class="col-2 q-mx-xs q-my-xs bg-prA rounded-borders"></div>
 
-				<div class="col-4 q-my-none text-right">Peneirado A</div>
-				<div class="col-1 q-mx-xs q-my-xs bg-pnA rounded-borders"></div>
-				<div class="col-grow"></div>
-				<div class="col-4 q-my-none text-right">Peneirado B</div>
-				<div class="col-1 q-mx-xs q-my-xs bg-pnB rounded-borders"></div>
+					<div class="col-grow q-my-none text-right">Peneirado A</div>
+					<div class="col-2 q-mx-xs q-my-xs bg-pnA rounded-borders"></div>
 
-				<div class="col-4 q-my-none text-right">Produto ?</div>
-				<div class="col-1 q-mx-xs q-my-xs bg-pr0 rounded-borders"></div>
-				<div class="col-grow"></div>
-				<div class="col-4 q-my-none text-right">Peneirado ?</div>
-				<div class="col-1 q-mx-xs q-my-xs bg-pn0 rounded-borders"></div>
+					<div class="col-grow q-my-none text-right">Prod/Rech ?</div>
+					<div class="col-2 q-mx-xs q-my-xs bg-pr0 rounded-borders"></div>
+				</div>
+				<div class="col row">
+					<div class="col-grow q-my-none text-right">Prod/Rech B</div>
+					<div class="col-2 q-mx-xs q-my-xs bg-prB rounded-borders"></div>
+
+					<div class="col-grow q-my-none text-right">Peneirado B</div>
+					<div class="col-2 q-mx-xs q-my-xs bg-pnB rounded-borders"></div>
+
+					<div class="col-grow q-my-none text-right">Peneirado ?</div>
+					<div class="col-2 q-mx-xs q-my-xs bg-pn0 rounded-borders"></div>
+				</div>
 			</div>
 		</q-card>
 	</q-page>
@@ -130,6 +147,7 @@ export default {
 			get: () => $store.state.flow.varMain.posEnt,
 			set: (value) => $store.commit("flow/mutSetPosEnt", value),
 		});
+		const posAB = ref("AB");
 
 		onMounted(() => {
 			valnGavs.value = $store.state.flow.varMain.nGavs;
@@ -140,6 +158,7 @@ export default {
 			valnGavs,
 			bEditMode,
 			posEnt,
+			posAB,
 		};
 	},
 };

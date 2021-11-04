@@ -1,18 +1,18 @@
 <template>
 	//* SELECTION LINE
 	<defs>
-		<mask id="maskSL1" maskunits="userSpaceOnUse">
+		<mask id="maskSL1" maskunits="userSpaceOnUse" v-if="goBtm">
 			<polyline :points="aPoly" stroke="white" stroke-width="60" />
 			<polyline :points="aPoly" stroke="black" class="mSelLin1" />
 		</mask>
-		<mask id="maskSL2" maskunits="userSpaceOnUse">
+		<mask id="maskSL2" maskunits="userSpaceOnUse" v-if="goBtm">
 			<polyline :points="aPoly" stroke="white" stroke-width="60" />
 			<polyline :points="aPoly" stroke="black" class="mSelLin2" />
 		</mask>
 	</defs>
 
 	//* SELECTION LINE
-	<g id="gSelLin">
+	<g id="gSelLin" v-if="goBtm">
 		<polyline :points="aPoly" class="SelLin SelLin1" mask="url(#maskSL1)" />
 		<polyline :points="aPoly" class="SelLin SelLin2" mask="url(#maskSL2)" />
 	</g>
@@ -38,7 +38,7 @@ export default {
 		const cIE = (nIE) => convNIE(nIE);
 
 		const cpSelID = computed({
-			get: () => $store.state.flow.varMain.cpSelID,
+			get: () => $store.state.flow.varMain.cpSel.id,
 			set: () => $store.commit("flow/mutName"),
 		});
 		// const sGPF =
@@ -109,9 +109,14 @@ export default {
 			set: () => {},
 		});
 
+		const goBtm = computed({
+			get: () => $store.state.flow.varMain.cpSel.bGoBtm,
+			set: () => {},
+		});
+
 		//* Define main polyline points
 		const aPoly = computed({
-			get: () => $store.state.flow.varMain.cpSelLine,
+			get: () => $store.state.flow.varMain.cpSel.sLine,
 			set: () => {},
 		});
 
@@ -150,7 +155,7 @@ export default {
 		};
 
 		//* RETURN
-		return { cpSelID, sGPF, sType, cLado, cIE, aPoly, clsLin, daLin };
+		return { cpSelID, sGPF, sType, cLado, cIE, aPoly, clsLin, daLin, goBtm };
 	},
 };
 </script>
@@ -261,10 +266,10 @@ $PnW: 4px;
 }
 @keyframes mselLin1 {
 	0% {
-		stroke-width: 0px;
+		stroke-width: 4px;
 	}
 	25% {
-		stroke-width: 0px;
+		stroke-width: 4px;
 	}
 	100% {
 		stroke-width: 24px;

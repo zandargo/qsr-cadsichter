@@ -1,6 +1,10 @@
 <template>
 	//* Selection circle
-	<g v-if="cpSelID == (sID + sType).slice(-5)">
+	<g
+		v-if="cpSelID == (sID + sType).slice(-5)"
+		@mousedown="handleMouseDown"
+		@mouseup="handleMouseUp"
+	>
 		<circle :cx="x" :cy="y" :r="R" class="SelC SelC1" />
 		<circle :cx="x" :cy="y" :r="R" class="SelC SelC2" />
 		<circle :cx="x" :cy="y" :r="R" class="SelC SelC3" />
@@ -103,7 +107,7 @@ export default {
 
 		//* Selected CP
 		const cpSelID = computed({
-			get: () => $store.state.flow.varMain.cpSelID,
+			get: () => $store.state.flow.varMain.cpSel.id,
 			set: () => $store.commit("flow/mutName"),
 		});
 
@@ -318,8 +322,8 @@ circle {
 .SelC {
 	transform-box: fill-box;
 	transform-origin: center;
-	stroke: rgba($positive, 0.75);
-	fill: none;
+	stroke: rgba($positive, 0.8);
+	fill: rgba($positive, 0.05);
 }
 .SelC1 {
 	animation: sel01 4s ease-in-out -3s infinite forwards;

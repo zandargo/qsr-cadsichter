@@ -38,7 +38,7 @@ function createWindow() {
 		},
 	});
 
-	mainWindow.setSize(1000, 1050);
+	mainWindow.setSize(1000, 1040);
 	mainWindow.setPosition(2560 - 1000, 0);
 
 	mainWindow.loadURL(process.env.APP_URL);

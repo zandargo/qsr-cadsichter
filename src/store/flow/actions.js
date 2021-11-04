@@ -60,17 +60,17 @@ export function actTglArrows({ commit, state }, obj) {
 
 //* --------------------------- OUTLET CLICK ACTION -------------------------- */
 export function actClkBtm({ commit, state }, obj) {
-	if (!state.varMain.bEditMode) {
+	if (!state.varMain.bEditMode || !state.varMain.cpSel.bGoBtm) {
 		return;
 	}
 
 	commit("mutTglBTMsel", obj);
 	commit("mutSetBTMtxt", obj);
 
-	let cpSelID = state.varMain.cpSelID;
+	let cpSelID = state.varMain.cpSel.id;
 	const sGPF = cpSelID.length > 2 ? cpSelID.slice(-5, -2) : cpSelID;
-	const nGav = cpSelID.length > 2 ? parseInt(cpSelID.slice(-4, -2), 10) : 0;
-	const sType = cpSelID.length > 2 ? cpSelID.slice(-2) : "RX";
+	const nGav = state.varMain.cpSel.nOrig;
+	const sType = state.varMain.cpSel.nType;
 
 	let nIE = cpSelID.length > 2 ? state.GPF[sGPF][sType]["nIE"] : 1;
 	obj.nIE = nIE;
@@ -121,6 +121,8 @@ export function actSnapCP({ commit, dispatch, state }) {
 	let tmpLado;
 	let tmpIE;
 	let tmpPara;
+	let iDrag;
+	let iHovr;
 	let hvGPF = state.varMain.hover.nGav;
 	let hvPos = state.varMain.hover.pos;
 	let dgGPF = state.varMain.drag.nGav;
@@ -128,8 +130,8 @@ export function actSnapCP({ commit, dispatch, state }) {
 
 	//> Check requirements
 	if (hvGPF && hvPos && dgGPF && dType) {
-		let iDrag = parseInt(dgGPF.slice(-2), 10);
-		let iHovr = parseInt(hvGPF.slice(-2), 10);
+		iDrag = parseInt(dgGPF.slice(-2), 10);
+		iHovr = parseInt(hvGPF.slice(-2), 10);
 
 		if (iHovr >= iDrag) {
 			//> Only downward allowed
@@ -159,10 +161,24 @@ export function actSnapCP({ commit, dispatch, state }) {
 		dType == "P2" ? (tmpX += 25) : false;
 	}
 
-	//> Commit selected CP id
+	//> Commit selected CP info
 	commit("mutSetCPsel", {
-		sID: dgGPF + dType,
+		// sID: dgGPF + dType,
+		id: dgGPF + dType,
+		nLado: tmpLado,
+		nOrig: iDrag || 0,
+		nIE: tmpIE || 0,
+		sProd: state.GPF[dgGPF]["sProd"] || "",
+		sType: dType || "",
 	});
+
+	//> Commit if CP goes Bottom
+	let tmpBool =
+		tmpLado > 0 &&
+		((tmpIE == 1 && iHovr > iDrag) || iDrag == state.varMain.nGavs)
+			? true
+			: false;
+	commit("mutSelCPselGoBtm", tmpBool);
 
 	//> Commit selected CP position
 	commit("mutSetCPxy", {
