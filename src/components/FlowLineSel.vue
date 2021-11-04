@@ -1,20 +1,20 @@
 <template>
 	//* SELECTION LINE
 	<defs>
-		<!-- <mask id="maskSL" maskunits="userSpaceOnUse">
-			<polyline :points="aPoly()" stroke="white" stroke-width="30" />
-			<polyline :points="aPoly()" stroke="black" stroke-width="8" />
+		<mask id="maskSL1" maskunits="userSpaceOnUse">
+			<polyline :points="aPoly" stroke="white" stroke-width="60" />
+			<polyline :points="aPoly" stroke="black" class="mSelLin1" />
 		</mask>
-		<mask id="maskSLTeste" maskunits="userSpaceOnUse">
-			<polyline points="200 192 65 192" stroke="white" stroke-width="30" />
-			<polyline points="200 192 65 192" stroke="black" stroke-width="8" />
-		</mask> -->
+		<mask id="maskSL2" maskunits="userSpaceOnUse">
+			<polyline :points="aPoly" stroke="white" stroke-width="60" />
+			<polyline :points="aPoly" stroke="black" class="mSelLin2" />
+		</mask>
 	</defs>
 
 	//* SELECTION LINE
-	<g id="gSelLin" mask="url(#maskSL_)">
-		<polyline :points="aPoly" class="SelLin SelLin1" />
-		<polyline :points="aPoly" class="mSelLin mSelLin1" />
+	<g id="gSelLin">
+		<polyline :points="aPoly" class="SelLin SelLin1" mask="url(#maskSL1)" />
+		<polyline :points="aPoly" class="SelLin SelLin2" mask="url(#maskSL2)" />
 	</g>
 </template>
 
@@ -114,52 +114,6 @@ export default {
 			get: () => $store.state.flow.varMain.cpSelLine,
 			set: () => {},
 		});
-		const sPoly = () => aPoly.value;
-		// const aPoly = () => {
-		// 	let sPts = "";
-		// 	let sLado;
-		// 	let iPara;
-		// 	// if (sGPF == "Ai" || objCP.value == {}) {
-		// 	// 	sPts = "0 0 0 0";
-		// 	// 	return sPts;
-		// 	// }
-		// 	switch (sGPF.value) {
-		// 		case "Ai":
-		// 			sPts += xyGPF["G01"]["CPts"][posEnt.value + "i"]["X"] + ",";
-		// 			sPts += xyGPF["G01"]["CPts"][posEnt.value + "i"]["Y"] - 150 + " ";
-		// 			sPts += flat(xyGPF["G01"]["CPts"][posEnt.value + "i"]) + " ";
-		// 			sPts += flat(xyGPF["G01"]["CPts"]["C"]);
-		// 			break;
-
-		// 		case "Ae":
-		// 			sPts += xyGPF["G01"]["CPts"][posEnt.value + "i"]["X"] + ",";
-		// 			sPts += xyGPF["G01"]["CPts"][posEnt.value + "i"]["Y"] - 75 + " ";
-		// 			sPts += flat(xyGPF["G01"]["CPts"][posEnt.value + "i"]) + " ";
-		// 			break;
-
-		// 		case "Be":
-		// 			sPts = "180 20 180 180 200 180"; //! <-- TODO: Calc pts Be
-		// 			break;
-
-		// 		default:
-		// 			if (objCP.value.nLado || objCP.value.nIE) {
-		// 				let yOff = sType.value == "RX" ? 0 : gpfMain.gpfH;
-		// 				sPts += xyGPF[sGPF.value]["CPts"]["C"]["X"] + " ";
-		// 				sPts += xyGPF[sGPF.value]["CPts"]["C"]["Y"] + yOff + " ";
-
-		// 				sLado = cLado(objCP.value.nLado) + cIE(objCP.value.nIE);
-		// 				sPts += xyGPF[sGPF.value]["CPts"][sLado]["X"] + " ";
-		// 				sPts += xyGPF[sGPF.value]["CPts"][sLado]["Y"] + yOff + " ";
-		// 			} else {
-		// 				sPts = "-20 -20 -20 -20";
-		// 			}
-		// 			break;
-		// 	}
-		// 	//> VERTICAL LINE
-
-		// 	//> RETURN
-		// 	return sPts;
-		// };
 
 		//* Get Main Line class
 		const clsLin = () => {
@@ -196,7 +150,7 @@ export default {
 		};
 
 		//* RETURN
-		return { cpSelID, sGPF, sType, cLado, cIE, aPoly, sPoly, clsLin, daLin };
+		return { cpSelID, sGPF, sType, cLado, cIE, aPoly, clsLin, daLin };
 	},
 };
 </script>
@@ -280,41 +234,26 @@ $PnW: 4px;
 
 //* Selection line
 .SelLin {
-	stroke: rgba($positive, 0.5);
-	// stroke-width: 12px;
-	// mask: url("#mask");
+	// stroke: rgba($positive, 0.5);
+	stroke: rgba($selBTM, 0.5);
+	stroke-width: 0px;
 }
 
 .mSelLin {
 	stroke: $color-l4;
-	// stroke-width: 6px;
+	stroke-width: 0px;
 }
-
-#gSelLin {
-	// mask: url("#mask");
-	// mask: url("#masktest");
-}
-
-// #flowSelLin {
-// 	mask: url("#maskSLTeste");
-// }
 
 .SelLin1 {
-	animation: selLin1 1s linear 0s infinite forwards;
+	animation: selLin1 2s ease-out -1s infinite forwards;
 }
 .mSelLin1 {
-	animation: mselLin1 1s linear 0s infinite forwards;
-}
-.SelLin2 {
-	animation: selLin1 1s linear 0.5s infinite forwards;
-}
-.mSelLin2 {
-	animation: mselLin1 1s linear 0.5s infinite forwards;
+	animation: mselLin1 2s ease-out -1s infinite forwards;
 }
 
 @keyframes selLin1 {
 	0% {
-		stroke-width: 12px;
+		stroke-width: 0px;
 	}
 	100% {
 		stroke-width: 24px;
@@ -322,10 +261,19 @@ $PnW: 4px;
 }
 @keyframes mselLin1 {
 	0% {
-		stroke-width: 4px;
+		stroke-width: 0px;
+	}
+	25% {
+		stroke-width: 0px;
 	}
 	100% {
 		stroke-width: 24px;
 	}
+}
+.SelLin2 {
+	animation: selLin1 2s ease-out 0s infinite forwards;
+}
+.mSelLin2 {
+	animation: mselLin1 2s ease-out 0s infinite forwards;
 }
 </style>

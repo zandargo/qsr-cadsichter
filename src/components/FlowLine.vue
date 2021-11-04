@@ -16,19 +16,35 @@
 			/>
 		</mask>
 
-		<marker
+		<!-- <marker
 			:id="'flw-arwhead' + sID"
 			markerWidth="18"
 			markerHeight="3"
 			refX="2.8"
-			refY="1.5"
+			refY="50%"
 			orient="auto"
 		>
 			<polygon
 				points="0 0, 5 1.5, 0 3, 0.5 1.5"
 				:class="'flwARWH arw' + clsLin()"
 			/>
-			<!-- :class="'flwARWH arw' + clsLin() + ' isOff'" -->
+		</marker> -->
+
+		<marker
+			:id="'flw-arwhd' + sID"
+			refX="-1.333"
+			refY="0"
+			orient="auto"
+			markerUnits="strokeWidth"
+			viewBox="-3.667 -1.667 4 3.333"
+			markerWidth="4"
+			markerHeight="3.333"
+		>
+			<path
+				d="m 0,0 -5,2 q 1.5,-2 0,-4 z"
+				transform="scale(0.667)"
+				:class="'flwARWH arw' + clsLin()"
+			/>
 		</marker>
 	</defs>
 
@@ -291,7 +307,8 @@ export default {
 		//* Get Arrow Marker
 		const arwMarker = computed({
 			get: () => {
-				let sMarker = bArrow.value ? "url(#flw-arwhead" + props.sID + ")" : "";
+				// let sMarker = bArrow.value ? "url(#flw-arwhead" + props.sID + ")" : "";
+				let sMarker = bArrow.value ? "url(#flw-arwhd" + props.sID + ")" : "";
 				return sMarker;
 			},
 			set: () => {},
@@ -522,7 +539,11 @@ $PnW: 4px;
 .flwARWH {
 	// fill: red;
 	// stroke: red;
-	// stroke-width: 1px;
+
+	stroke-width: 4px;
+	// transform-box: fill-box;
+	// transform-origin: center;
+	// transform: scale(0.8);
 }
 
 // #flw-arwhead {

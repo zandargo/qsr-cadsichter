@@ -18,6 +18,9 @@
 			</marker>
 		</defs>
 
+	<!-- //* -------------------------- BOTTOM MAIN SHAPES -------------------------- *// -->
+	<g id="flwgBTMshapes">
+
 		<polygon :points="flat(mFND.F1)" :class="getClassFr(FND.F1)" @click="clkBtm(FND.F1)" />
 		<polygon :points="flat(mFND.F2)" :class="getClassFr(FND.F2)" @click="clkBtm(FND.F2)" />
 		<polygon :points="flat(mFND.D1)" :class="getClassFr(FND.D1)" @click="clkBtm(FND.D1)" />
@@ -57,6 +60,10 @@
 		<polyline :points="flat(mFND.T1e)" :class="getClassArw(DI.T1.e)" />
 		<polyline :points="flat(mFND.T2i)" :class="getClassArw(DI.T2.i)" />
 		<polyline :points="flat(mFND.T2e)" :class="getClassArw(DI.T2.e)" />
+	</g>
+
+<!-- //* -------------------------- BOTTOM TEXT VALUES -------------------------- *// -->
+	<g id="flwgFNDtxt">
 
 		<!-- //* ---------------------------------- F1 ---------------------------------- *// -->
 		<text
@@ -146,6 +153,10 @@
 		>
 			{{ FND.E2.name }}
 		</text>
+	</g>
+
+	<!-- //* ------------------------ BOTTOM SELECTION SHAPE ------------------------ *// -->
+	<BtmSel v-if="bEditMode"/>
 	</svg>
 
 	<div class="divAc txt-Ac full-width text-center  q-mt-xs">Porta</div>
@@ -157,13 +168,22 @@ import { useStore } from "vuex";
 //_ import { useFlowBottom, gpfBottom } from "src/modules/xyBottom";
 import { objectFlattener } from "src/modules/helperFunction";
 import { gpfBottom, mFND } from "src/modules/xyBottom";
+import BtmSel from "components/FlowBottomSel.vue"
 
 export default {
 	name: "svgFlowBottom",
+	components: {BtmSel
+	},
 	setup() {
 		//* Initial definitions
 		const $store = useStore();
 		const flat = (obj) => objectFlattener(obj);
+
+		const bEditMode = computed({
+			get: () => $store.state.flow.varMain.bEditMode,
+			set: () => $store.commit('flow/mutTglEditMode'),
+		});
+
 
 		onMounted(() => {
 			// const svgCircle = document.getElementById("svgBottom");
@@ -254,6 +274,7 @@ export default {
 			getClassArw,
 			clkBtm,
 			clkDV,
+			bEditMode
 		};
 	},
 };

@@ -21,7 +21,7 @@
 
 		</defs>
 
-		<SelLine v-if="bEditMode" />
+
 
 
 		<!-- //* ------------------------------ GPF GUIDES ------------------------------ *// -->
@@ -42,7 +42,7 @@
 
 		</g>
 
-
+		<SelLine v-if="bEditMode" />
 
 		<!-- //* ------------------------------- MAIN GPF ------------------------------- *// -->
 		<g id="grGPFs"  @click.prevent="tglGuides">
@@ -61,14 +61,12 @@
 
 		<!-- //* ------------------------------ FLOW LINES ------------------------------ *// -->
 
-		<!-- <CPLine sID="Ai"/> -->
+		<CPLine sID="Ai"/>
 		<!-- <CPLine sID="Ae"/> -->
 		<!-- <CPLine sID="Be"/> -->
 		<CPLine v-for="i in nGavs" :key="i" :sID="'G'+('0'+i).slice(-2)+'RX'"/>
 		<CPLine v-for="i in nGavs" :key="i" :sID="'G'+('0'+i).slice(-2)+'P1'"/>
 		<CPLine v-for="i in nGavs" :key="i" :sID="'G'+('0'+i).slice(-2)+'P2'"/>
-		<!-- <CPLine sID="G01P1"/>
-		<CPLine sID="G01P2"/> -->
 
 
 		<!-- //* ---------------------------- CONTROL POINTS ---------------------------- *// -->

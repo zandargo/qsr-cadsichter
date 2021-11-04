@@ -60,6 +60,10 @@ export function actTglArrows({ commit, state }, obj) {
 
 //* --------------------------- OUTLET CLICK ACTION -------------------------- */
 export function actClkBtm({ commit, state }, obj) {
+	if (!state.varMain.bEditMode) {
+		return;
+	}
+
 	commit("mutTglBTMsel", obj);
 	commit("mutSetBTMtxt", obj);
 
@@ -80,6 +84,10 @@ export function actClkBtm({ commit, state }, obj) {
 
 //* --------------------- VERTICAL DIVISION CLICK ACTION --------------------- */
 export function actClkBtmDV({ commit, state }, obj) {
+	if (!state.varMain.bEditMode) {
+		return;
+	}
+
 	//* Toggle DV
 	commit("mutTglBtmDV", obj);
 	let sID = obj.id;
@@ -89,10 +97,24 @@ export function actClkBtmDV({ commit, state }, obj) {
 	// [ ] Adicionar lógica p/ mudar nome das saídas
 }
 
+//* --------------------------- RECALCULATE BOTTOM --------------------------- */
+export function actRecalcBtm({ commit, state }) {
+	// commit('mutName', obj)
+	// let tmpObj
+	// otherAction({ commit, state }, tmpObj)
+	//! 1) Para cada lado, varrer GPF e verificar se existe prod apontando p/ fnd
+	//! 2) Se não houver, zerar info
+	//! 3)
+	//! 4)
+	//! 5)
+	//! 6)
+}
+
 //* -------------------------------------------------------------------------- */
 //*                                  MAIN GPF                                  */
 //* -------------------------------------------------------------------------- */
 
+//* --------------------------- SNAP CONTROL POINT --------------------------- */
 export function actSnapCP({ commit, dispatch, state }) {
 	let tmpX;
 	let tmpY;
@@ -104,16 +126,20 @@ export function actSnapCP({ commit, dispatch, state }) {
 	let dgGPF = state.varMain.drag.nGav;
 	let dType = state.varMain.drag.type;
 
+	//> Check requirements
 	if (hvGPF && hvPos && dgGPF && dType) {
 		let iDrag = parseInt(dgGPF.slice(-2), 10);
 		let iHovr = parseInt(hvGPF.slice(-2), 10);
+
 		if (iHovr >= iDrag) {
+			//> Only downward allowed
 			tmpX = xyGPF[hvGPF]["CPts"][hvPos]["X"];
 			tmpY = xyGPF[hvGPF]["CPts"][hvPos]["Y"];
 			tmpLado = convNLADO(hvPos.slice(0, 1));
 			tmpIE = convNIE(hvPos.slice(-1));
 			tmpPara = iHovr;
 		} else {
+			//> Return home
 			tmpX = xyGPF[dgGPF]["CPts"]["C"]["X"];
 			tmpY = xyGPF[dgGPF]["CPts"]["C"]["Y"];
 			tmpLado = 0;
@@ -123,6 +149,7 @@ export function actSnapCP({ commit, dispatch, state }) {
 			dType == "P2" ? (tmpX += 25) : false;
 		}
 	} else {
+		//> Not passed: Return Home
 		tmpX = xyGPF[dgGPF]["CPts"]["C"]["X"];
 		tmpY = xyGPF[dgGPF]["CPts"]["C"]["Y"];
 		tmpLado = 0;
@@ -132,10 +159,12 @@ export function actSnapCP({ commit, dispatch, state }) {
 		dType == "P2" ? (tmpX += 25) : false;
 	}
 
+	//> Commit selected CP id
 	commit("mutSetCPsel", {
 		sID: dgGPF + dType,
 	});
 
+	//> Commit selected CP position
 	commit("mutSetCPxy", {
 		id: dgGPF,
 		type: dType,
@@ -143,6 +172,7 @@ export function actSnapCP({ commit, dispatch, state }) {
 		Y: tmpY,
 	});
 
+	//> Commit selected CP status
 	commit("mutSetCPstatus", {
 		id: dgGPF,
 		type: dType,
@@ -151,6 +181,7 @@ export function actSnapCP({ commit, dispatch, state }) {
 		nPara: tmpPara,
 	});
 
+	//> Reset dragging status
 	commit("mutSetCPdrag", {
 		isDrag: false,
 		gpf: null,
@@ -161,6 +192,7 @@ export function actSnapCP({ commit, dispatch, state }) {
 		pos: null,
 	});
 
+	//> Recalculate GPF
 	dispatch("actSetProdAll");
 }
 

@@ -1,14 +1,3 @@
-// import { reactive, toRefs } from "vue";
-
-// const flwBottom = reactive(gpfBottom);
-
-// export function useFlowBottom() {
-// 	return {
-// 		...toRefs(flwBottom),
-// 		// flwBottom,
-// 	};
-// }
-
 export const gpfBottom = {
 	width: 250,
 	height: 250,
