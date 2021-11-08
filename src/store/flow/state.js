@@ -19,6 +19,7 @@ export default function () {
 		nGavs: 6,
 		iGav: 0,
 		posEnt: "F",
+		posAB: "AB",
 		bCPdrag: false,
 		drag: {
 			nGav: null,
@@ -39,8 +40,8 @@ export default function () {
 			nPara: 0,
 			nIE: 0,
 			pos: {
-				X: 0,
-				Y: 0,
+				X: xyGPF["G01"]["CPts"]["Fi"]["X"],
+				Y: xyGPF["G01"]["CPts"]["Fi"]["Y"] - 80,
 			},
 		},
 		B: {
@@ -49,8 +50,8 @@ export default function () {
 			nPara: 0,
 			nIE: 0,
 			pos: {
-				X: 0,
-				Y: 0,
+				X: xyGPF["G01"]["CPts"]["Fi"]["X"] + 36,
+				Y: xyGPF["G01"]["CPts"]["Fi"]["Y"] - 80,
 			},
 		},
 	};

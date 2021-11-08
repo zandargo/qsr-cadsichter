@@ -166,27 +166,40 @@ export async function actSnapCP({ commit, dispatch, state }) {
 	let tmpPara;
 	let iDrag;
 	let iHovr;
-	let hvGPF = state.varMain.hover.nGav;
-	let hvPos = state.varMain.hover.pos;
 	let dgGPF = state.varMain.drag.nGav;
 	let dType = state.varMain.drag.type;
+	let hvGPF = state.varMain.hover.nGav;
+	let hvPos = state.varMain.hover.pos;
+	let posEnt = state.varMain.posEnt;
+	let posAB = state.varMain.posAB;
+	let offX = 0;
 
 	//> Check requirements
 	if (hvGPF && hvPos && dgGPF && dType) {
-		iDrag = parseInt(dgGPF.slice(-2), 10);
+		iDrag = dgGPF.length > 2 ? parseInt(dgGPF.slice(-2), 10) : 0;
 		iHovr = parseInt(hvGPF.slice(-2), 10);
 
 		if (iHovr >= iDrag) {
 			//> Only downward allowed
-			tmpX = xyGPF[hvGPF]["CPts"][hvPos]["X"];
-			tmpY = xyGPF[hvGPF]["CPts"][hvPos]["Y"];
+			tmpX = iDrag
+				? xyGPF[hvGPF]["CPts"][hvPos]["X"]
+				: xyGPF[hvGPF]["CPts"][hvPos.charAt(0) + "i"]["X"];
+			tmpY = iDrag
+				? xyGPF[hvGPF]["CPts"][hvPos]["Y"]
+				: xyGPF[hvGPF]["CPts"][hvPos.charAt(0) + "i"]["Y"];
 			tmpLado = convNLADO(hvPos.slice(0, 1));
-			tmpIE = convNIE(hvPos.slice(-1));
+			tmpIE = iDrag ? convNIE(hvPos.slice(-1)) : 0;
 			tmpPara = iHovr;
 		} else {
 			//> Return home
-			tmpX = xyGPF[dgGPF]["CPts"]["C"]["X"];
-			tmpY = xyGPF[dgGPF]["CPts"]["C"]["Y"];
+			dgGPF.charAt(0) == "B" && posAB == "AB" ? (offX = 36) : false;
+			dgGPF.charAt(0) == "B" && posAB == "BA" ? (offX = -36) : false;
+			tmpX = iDrag
+				? xyGPF[dgGPF]["CPts"]["C"]["X"]
+				: xyGPF["G01"]["CPts"][posEnt + "i"]["X"] + offX;
+			tmpY = iDrag
+				? xyGPF[dgGPF]["CPts"]["C"]["Y"]
+				: xyGPF["G01"]["CPts"][posEnt + "i"]["Y"] - 80;
 			tmpLado = 0;
 			tmpIE = 0;
 			tmpPara = 0;
@@ -195,8 +208,14 @@ export async function actSnapCP({ commit, dispatch, state }) {
 		}
 	} else {
 		//> Not passed: Return Home
-		tmpX = xyGPF[dgGPF]["CPts"]["C"]["X"];
-		tmpY = xyGPF[dgGPF]["CPts"]["C"]["Y"];
+		dgGPF.charAt(0) == "B" && posAB == "AB" ? (offX = 36) : false;
+		dgGPF.charAt(0) == "B" && posAB == "BA" ? (offX = -36) : false;
+		tmpX = iDrag
+			? xyGPF[dgGPF]["CPts"]["C"]["X"]
+			: xyGPF["G01"]["CPts"][posEnt + "i"]["X"] + offX;
+		tmpY = iDrag
+			? xyGPF[dgGPF]["CPts"]["C"]["Y"]
+			: xyGPF["G01"]["CPts"][posEnt + "i"]["Y"] - 80;
 		tmpLado = 0;
 		tmpIE = 0;
 		tmpPara = 0;
@@ -204,15 +223,20 @@ export async function actSnapCP({ commit, dispatch, state }) {
 		dType == "P2" ? (tmpX += 25) : false;
 	}
 
+	//> Ae/Be: Only internal allowed
+
 	//> Commit selected CP info
 	commit("mutSetCPsel", {
 		// sID: dgGPF + dType,
-		id: dgGPF + dType,
+		id: dgGPF + (iDrag ? dType : ""),
 		nLado: tmpLado,
 		nOrig: iDrag || 0,
 		nIE: tmpIE || 0,
-		sProd: state.GPF[dgGPF]["sProd"] || "",
-		sType: dType || "",
+		sProd:
+			(iDrag
+				? state.GPF[dgGPF]["sProd"]
+				: state.GPF["G00"][dgGPF.charAt(0)]["sProd"]) || "",
+		sType: (iDrag ? dType : "RX") || "",
 	});
 
 	//> Commit if CP goes Bottom
@@ -226,7 +250,7 @@ export async function actSnapCP({ commit, dispatch, state }) {
 	//> Commit selected CP position
 	commit("mutSetCPxy", {
 		id: dgGPF,
-		type: dType,
+		type: iDrag ? dType : dgGPF.charAt(0),
 		X: tmpX,
 		Y: tmpY,
 	});
@@ -234,7 +258,7 @@ export async function actSnapCP({ commit, dispatch, state }) {
 	//> Commit selected CP status
 	commit("mutSetCPstatus", {
 		id: dgGPF,
-		type: dType,
+		type: iDrag ? dType : dgGPF.charAt(0),
 		nLado: tmpLado,
 		nIE: tmpIE,
 		nPara: tmpPara,

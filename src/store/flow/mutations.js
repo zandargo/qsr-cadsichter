@@ -34,14 +34,6 @@ export function mutPurgeBtm(state) {
 		let sGav = "G" + ("0" + nGav).slice(-2);
 		let sType = state.FND[sLados[i]]["sType"];
 		let nLado = nGav ? state.GPF[sGav][sType]["nLado"] : false;
-		console.log({
-			sLados: sLados[i],
-			sGav,
-			nGav,
-			// nPara: state.GPF[sGav][sType]["nPara"] || null,
-			// nIE: state.GPF[sGav][sType]["nIE"] || null,
-			nGavs,
-		});
 		if (
 			nGav > 0 &&
 			state.FND[sLados[i]]["act"] &&
@@ -154,8 +146,12 @@ export function mutSetCPxy(state, obj) {
 	let type = obj.type;
 	let X = obj.X;
 	let Y = obj.Y;
-	state.GPF[id][type]["pos"]["X"] = X;
-	state.GPF[id][type]["pos"]["Y"] = Y;
+	id.length > 2
+		? (state.GPF[id][type]["pos"]["X"] = X)
+		: (state.GPF["G00"][type]["pos"]["X"] = X);
+	id.length > 2
+		? (state.GPF[id][type]["pos"]["Y"] = Y)
+		: (state.GPF["G00"][type]["pos"]["Y"] = Y);
 }
 
 export function mutSetCPsel(state, obj) {
@@ -183,9 +179,15 @@ export function mutSetCPstatus(state, obj) {
 	let nLado = obj.nLado;
 	let nIE = obj.nIE;
 	let nPara = obj.nPara;
-	state.GPF[id][type]["nLado"] = nLado;
-	state.GPF[id][type]["nIE"] = nIE;
-	state.GPF[id][type]["nPara"] = nPara;
+	if (id.length > 2) {
+		state.GPF[id][type]["nLado"] = nLado;
+		state.GPF[id][type]["nIE"] = nIE;
+		state.GPF[id][type]["nPara"] = nPara;
+	} else {
+		state.GPF["G00"][type]["nLado"] = nLado;
+		state.GPF["G00"][type]["nIE"] = nIE;
+		state.GPF["G00"][type]["nPara"] = nPara;
+	}
 }
 
 export function mutSetGPFprod(state, obj) {

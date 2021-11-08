@@ -82,8 +82,8 @@
 
 		<!-- //* ---------------------------- CONTROL POINTS ---------------------------- *// -->
 		<g id="grCP" v-if="bEditMode" >
-			<!-- <CP sID="Ae" sType="RX"/> -->
-			<!-- <CP sID="Be" sType="RX"/> -->
+			<CP0 sID="Ae" sType="RX"/>
+			<CP0 sID="Be" sType="RX"/>
 			<CP v-for="i in nGavs" :key="i" :sID="'cpG'+('0'+i).slice(-2)" sType="RX"/>
 			<CP v-for="i in nGavs" :key="i" :sID="'cpG'+('0'+i).slice(-2)" sType="P1"/>
 			<CP v-for="i in nGavs" :key="i" :sID="'cpG'+('0'+i).slice(-2)" sType="P2"/>
@@ -114,6 +114,7 @@ import { useStore } from "vuex";
 import { objectFlattener, convNLADO, convNIE } from "src/modules/helperFunction";
 import { gpfMain, xyGPF } from "src/modules/xyGPFmain";
 import CP from 'components/FlowCP.vue'
+import CP0 from 'components/FlowCP0.vue'
 import SnapArea from 'components/FlowSnapArea.vue'
 import CPLine from 'components/FlowLine.vue'
 import SelLine from 'components/FlowLineSel.vue'
@@ -121,7 +122,7 @@ import SelLine from 'components/FlowLineSel.vue'
 
 export default {
 	name: "svgFlowGPF",
-	components: {CP, SnapArea, CPLine, SelLine},
+	components: {CP,CP0, SnapArea, CPLine, SelLine},
 	setup() {
 		//* Initial definitions
 		const $store = useStore();
