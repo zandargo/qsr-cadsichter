@@ -13,8 +13,11 @@
 
 	//* SELECTION LINE
 	<g id="gSelLin" v-if="goBtm">
-		<polyline :points="aPoly" class="SelLin SelLin1" mask="url(#maskSL1)" />
-		<polyline :points="aPoly" class="SelLin SelLin2" mask="url(#maskSL2)" />
+		<!-- <polyline :points="aPoly" class="SelLin SelLin1" mask="url(#maskSL1)" />
+		<polyline :points="aPoly" class="SelLin SelLin2" mask="url(#maskSL2)" /> -->
+		<polyline :points="aPoly" class="SelLin SelLin1" />
+		<polyline :points="aPoly" class="SelLin SelLin2" />
+		<polyline :points="aPoly" class="SelLin mSelLin" />
 	</g>
 </template>
 
@@ -246,7 +249,7 @@ $PnW: 4px;
 
 .mSelLin {
 	stroke: $color-l4;
-	stroke-width: 0px;
+	stroke-width: 6px;
 }
 
 .SelLin1 {
@@ -258,10 +261,15 @@ $PnW: 4px;
 
 @keyframes selLin1 {
 	0% {
-		stroke-width: 0px;
+		stroke-width: 6px;
+		opacity: 80%;
+	}
+	50% {
+		opacity: 80%;
 	}
 	100% {
-		stroke-width: 24px;
+		stroke-width: 20px;
+		opacity: 0%;
 	}
 }
 @keyframes mselLin1 {
@@ -272,7 +280,7 @@ $PnW: 4px;
 		stroke-width: 4px;
 	}
 	100% {
-		stroke-width: 24px;
+		stroke-width: 18px;
 	}
 }
 .SelLin2 {

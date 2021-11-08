@@ -27,15 +27,20 @@ function changeSide(str) {
 
 //* ------------------------- TOGGLE ARROWS (HELPER) ------------------------- */
 export function actTglArrows({ commit, state }, obj) {
-	let idS = obj.id; //> Lado atual
-	let idO = changeSide(obj.id); //> Lado oposto
+	let idS = obj.id; //> Same side
+	let idO = changeSide(obj.id); //> Other side
 	//[x] Verificar se outro lado está selecionado.
 	if (state.FND[idS]["sel"] && state.FND[idO]["sel"]) {
+		//> Both sides selected
 		if (!state.DV[obj.id.charAt(0)]["act"]) {
+			//> DV not active
 			commit("mutSetBtmDVoff", state.DV[obj.id.charAt(0)]);
-			commit("mutSetBtmArwOn", state.FND[idS]);
-			commit("mutSetBtmArwOn", state.FND[idO]);
+			//_ commit("mutSetBtmArwOn", state.FND[idS]);
+			//_ commit("mutSetBtmArwOn", state.FND[idO]);
+			commit("mutSetBtmArwOff", state.FND[idS]);
+			commit("mutSetBtmArwOff", state.FND[idO]);
 		} else {
+			//> DV active
 			commit("mutSetBtmDVon", state.DV[obj.id.charAt(0)]);
 			commit("mutSetBtmArwOff", state.FND[idS]);
 			commit("mutSetBtmArwOff", state.FND[idO]);
@@ -60,26 +65,64 @@ export function actTglArrows({ commit, state }, obj) {
 
 //* --------------------------- OUTLET CLICK ACTION -------------------------- */
 export function actClkBtm({ commit, state }, obj) {
-	if (!state.varMain.bEditMode || !state.varMain.cpSel.bGoBtm) {
+	if (
+		!state.varMain.bEditMode ||
+		!state.varMain.cpSel.bGoBtm ||
+		convNLADO(obj.id.charAt(0)) != state.varMain.cpSel.nLado
+	) {
 		return;
 	}
-
-	commit("mutTglBTMsel", obj);
-	commit("mutSetBTMtxt", obj);
-
 	let cpSelID = state.varMain.cpSel.id;
-	const sGPF = cpSelID.length > 2 ? cpSelID.slice(-5, -2) : cpSelID;
-	const nGav = state.varMain.cpSel.nOrig;
-	const sType = state.varMain.cpSel.nType;
-
-	let nIE = cpSelID.length > 2 ? state.GPF[sGPF][sType]["nIE"] : 1;
-	obj.nIE = nIE;
-
-	actTglArrows({ commit, state }, obj);
+	let sGPF = cpSelID.length > 2 ? cpSelID.slice(-5, -2) : cpSelID;
+	let nGav;
+	let sProd;
+	let sType;
+	let nIE;
+	let nFrom;
 	//! Qnd a lógica da GPF estiver funcionando, será feita uma verificação p/
 	//! ver qual ponto está selecionado.
 	//! Nesse momento, se, p.ex. T1 e T2 forem clicados, subentende-se que
 	//! serão saídas do mesmo produto. Portando, desativar DV e setas
+
+	//* Toggle variables
+	if (!obj.sel) {
+		nGav = state.varMain.cpSel.nOrig;
+		sProd = state.varMain.cpSel.sProd;
+		sType = state.varMain.cpSel.sType;
+		nIE = state.varMain.cpSel.nIE;
+		nFrom = state.varMain.cpSel.nOrig;
+	} else {
+		nGav = 0;
+		sProd = null;
+		sType = null;
+		nIE = 0;
+		nFrom = 0;
+	}
+
+	commit("mutSetBtmProp", {
+		sID: obj.id,
+		prop: "sProd",
+		val: sProd,
+	});
+	commit("mutSetBtmProp", {
+		sID: obj.id,
+		prop: "sType",
+		val: sType,
+	});
+	commit("mutSetBtmProp", {
+		sID: obj.id,
+		prop: "nIE",
+		val: nIE,
+	});
+	commit("mutSetBtmProp", {
+		sID: obj.id,
+		prop: "nFrom",
+		val: nFrom,
+	});
+
+	commit("mutTglBTMsel", obj);
+	commit("mutSetBTMtxt", obj);
+	actTglArrows({ commit, state }, obj);
 }
 
 //* --------------------- VERTICAL DIVISION CLICK ACTION --------------------- */
@@ -115,7 +158,7 @@ export function actRecalcBtm({ commit, state }) {
 //* -------------------------------------------------------------------------- */
 
 //* --------------------------- SNAP CONTROL POINT --------------------------- */
-export function actSnapCP({ commit, dispatch, state }) {
+export async function actSnapCP({ commit, dispatch, state }) {
 	let tmpX;
 	let tmpY;
 	let tmpLado;
@@ -209,11 +252,11 @@ export function actSnapCP({ commit, dispatch, state }) {
 	});
 
 	//> Recalculate GPF
-	dispatch("actSetProdAll");
+	await dispatch("actSetProdAll");
 }
 
 //* ----------------------- SWEEP GPF AND SET SET PROPS ---------------------- */
-export function actSetProdAll({ commit, state }) {
+export async function actSetProdAll({ commit, state }) {
 	const aType = ["RX", "P1", "P2"];
 	const aFNDid = ["F1", "F2", "D1", "D2", "E1", "E2", "T1", "T2"];
 	let nLado;
@@ -271,6 +314,7 @@ export function actSetProdAll({ commit, state }) {
 					//> Internal, same gpf (RX only)
 					if (nPara == i && j == 0) {
 						if (i < nGavs) {
+							//> Not Last GPF
 							aProd[i + 1] += prod;
 						} else {
 							//> Last GPF
@@ -299,7 +343,6 @@ export function actSetProdAll({ commit, state }) {
 	// console.log("aProd end ", aProd);
 	// console.log("aFNDprops: ", aFNDprops);
 	//* Populate state.GPF
-	commit("mutResetBtm");
 	for (let i = 1; i <= 32; i++) {
 		let strProd = "";
 		(aProd[i].match(/A/g) || []).length > 0 ? (strProd += "A") : false;
@@ -308,11 +351,13 @@ export function actSetProdAll({ commit, state }) {
 	}
 	//* Populate state.FND
 	for (let i = 0; i < aFNDid.length; i++) {
-		//> Active
+		// let aProps = ["act", "nFrom", "nIE", "sType", "sProd", "name"];
 		commit("mutSetBtmProp", {
 			sID: aFNDid[i],
 			prop: "act",
 			val: aFNDprops[aFNDid[i]]["act"],
 		});
 	}
+
+	commit("mutPurgeBtm");
 }

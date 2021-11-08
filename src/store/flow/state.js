@@ -9,7 +9,7 @@ export default function () {
 			id: "G01RX",
 			nLado: null,
 			nOrig: null,
-			nIE: null,
+			nIE: 0,
 			sProd: null,
 			sType: null,
 			sLine: "",

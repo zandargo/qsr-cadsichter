@@ -13,9 +13,25 @@ export function objectFlattener(object) {
 	);
 }
 
+//* Get string position
+export function getStrPos(string, subString, index) {
+	return string.split(subString, index).join(subString).length;
+}
+
 //*	FUNCTION DISTANCE BETWEEN TWO POINTS
 export function dist(u1, v1, u2, v2) {
 	return Math.sqrt((u2 - u1) ** 2 + (v2 - v1) ** 2);
+}
+
+//* Get last nth elements
+export function getLastNth(str, n) {
+	let tmpA = str.split(" ");
+	let len = tmpA.length;
+	if (!tmpA[len - 1]) {
+		tmpA.pop();
+		len = tmpA.length;
+	}
+	return tmpA.slice(len - n).join(" ");
 }
 
 //*	CONV: INT TO ROMAN

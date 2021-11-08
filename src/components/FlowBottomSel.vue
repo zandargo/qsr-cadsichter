@@ -127,18 +127,18 @@ polygon {
 		stroke-width: 0px;
 		opacity: 0%;
 	}
-	10% {
+	25% {
 		// transform: scale(1.05);
-		stroke-width: 3px;
-		opacity: 100%;
+		stroke-width: 4px;
+		opacity: 60%;
 	}
 	90% {
 		// transform: scale(2);
 		stroke-width: 0.1px;
-		opacity: 100%;
+		opacity: 60%;
 	}
 	100% {
-		transform: scale(1.2);
+		transform: scale(1.1);
 		stroke-width: 0.1px;
 		opacity: 0%;
 	}

@@ -41,7 +41,6 @@
 		:stroke-dasharray="daLin()"
 		:class="clsLin()"
 		:mask="'url(#mask' + sID + ')'"
-		:marker-end="arwMarker"
 	>
 		<animate
 			attributeName="stroke-dashoffset"
@@ -51,6 +50,13 @@
 			repeatCount="indefinite"
 		/>
 	</polyline>
+	<polyline
+		v-if="bArrow"
+		:points="aLine()"
+		:stroke-dasharray="daLin()"
+		:class="clsLin()"
+		:marker-end="arwMarker"
+	/>
 </template>
 
 <script>
@@ -58,6 +64,7 @@ import { computed, watch } from "vue";
 import { useStore } from "vuex";
 import {
 	objectFlattener,
+	getLastNth,
 	convNLADO,
 	convNIE,
 } from "src/modules/helperFunction";
@@ -249,6 +256,17 @@ export default {
 			//> RETURN
 			return sPts;
 		};
+		//* Arrow line (prevent mask bug)
+		const aLine = () => {
+			if (aPoly === undefined) {
+				return "";
+			}
+			let tmpS = getLastNth(aPoly().replaceAll(",", " "), 2);
+			let tmpA = tmpS.split(" ");
+			tmpA.unshift(tmpA[tmpA.length - 1] - 8);
+			tmpA.unshift(tmpA[tmpA.length - 2]);
+			return tmpA.join(" ");
+		};
 
 		//* Get Main Line class
 		const clsLin = () => {
@@ -415,6 +433,7 @@ export default {
 			cLado,
 			cIE,
 			aPoly,
+			aLine,
 			clsLin,
 			clsArw,
 			arwMarker,

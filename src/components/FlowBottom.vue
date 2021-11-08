@@ -218,8 +218,11 @@ export default {
 		//* Get outlet class
 		const getClassFr = (obj) => {
 			let str = "btmFr ";
+			//> If activated
 			if (obj.act) {str += " bgON"} else { str += " bgOFF" }
-			if (obj.sel) { str += " " + obj.type + obj.prod}
+			//> If
+			if (obj.sel) {str += " " + (obj.sType == "RX" ? "Rx" : "Pn") + obj.sProd}
+
 			return str;
 		};
 		//* Get text class

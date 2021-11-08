@@ -25,6 +25,47 @@ export function mutResetBtm(state) {
 		state.DI[sLados[i]]["e"]["act"] = false;
 	}
 }
+export function mutPurgeBtm(state) {
+	let sLados = ["F1", "F2", "D1", "D2", "E1", "E2", "T1", "T2"];
+	let nLados = [1, 1, 2, 2, 3, 3, 4, 4];
+	for (let i = 0; i < sLados.length; i++) {
+		let nGav = state.FND[sLados[i]]["nFrom"];
+		let nGavs = state.varMain.nGavs;
+		let sGav = "G" + ("0" + nGav).slice(-2);
+		let sType = state.FND[sLados[i]]["sType"];
+		let nLado = nGav ? state.GPF[sGav][sType]["nLado"] : false;
+		console.log({
+			sLados: sLados[i],
+			sGav,
+			nGav,
+			// nPara: state.GPF[sGav][sType]["nPara"] || null,
+			// nIE: state.GPF[sGav][sType]["nIE"] || null,
+			nGavs,
+		});
+		if (
+			nGav > 0 &&
+			state.FND[sLados[i]]["act"] &&
+			nLados[i] == nLado &&
+			((state.GPF[sGav][sType]["nIE"] == 1 &&
+				state.GPF[sGav][sType]["nPara"] > nGav) ||
+				(state.GPF[sGav][sType]["nIE"] == 0 &&
+					state.GPF[sGav][sType]["nPara"] == nGavs))
+		) {
+			// Do something
+		} else {
+			// state.FND[sLados[i]]["act"] = false;
+			state.FND[sLados[i]]["sel"] = false;
+			state.FND[sLados[i]]["nFrom"] = 0;
+			state.FND[sLados[i]]["nIE"] = 0;
+			state.FND[sLados[i]]["sType"] = "";
+			state.FND[sLados[i]]["sProd"] = "";
+			state.FND[sLados[i]]["name"] = "";
+
+			state.DI[sLados[i]]["i"]["act"] = false;
+			state.DI[sLados[i]]["e"]["act"] = false;
+		}
+	}
+}
 
 //* ---------------------- TOGGLE OUTLET SELECTION STATE --------------------- */
 export function mutTglBTMsel(state, obj) {
@@ -121,10 +162,10 @@ export function mutSetCPsel(state, obj) {
 	// let sID = obj.sID;
 	let sID = obj.id || "";
 	let nLado = obj.nLado || 0;
-	let nOrig = obj.nOrig || "";
-	let nIE = obj.nIE || "";
-	let sProd = obj.sProd || "";
-	let sType = obj.sType || "";
+	let nOrig = obj.nOrig || 0;
+	let nIE = obj.nIE || 0;
+	let sProd = obj.sProd || null;
+	let sType = obj.sType || null;
 	state.varMain.cpSel.id = sID;
 	state.varMain.cpSel.nLado = nLado;
 	state.varMain.cpSel.nOrig = nOrig;

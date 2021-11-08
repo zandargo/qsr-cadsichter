@@ -10,8 +10,8 @@ Todo:
       ✔ Criar estado para armazenar a string de pts da linha Selec @done(21-11-04 08:52)
 
       FND:
+        ✔ Ao clicar, capturar informações a partir do CPsel @done(21-11-08 14:23)
         ☐ Revisar Actions e Mutations p/ receber sID, não obj
-        ☐ Ao clicar, capturar informações a partir do CPsel
 
     GPF:
       Geral:
@@ -26,7 +26,7 @@ Todo:
         ✘ Adic Destino na gpf @cancelled(21-11-01 08:19)
         ✔ Restrição caso CP saia da área do SVG @done(21-11-01 09:18)
         ✔ Círculo de seleção @done(21-11-01 16:38)
-        ☐ BUG: Linha seleção qnd nGav==nGavs
+        ✔ BUG: Linha seleção qnd nGav==nGavs @done(21-11-08 14:23)
         ☐ Criar CPs Ae e Be
         ☐ Gerar Pontos de homing p/ Ae e Be, a depender da ordem AB/BA
 
