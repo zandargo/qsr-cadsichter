@@ -100,6 +100,14 @@ export default {
 		watch(nGavs, calcH);
 
 		onMounted(() => {
+			hGPF.value = $store.state.flow.GPF[sID]["alt"]["gpf"];
+			hEsp.value = $store.state.flow.GPF[sID]["alt"]["spc"];
+			for (let i = 1; i < valsR.length; i++) {
+				valsR[i][0] == hGPF.value && valsR[i][1] == hEsp.value
+					? (valSlide.value = i)
+					: false;
+			}
+
 			calcH;
 		});
 

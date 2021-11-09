@@ -24,7 +24,7 @@ Todo:
         ✔ Desenho do produto inicial (Entrada F ou T) @done(21-11-01 16:38)
         ✔ Slide altura da gaveta @done(21-11-09 15:00)
         ✔ Resumo da qnt de gavetas e espaçadores por altura @done(21-11-09 16:48)
-        ☐
+        ☐ BUG: Verificar resumo por vezes calculando errado
 
       CP:
         ✔ Mover CP @done(21-10-28 08:20)
