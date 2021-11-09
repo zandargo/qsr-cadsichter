@@ -20,7 +20,7 @@ h4,
 h5,
 h6 {
 	font-variant-caps: small-caps;
-	margin: auto;
+	margin: 0;
 }
 
 div,
@@ -122,8 +122,8 @@ $sliderThumbSize: 24px;
 .text-h4,
 .text-h5,
 .text-h6 {
-	margin: 0 auto;
 	font-variant-caps: small-caps;
+	margin: 0;
 }
 
 //* ------------------------------ BACKGROUND ------------------------------ *//

@@ -105,25 +105,25 @@ $layout-border: 3px solid $primary !default;
 //* ------------------------------- HEADINGS ------------------------------- *//
 $h1: (
 	size: 2rem,
-	line-height: 2.25rem,
+	line-height: 2.05rem,
 	letter-spacing: -0.01562em,
 	weight: 300,
 ) !default;
 $h2: (
 	size: 1.5rem,
-	line-height: 1.75rem,
+	line-height: 1.5rem,
 	letter-spacing: -0.00833em,
 	weight: 300,
 ) !default;
 $h3: (
 	size: 1.2rem,
-	line-height: 1.75rem,
+	line-height: 1.25rem,
 	letter-spacing: normal,
 	weight: 400,
 ) !default;
 $h4: (
 	size: 1rem,
-	line-height: 1.5rem,
+	line-height: 1.05rem,
 	letter-spacing: 0.00735em,
 	weight: 400,
 ) !default;
@@ -141,7 +141,7 @@ $h6: (
 ) !default;
 $subtitle1: (
 	size: 1rem,
-	line-height: 1.25rem,
+	line-height: 1.05rem,
 	letter-spacing: 0.00937em,
 	weight: 400,
 ) !default;
@@ -153,7 +153,7 @@ $subtitle2: (
 ) !default;
 $body1: (
 	size: 1rem,
-	line-height: 1.25rem,
+	line-height: 1.05rem,
 	letter-spacing: 0.03125em,
 	weight: 400,
 ) !default;

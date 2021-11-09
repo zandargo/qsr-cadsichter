@@ -2,6 +2,7 @@ import { Date } from "core-js";
 
 //* ---------------------------- SET NUMBER OF GPF --------------------------- */
 export function mutSetNGavs(state, nGavs) {
+	// state.varMain.bEditMode = false;
 	state.varMain.nGavs = nGavs;
 }
 
@@ -216,4 +217,13 @@ export function mutSetHoverArea(state, obj) {
 	let pos = obj.pos;
 	state.varMain.hover.nGav = nGav;
 	state.varMain.hover.pos = pos;
+}
+
+//* ------------------------------- GPF HEIGHT ------------------------------- */
+export function mutSetGpfH(state, obj) {
+	let sID = obj.id;
+	let hGPF = obj.hGPF;
+	let hSPC = obj.hSPC;
+	state.GPF[sID]["alt"]["gpf"] = hGPF;
+	state.GPF[sID]["alt"]["spc"] = hSPC;
 }
