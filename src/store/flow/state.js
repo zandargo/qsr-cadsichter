@@ -50,7 +50,7 @@ export default function () {
 			nPara: 0,
 			nIE: 0,
 			pos: {
-				X: xyGPF["G01"]["CPts"]["Fi"]["X"] + 36,
+				X: xyGPF["G01"]["CPts"]["Fi"]["X"] + 27,
 				Y: xyGPF["G01"]["CPts"]["Fi"]["Y"] - 80,
 			},
 		},

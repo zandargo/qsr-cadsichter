@@ -11,7 +11,7 @@ Todo:
 
       FND:
         ✔ Ao clicar, capturar informações a partir do CPsel @done(21-11-08 14:23)
-        ☐ Revisar Actions e Mutations p/ receber sID, não obj
+        ✘ Revisar Actions e Mutations p/ receber sID, não obj @cancelled(21-11-09 07:46)
 
     GPF:
       Geral:
@@ -27,8 +27,12 @@ Todo:
         ✔ Restrição caso CP saia da área do SVG @done(21-11-01 09:18)
         ✔ Círculo de seleção @done(21-11-01 16:38)
         ✔ BUG: Linha seleção qnd nGav==nGavs @done(21-11-08 14:23)
-        ☐ Criar CPs Ae e Be
-        ☐ Gerar Pontos de homing p/ Ae e Be, a depender da ordem AB/BA
+        ✔ Criar CPs Ae e Be @done(21-11-09 07:44)
+        ✔ Gerar Pontos de homing p/ Ae e Be, a depender da ordem AB/BA @done(21-11-09 07:44)
+        ✔ BUG: CP0 voltam para a G01 no snap @done(21-11-09 08:02)
+        ☐ Criar linhas de fluxo Ae/Be
 
+    Extras:
+      ☐ Máscaras para linha de fluxo (ordem de exibição)
 
 

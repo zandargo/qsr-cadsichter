@@ -1,5 +1,5 @@
 // import { dist } from "src/modules/helperFunction";
-import { xyGPF } from "src/modules/xyGPFmain";
+import { xyGPF, gpfMain } from "src/modules/xyGPFmain";
 import { convNLADO, convNIE } from "src/modules/helperFunction";
 
 //* ---------------------------- SET NUMBER OF GPF --------------------------- */
@@ -192,14 +192,18 @@ export async function actSnapCP({ commit, dispatch, state }) {
 			tmpPara = iHovr;
 		} else {
 			//> Return home
-			dgGPF.charAt(0) == "B" && posAB == "AB" ? (offX = 36) : false;
-			dgGPF.charAt(0) == "B" && posAB == "BA" ? (offX = -36) : false;
+			dgGPF.charAt(0) == "B" && posAB == "AB"
+				? (offX = gpfMain.offXcp0)
+				: false;
+			dgGPF.charAt(0) == "B" && posAB == "BA"
+				? (offX = -gpfMain.offXcp0)
+				: false;
 			tmpX = iDrag
 				? xyGPF[dgGPF]["CPts"]["C"]["X"]
 				: xyGPF["G01"]["CPts"][posEnt + "i"]["X"] + offX;
 			tmpY = iDrag
 				? xyGPF[dgGPF]["CPts"]["C"]["Y"]
-				: xyGPF["G01"]["CPts"][posEnt + "i"]["Y"] - 80;
+				: xyGPF["G01"]["CPts"][posEnt + "i"]["Y"] - gpfMain.offYcp0;
 			tmpLado = 0;
 			tmpIE = 0;
 			tmpPara = 0;
@@ -208,14 +212,14 @@ export async function actSnapCP({ commit, dispatch, state }) {
 		}
 	} else {
 		//> Not passed: Return Home
-		dgGPF.charAt(0) == "B" && posAB == "AB" ? (offX = 36) : false;
-		dgGPF.charAt(0) == "B" && posAB == "BA" ? (offX = -36) : false;
+		dgGPF.charAt(0) == "B" && posAB == "AB" ? (offX = gpfMain.offXcp0) : false;
+		dgGPF.charAt(0) == "B" && posAB == "BA" ? (offX = -gpfMain.offXcp0) : false;
 		tmpX = iDrag
 			? xyGPF[dgGPF]["CPts"]["C"]["X"]
 			: xyGPF["G01"]["CPts"][posEnt + "i"]["X"] + offX;
 		tmpY = iDrag
 			? xyGPF[dgGPF]["CPts"]["C"]["Y"]
-			: xyGPF["G01"]["CPts"][posEnt + "i"]["Y"] - 80;
+			: xyGPF["G01"]["CPts"][posEnt + "i"]["Y"] - gpfMain.offYcp0;
 		tmpLado = 0;
 		tmpIE = 0;
 		tmpPara = 0;
@@ -232,10 +236,7 @@ export async function actSnapCP({ commit, dispatch, state }) {
 		nLado: tmpLado,
 		nOrig: iDrag || 0,
 		nIE: tmpIE || 0,
-		sProd:
-			(iDrag
-				? state.GPF[dgGPF]["sProd"]
-				: state.GPF["G00"][dgGPF.charAt(0)]["sProd"]) || "",
+		sProd: (iDrag ? state.GPF[dgGPF]["sProd"] : dgGPF.charAt(0)) || "",
 		sType: (iDrag ? dType : "RX") || "",
 	});
 

@@ -1,7 +1,7 @@
 <template>
 	//* Selection circle
 	<g
-		v-if="cpSelID == (sID + sType).slice(-5)"
+		v-if="cpSelID == sID"
 		@mousedown="handleMouseDown"
 		@mouseup="handleMouseUp"
 	>
@@ -64,7 +64,7 @@ export default {
 
 		const cpID = props.sID.slice(-3);
 		const cpType = props.sType.slice(0);
-		const nGav = parseInt(cpID.slice(-2), 10);
+		const nGav = 0;
 
 		const R = cpType == "RX" ? 13 : 11;
 		const sAB = cpID.charAt(0);
@@ -180,15 +180,15 @@ export default {
 			let isOk = nPara.value && nLado.value ? true : false;
 			//* Other cases
 			//> External: any
-			if (isOk && nIE.value == 1) {
-				gpf = nPara.value;
-				pos = convNLADO(nLado.value) + "e";
-			}
+			// if (isOk && nIE.value == 1) {
+			// 	gpf = nPara.value;
+			// 	pos = convNLADO(nLado.value) + "e";
+			// }
 			//> Internal: same GPF (RX only)
-			if (isOk && cpType == "RX" && nIE.value == 0 && nPara.value == nGav) {
-				gpf = nGav;
-				pos = convNLADO(nLado.value) + "i";
-			}
+			// if (isOk && cpType == "RX" && nIE.value == 0 && nPara.value == nGav) {
+			// 	gpf = nGav;
+			// 	pos = convNLADO(nLado.value) + "i";
+			// }
 			//> Internal: any below
 			if (isOk && nIE.value == 0 && nPara.value > nGav) {
 				gpf = nPara.value;
@@ -196,10 +196,14 @@ export default {
 			}
 
 			let sGav = "G" + ("0" + gpf).slice(-2);
-			let offX;
-			offX = gpf == 1 && sAB == "B" && posAB.value == "AB" ? 36 : 0;
-			offX = gpf == 1 && sAB == "B" && posAB.value == "BA" ? -36 : 0;
-			let offY = gpf == 1 && nPara.value == 0 ? -80 : 0;
+			let offX = 0;
+			gpf == 1 && sAB == "B" && posAB.value == "AB"
+				? (offX = gpfMain.offXcp0)
+				: false;
+			gpf == 1 && sAB == "B" && posAB.value == "BA"
+				? (offX = -gpfMain.offXcp0)
+				: false;
+			let offY = gpf == 1 && nPara.value == 0 ? -gpfMain.offYcp0 : 0;
 
 			x.value = xyGPF[sGav]["CPts"][pos]["X"] + offX;
 			y.value = xyGPF[sGav]["CPts"][pos]["Y"] + offY;

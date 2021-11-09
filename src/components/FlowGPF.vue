@@ -73,8 +73,8 @@
 		<!-- //* ------------------------------ FLOW LINES ------------------------------ *// -->
 
 		<CPLine sID="Ai"/>
-		<!-- <CPLine sID="Ae"/> -->
-		<!-- <CPLine sID="Be"/> -->
+		<CPLine0 sID="Ae"/>
+		<CPLine0 sID="Be"/>
 		<CPLine v-for="i in nGavs" :key="i" :sID="'G'+('0'+i).slice(-2)+'RX'"/>
 		<CPLine v-for="i in nGavs" :key="i" :sID="'G'+('0'+i).slice(-2)+'P1'"/>
 		<CPLine v-for="i in nGavs" :key="i" :sID="'G'+('0'+i).slice(-2)+'P2'"/>
@@ -117,12 +117,13 @@ import CP from 'components/FlowCP.vue'
 import CP0 from 'components/FlowCP0.vue'
 import SnapArea from 'components/FlowSnapArea.vue'
 import CPLine from 'components/FlowLine.vue'
+import CPLine0 from 'components/FlowLine0.vue'
 import SelLine from 'components/FlowLineSel.vue'
 
 
 export default {
 	name: "svgFlowGPF",
-	components: {CP,CP0, SnapArea, CPLine, SelLine},
+	components: {CP,CP0, SnapArea, CPLine, CPLine0, SelLine},
 	setup() {
 		//* Initial definitions
 		const $store = useStore();

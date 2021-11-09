@@ -147,7 +147,11 @@ export default {
 			get: () => $store.state.flow.varMain.posEnt,
 			set: (value) => $store.commit("flow/mutSetPosEnt", value),
 		});
-		const posAB = ref("AB");
+		// const posAB = ref("AB");
+		const posAB = computed({
+			get: () => $store.state.flow.varMain.posAB,
+			set: (value) => $store.commit("flow/mutSetPosAB", value),
+		});
 
 		onMounted(() => {
 			valnGavs.value = $store.state.flow.varMain.nGavs;

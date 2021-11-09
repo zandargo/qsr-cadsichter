@@ -169,26 +169,15 @@ export default {
 			let sPts = "";
 			let sLado;
 			let iPara;
-			// if (sGPF == "Ai" || objCP.value == {}) {
-			// 	sPts = "0 0 0 0";
-			// 	return sPts;
-			// }
 			switch (sGPF) {
 				case "Ai":
 					sPts += xyGPF["G01"]["CPts"][posEnt.value + "i"]["X"] + ",";
-					sPts += xyGPF["G01"]["CPts"][posEnt.value + "i"]["Y"] - 150 + " ";
+					sPts +=
+						xyGPF["G01"]["CPts"][posEnt.value + "i"]["Y"] -
+						2 * gpfMain.offYcp0 +
+						" ";
 					sPts += flat(xyGPF["G01"]["CPts"][posEnt.value + "i"]) + " ";
 					sPts += flat(xyGPF["G01"]["CPts"]["C"]);
-					break;
-
-				case "Ae":
-					sPts += xyGPF["G01"]["CPts"][posEnt.value + "i"]["X"] + ",";
-					sPts += xyGPF["G01"]["CPts"][posEnt.value + "i"]["Y"] - 75 + " ";
-					sPts += flat(xyGPF["G01"]["CPts"][posEnt.value + "i"]) + " ";
-					break;
-
-				case "Be":
-					sPts = "180 20 180 180 200 180"; //! <-- TODO: Calc pts Be
 					break;
 
 				default:
@@ -251,8 +240,6 @@ export default {
 					}
 					break;
 			}
-			//> VERTICAL LINE
-
 			//> RETURN
 			return sPts;
 		};

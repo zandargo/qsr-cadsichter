@@ -26,7 +26,8 @@ export const gpfMain = {
 	strDashPR: 6 * lwid + " " + 3 * lwid, //> Padrão de tracejado do PRODUTO
 	strDashRX: 5 * lwid + " " + 3 * lwid, //> Padrão de tracejado do RECHAÇO
 	strDashPN: 2 * lwid + " " + 4 * lwid, //> Padrão de tracejado do PENEIRADO
-	cpAlpha  : 0.65                     , //> Transparência dos CP
+	offXcp0: 27,													//> Offset padrão 'Be' no eixo x
+	offYcp0: 75,													//> Offset padrão Ae/Be no eixo y
 };
 
 //* -------------------------- CALCULATE GPF POINTS -------------------------- */

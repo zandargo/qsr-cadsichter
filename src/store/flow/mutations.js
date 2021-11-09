@@ -206,6 +206,10 @@ export function mutSetPosEnt(state, pos) {
 	pos == "T" ? (state.varMain.posEnt = "T") : (state.varMain.posEnt = "F");
 }
 
+export function mutSetPosAB(state, pos) {
+	state.varMain.posAB = pos == "BA" ? "BA" : "AB";
+}
+
 //* ----------------------------- HOVER SNAP AREA ---------------------------- */
 export function mutSetHoverArea(state, obj) {
 	let nGav = obj.nGav;
