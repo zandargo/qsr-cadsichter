@@ -11,19 +11,19 @@
 			snap
 			dense
 			v-if="nGav != nGavs"
-			:disable="nGav == nGavs ? true : false"
+			:disable="(nGav == nGavs ? true : false) || !bEditMode"
 			color="primary"
 			class="col-8 q-my-xs q-mb-md"
 		/>
 		<div v-if="nGav == nGavs" class="col-8" style="height: 24px"></div>
-		<div class="text-h4 q-my-xs text-right col-grow txt-cs-d1">Altura:</div>
-		<div class="text-h3 q-my-xs text-right col-4 txt-cs-d3">
+		<div class="text-h4 q-my-xs text-right col-9 txt-cs-d1">Altura:</div>
+		<div class="text-h3 q-my-xs text-right col-3 txt-cs-d3">
 			{{ hGPF }}
 		</div>
-		<div v-if="hEsp" class="text-h5 q-my-xs text-right col-grow txt-cs-d1">
-			Espaçador:
+		<div v-if="hEsp" class="text-h5 q-my-xs text-right col-9 txt-cs-d1">
+			Esp.:
 		</div>
-		<div v-if="hEsp" class="text-h4 q-my-xs text-right col-4 txt-cs-d3">
+		<div v-if="hEsp" class="text-h4 q-my-xs text-right col-3 txt-cs-d3">
 			{{ hEsp }}
 		</div>
 	</div>
@@ -54,6 +54,10 @@ export default {
 		];
 
 		const $store = useStore();
+		const bEditMode = computed({
+			get: () => $store.state.flow.varMain.bEditMode,
+			set: () => {},
+		});
 		const sID = props.sID.slice(-3);
 		const nGav = parseInt(sID.slice(-2), 10);
 		const nGavs = computed({
@@ -99,7 +103,7 @@ export default {
 			calcH;
 		});
 
-		return { nGav, nGavs, valSlide, valH, valsR, hGPF, hEsp };
+		return { bEditMode, nGav, nGavs, valSlide, valH, valsR, hGPF, hEsp };
 	},
 };
 </script>
