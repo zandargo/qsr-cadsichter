@@ -1,6 +1,6 @@
 // import { dist } from "src/modules/helperFunction";
 import { xyGPF, gpfMain } from "src/modules/xyGPFmain";
-import { convNLADO, convNIE } from "src/modules/helperFunction";
+import { convNLADO, convNIE, romanize } from "src/modules/helperFunction";
 
 //* ---------------------------- SET NUMBER OF GPF --------------------------- */
 export function actSetNGavs({ commit }, nGavs) {
@@ -142,15 +142,24 @@ export function actClkBtmDV({ commit, state }, obj) {
 
 //* --------------------------- RECALCULATE BOTTOM --------------------------- */
 export function actRecalcBtm({ commit, state }) {
-	// commit('mutName', obj)
-	// let tmpObj
-	// otherAction({ commit, state }, tmpObj)
-	//! 1) Para cada lado, varrer GPF e verificar se existe prod apontando p/ fnd
-	//! 2) Se não houver, zerar info
-	//! 3)
-	//! 4)
-	//! 5)
-	//! 6)
+	let nRxA = 0;
+	let nRxB = 0;
+	let nPnA = 0;
+	let nPnB = 0;
+	let nGavs = state.varMain.nGavs;
+	let sID;
+	//! LÓGICA ANTERIOR:
+	//! Limpar nomes
+	//!
+	//!
+	//!
+	//!
+	//!
+	//!
+	//!
+	//!
+	//!
+	//!
 }
 
 //* -------------------------------------------------------------------------- */
@@ -174,9 +183,9 @@ export async function actSnapCP({ commit, dispatch, state }) {
 	let posAB = state.varMain.posAB;
 	let offX = 0;
 
+	iDrag = dgGPF.length > 2 ? parseInt(dgGPF.slice(-2), 10) : 0;
 	//> Check requirements
 	if (hvGPF && hvPos && dgGPF && dType) {
-		iDrag = dgGPF.length > 2 ? parseInt(dgGPF.slice(-2), 10) : 0;
 		iHovr = parseInt(hvGPF.slice(-2), 10);
 
 		if (iHovr >= iDrag) {
