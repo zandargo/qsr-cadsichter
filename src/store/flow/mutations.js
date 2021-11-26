@@ -26,6 +26,7 @@ export function mutResetBtm(state) {
 		state.DI[sLados[i]]["e"]["act"] = false;
 	}
 }
+
 export function mutPurgeBtm(state) {
 	let sLados = ["F1", "F2", "D1", "D2", "E1", "E2", "T1", "T2"];
 	let nLados = [1, 1, 2, 2, 3, 3, 4, 4];
@@ -81,9 +82,11 @@ export function mutSetBTMtxt(state, obj) {
 export function mutTglBtmDV(state, obj) {
 	state.DV[obj.id]["act"] = !state.DV[obj.id]["act"];
 }
+
 export function mutSetBtmDVon(state, obj) {
 	state.DV[obj.id]["act"] = true;
 }
+
 export function mutSetBtmDVoff(state, obj) {
 	state.DV[obj.id]["act"] = false;
 }
@@ -107,6 +110,7 @@ export function mutSetBtmArwOn(state, obj) {
 			break;
 	}
 }
+
 export function mutSetBtmArwOff(state, obj) {
 	state.DI[obj.id]["i"]["act"] = false;
 	state.DI[obj.id]["e"]["act"] = false;
@@ -128,6 +132,7 @@ export function mutSetBtmProp(state, obj) {
 export function mutTglEditMode(state) {
 	state.varMain.bEditMode = !state.varMain.bEditMode;
 }
+
 //* ----------------------------- CONTROL POINTS ----------------------------- */
 export function mutSetCPdrag(state, obj) {
 	let isDrag = obj.isDrag;
@@ -138,6 +143,7 @@ export function mutSetCPdrag(state, obj) {
 	state.varMain.drag.nGav = gpf;
 	state.varMain.drag.type = type;
 }
+
 export function mutSetCPstamp(state) {
 	state.varMain.drag.lastDrop = Date.now();
 }
@@ -170,6 +176,7 @@ export function mutSetCPsel(state, obj) {
 	state.varMain.cpSel.sProd = sProd;
 	state.varMain.cpSel.sType = sType;
 }
+
 export function mutSelCPselGoBtm(state, val) {
 	state.varMain.cpSel.bGoBtm = val;
 }
