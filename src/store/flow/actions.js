@@ -149,8 +149,8 @@ export function actRecalcBtm({ commit, state }) {
 	let nGavs = state.varMain.nGavs;
 	let sID;
 	//! LÓGICA ANTERIOR:
-	//! Limpar nomes
 	//!
+	//! Limpar nomes
 	//!
 	//!
 	//!
