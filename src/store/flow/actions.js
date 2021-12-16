@@ -148,18 +148,15 @@ export function actRecalcBtm({ commit, state }) {
 	let nPnB = 0;
 	let nGavs = state.varMain.nGavs;
 	let sID;
-	//! LÓGICA ANTERIOR:
+	//! LÓGICA:
 	//!
 	//! Limpar nomes
+	//! Combinação Rx|Pn, A|B.
+	//! Varrer G01 até GXX, de RX a P2.
+	//! Verificar se CP tem nIE=1 e nPara>nGav
+	//! Se GXX, verificar nLado do RX
 	//!
-	//!
-	//!
-	//!
-	//!
-	//!
-	//!
-	//!
-	//!
+	for (let i = 1; i < nGavs; i++) {}
 }
 
 //* -------------------------------------------------------------------------- */
