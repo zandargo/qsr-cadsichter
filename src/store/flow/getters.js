@@ -30,3 +30,17 @@ export const getNumGpfS = (state) => (val) => {
 	}
 	return count;
 };
+
+//* ---------------------- GET IF Ai AND Ae ARE SYMETRIC --------------------- */
+export const getSymAiAe = (state) => {
+	//_ let sym = false
+	let nAi = 0;
+	let nAe = 0;
+	for (let i = 1; i <= state.varMain.nGavs; i++) {
+		let sID = "G" + ("0" + i).slice(-2);
+		nAi += state.GPF[sID]["sOrig"] == "Ai" ? 1 : 0;
+		nAe += state.GPF[sID]["sOrig"] == "Ae" ? 1 : 0;
+	}
+
+	return nAi == nAe;
+};

@@ -64,7 +64,7 @@ export function actTglArrows({ commit, state }, obj) {
 }
 
 //* --------------------------- OUTLET CLICK ACTION -------------------------- */
-export async function actClkBtm({ commit, state }, obj) {
+export async function actClkBtm({ commit, dispatch, state }, obj) {
 	if (
 		!state.varMain.bEditMode ||
 		!state.varMain.cpSel.bGoBtm ||
@@ -121,43 +121,65 @@ export async function actClkBtm({ commit, state }, obj) {
 	});
 
 	commit("mutTglBTMsel", obj);
-	commit("mutSetBTMtxt", obj);
-	actTglArrows({ commit, state }, obj);
+	//_ commit("mutSetBTMtxt", obj);
+
+	// actTglArrows({ commit, state }, obj);
+	await dispatch("actTglArrows", obj);
+	await dispatch("actRecalcBtm");
 }
 
 //* --------------------- VERTICAL DIVISION CLICK ACTION --------------------- */
-export function actClkBtmDV({ commit, state }, obj) {
+export async function actClkBtmDV({ commit, dispatch, state }, obj) {
 	if (!state.varMain.bEditMode) {
 		return;
 	}
 
 	//* Toggle DV
-	commit("mutTglBtmDV", obj);
 	let sID = obj.id;
-	let tmpObj = state.FND[sID + "1"];
-	actTglArrows({ commit, state }, tmpObj);
+	let Lado1 = sID + "1";
+	let Lado2 = sID + "2";
+	if (
+		state.FND[Lado1]["nFrom"] > 0 &&
+		state.FND[Lado2]["nFrom"] > 0 &&
+		state.FND[Lado1]["nFrom"] != state.FND[Lado2]["nFrom"]
+	) {
+		commit("mutTglBtmDV", obj);
+		let tmpObj = state.FND[sID + "1"];
+		actTglArrows({ commit, state }, tmpObj);
+	}
 
 	// [ ] Adicionar lógica p/ mudar nome das saídas
+	await dispatch("actRecalcBtm");
 }
 
 //* --------------------------- RECALCULATE BOTTOM --------------------------- */
-export function actRecalcBtm({ commit, state }) {
-	let nRxA = 0;
-	let nRxB = 0;
-	let nPnA = 0;
-	let nPnB = 0;
+export function actRecalcBtm({ commit, getters, state }) {
+	let cont = {
+		nRxA: 0,
+		nPnA: 0,
+		nRxAi: 0,
+		nPnAi: 0,
+		nRxAe: 0,
+		nPnAe: 0,
+		nRxB: 0,
+		nPnB: 0,
+		nRxAB: 0,
+		nPnAB: 0,
+	};
 	let nGavs = state.varMain.nGavs;
 	let sID = null;
+	let symAiAe = getters.getSymAiAe;
 	//! LÓGICA:
 	//!
 	//! "Limpar" nomes
 	let sLados = ["F1", "F2", "D1", "D2", "E1", "E2", "T1", "T2"];
-	for (let i = 0; i < sLados.length; i++) {
-		commit("mutSetNameBtm", {
-			sLado: sLados[i],
-			sName: sLados[i],
-		});
-	}
+	let nLados = [1, 1, 2, 2, 3, 3, 4, 4];
+	// for (let i = 0; i < sLados.length; i++) {
+	// 	commit("mutSetNameBtm", {
+	// 		sLado: sLados[i],
+	// 		sName: sLados[i],
+	// 	});
+	// }
 	//! Combinação Rx|Pn, A|B.
 	//! Varrer G01 até GXX, de RX a P2.
 	//! Verificar se CP tem nIE=1 e nPara>nGav
@@ -165,21 +187,46 @@ export function actRecalcBtm({ commit, state }) {
 	//!
 	//! Se for para o fundo, checar se o fundo recebe dele (selecionado)
 	let aCP = ["RX", "P1", "P2"];
+	let aTp = ["Rx", "Pn", "Pn"];
+	//> nGav = 01 -> nGavs-1
 	for (let i = 1; i < nGavs; i++) {
 		sID = "G" + ("0" + i).slice(-2);
+		//> "RX", "P1", "P2"
 		for (let n = 0; n < aCP.length; n++) {
-			GPF[sID][aCP[n]] = {
-				nLado: 0,
-				nPara: 0,
-				nIE: 0,
-				act: false,
-				pos: {
-					X: tmpX,
-					Y: tmpY,
-				},
-			};
+			let tmpLado = state.GPF[sID][aCP[n]]["nLado"];
+			let tmpIE = state.GPF[sID][aCP[n]]["nIE"];
+			let tmpPara = state.GPF[sID][aCP[n]]["nPara"];
+			if (tmpLado > 0 && tmpIE == 1 && tmpPara > i) {
+				//> If send to bottom
+				let sObj = "n" + aTp[n] + state.GPF[sID]["sOrig"];
+				let Lado1 = convNLADO(tmpLado) + "1";
+				let Lado2 = convNLADO(tmpLado) + "2";
+				let sVal = null;
+				if (state.FND[Lado1]["nFrom"] == i || state.FND[Lado2]["nFrom"] == i) {
+					cont[sObj] += 1;
+					sVal = n == 0 ? cont[sObj] : romanize(cont[sObj]);
+					sVal += state.GPF[sID]["sProd"];
+				}
+
+				if (state.FND[Lado1]["nFrom"] == i) {
+					commit("mutSetBtmProp", {
+						sID: Lado1,
+						prop: "name",
+						val: sVal,
+					});
+				}
+				if (state.FND[Lado2]["nFrom"] == i) {
+					commit("mutSetBtmProp", {
+						sID: Lado2,
+						prop: "name",
+						val: sVal,
+					});
+				}
+			}
 		}
 	}
+	//> nGav = nGavs
+	sID = "G" + ("0" + nGavs).slice(-2);
 }
 
 //* -------------------------------------------------------------------------- */
@@ -307,10 +354,11 @@ export async function actSnapCP({ commit, dispatch, state }) {
 
 	//> Recalculate GPF
 	await dispatch("actSetProdAll");
+	await dispatch("actRecalcBtm");
 }
 
 //* ----------------------- SWEEP GPF AND SET SET PROPS ---------------------- */
-export async function actSetProdAll({ commit, state }) {
+export async function actSetProdAll({ commit, getters, state }) {
 	const aType = ["RX", "P1", "P2"];
 	const aFNDid = ["F1", "F2", "D1", "D2", "E1", "E2", "T1", "T2"];
 	let nLado;
@@ -330,7 +378,7 @@ export async function actSetProdAll({ commit, state }) {
 			nIE: 0,
 			sType: "",
 			sProd: "",
-			name: "",
+			name: aFNDid[i],
 		};
 	}
 	// console.log("aFNDprops: ", aFNDprops);

@@ -314,7 +314,7 @@ export default {
 
 	text {
 		font-size: 24px;
-		fill: $color-l1;
+		fill: $color-l2;
 		font-family: "RobotoCondensed", Arial, Helvetica, sans-serif;
 	}
 

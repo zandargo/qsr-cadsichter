@@ -11,7 +11,8 @@ Todo:
       ✔ Caso nIE = 1 OU nGav == nGavs, comitar na matrix do fundo @done(21-11-01 16:38)
       ✔ Criar estado para armazenar a string de pts da linha Selec @done(21-11-04 08:52)
       ☐ Action: recalcular nomes do fundo
-      
+      ☐ Desativar click no DV se nFrom1==nFrom2 || (nFrom1==0 || nFrom2==0)
+
 
       FND:
         ✔ Ao clicar, capturar informações a partir do CPsel @done(21-11-08 14:23)

@@ -53,7 +53,7 @@ export function mutPurgeBtm(state) {
 			state.FND[sLados[i]]["nIE"] = 0;
 			state.FND[sLados[i]]["sType"] = "";
 			state.FND[sLados[i]]["sProd"] = "";
-			state.FND[sLados[i]]["name"] = "";
+			state.FND[sLados[i]]["name"] = sLados[i];
 
 			state.DI[sLados[i]]["i"]["act"] = false;
 			state.DI[sLados[i]]["e"]["act"] = false;

@@ -98,7 +98,7 @@ export default function () {
 		let element = sLados[i - 1];
 		let obj = {
 			id: sLados[i - 1],
-			name: "",
+			name: sLados[i - 1],
 			sel: false,
 			nFrom: 0,
 			//> Real
