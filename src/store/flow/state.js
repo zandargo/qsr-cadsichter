@@ -60,6 +60,7 @@ export default function () {
 		let element = "G" + ("0" + i).slice(-2);
 		GPF[element] = {
 			sProd: "",
+			sOrig: "",
 			alt: {
 				gpf: 65,
 				spc: 0,

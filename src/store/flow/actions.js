@@ -64,7 +64,7 @@ export function actTglArrows({ commit, state }, obj) {
 }
 
 //* --------------------------- OUTLET CLICK ACTION -------------------------- */
-export function actClkBtm({ commit, state }, obj) {
+export async function actClkBtm({ commit, state }, obj) {
 	if (
 		!state.varMain.bEditMode ||
 		!state.varMain.cpSel.bGoBtm ||
@@ -147,16 +147,39 @@ export function actRecalcBtm({ commit, state }) {
 	let nPnA = 0;
 	let nPnB = 0;
 	let nGavs = state.varMain.nGavs;
-	let sID;
+	let sID = null;
 	//! LÓGICA:
 	//!
-	//! Limpar nomes
+	//! "Limpar" nomes
+	let sLados = ["F1", "F2", "D1", "D2", "E1", "E2", "T1", "T2"];
+	for (let i = 0; i < sLados.length; i++) {
+		commit("mutSetNameBtm", {
+			sLado: sLados[i],
+			sName: sLados[i],
+		});
+	}
 	//! Combinação Rx|Pn, A|B.
 	//! Varrer G01 até GXX, de RX a P2.
 	//! Verificar se CP tem nIE=1 e nPara>nGav
 	//! Se GXX, verificar nLado do RX
 	//!
-	for (let i = 1; i < nGavs; i++) {}
+	//! Se for para o fundo, checar se o fundo recebe dele (selecionado)
+	let aCP = ["RX", "P1", "P2"];
+	for (let i = 1; i < nGavs; i++) {
+		sID = "G" + ("0" + i).slice(-2);
+		for (let n = 0; n < aCP.length; n++) {
+			GPF[sID][aCP[n]] = {
+				nLado: 0,
+				nPara: 0,
+				nIE: 0,
+				act: false,
+				pos: {
+					X: tmpX,
+					Y: tmpY,
+				},
+			};
+		}
+	}
 }
 
 //* -------------------------------------------------------------------------- */
@@ -294,8 +317,10 @@ export async function actSetProdAll({ commit, state }) {
 	let nPara;
 	let nIE;
 	let aProd = [""];
+	let aOrig = [""];
 	for (let i = 1; i <= 32; i++) {
 		aProd.push("");
+		aOrig.push("");
 	}
 	let aFNDprops = {};
 	for (let i = 0; i < aFNDid.length; i++) {
@@ -315,20 +340,24 @@ export async function actSetProdAll({ commit, state }) {
 	nPara = state.GPF["G00"]["A"]["nPara"];
 	if (nPara > 0) {
 		aProd[nPara] += "A";
+		aOrig[nPara] += "Ae";
 	}
 	//* External "B"
 	nPara = state.GPF["G00"]["B"]["nPara"];
 	if (nPara > 0) {
 		aProd[nPara] += "B";
+		aOrig[nPara] += "B";
 	}
 
 	//* Other GPF
 	//! A primeira sempre tem A
 	aProd[1] += "A";
+	aOrig[1] += "Ai";
 	// console.log("aProd start ", aProd);
 	for (let i = 1; i <= 32; i++) {
 		let sID = "G" + ("0" + i).slice(-2);
 		let prod = aProd[i];
+		let orig = aOrig[i];
 		// console.log(sID, prod);
 		if (prod) {
 			for (let j = 0; j <= 2; j++) {
@@ -340,6 +369,7 @@ export async function actSetProdAll({ commit, state }) {
 					//> Internal, gpf below
 					if (nPara > i) {
 						aProd[nPara] += prod;
+						aOrig[nPara] += orig;
 						// console.log("      nPara > i", `aProd[${nPara}] += ${prod}`);
 					}
 					//> Internal, same gpf (RX only)
@@ -347,6 +377,7 @@ export async function actSetProdAll({ commit, state }) {
 						if (i < nGavs) {
 							//> Not Last GPF
 							aProd[i + 1] += prod;
+							aOrig[i + 1] += orig;
 						} else {
 							//> Last GPF
 							nLado = convNLADO(state.GPF[sID][aType[j]]["nLado"]) + "1";
@@ -379,6 +410,11 @@ export async function actSetProdAll({ commit, state }) {
 		(aProd[i].match(/A/g) || []).length > 0 ? (strProd += "A") : false;
 		(aProd[i].match(/B/g) || []).length > 0 ? (strProd += "B") : false;
 		commit("mutSetGPFprod", { id: "G" + ("0" + i).slice(-2), ab: strProd });
+		let strOrig = "";
+		aOrig[i] == "Ai" || aOrig[i] == "Ae"
+			? (strOrig += aOrig[i])
+			: (strOrig += strProd);
+		commit("mutSetGPForig", { id: "G" + ("0" + i).slice(-2), orig: strOrig });
 	}
 	//* Populate state.FND
 	for (let i = 0; i < aFNDid.length; i++) {

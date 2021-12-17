@@ -61,6 +61,12 @@ export function mutPurgeBtm(state) {
 	}
 }
 
+export function mutSetNameBtm(state, obj) {
+	let sLado = obj.sLado;
+	let sName = obj.sName;
+	state.FND[sLado]["name"] = sName;
+}
+
 //* ---------------------- TOGGLE OUTLET SELECTION STATE --------------------- */
 export function mutTglBTMsel(state, obj) {
 	if (obj.act) {
@@ -202,6 +208,11 @@ export function mutSetGPFprod(state, obj) {
 	let id = obj.id;
 	let ab = obj.ab;
 	state.GPF[id]["sProd"] = ab;
+}
+export function mutSetGPForig(state, obj) {
+	let id = obj.id;
+	let orig = obj.orig;
+	state.GPF[id]["sOrig"] = orig;
 }
 
 //* -------------------------- SELECTED LINE POINTS -------------------------- */

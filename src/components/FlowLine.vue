@@ -107,7 +107,8 @@ export default {
 						str = "B";
 						break;
 					default:
-						str = $store.state.flow.GPF[sGPF]["sProd"] || "0";
+						str =
+							$store.state.flow.GPF[sGPF]["sProd"].replace(/i|e/, "") || "0";
 						break;
 				}
 				return str;
@@ -512,7 +513,7 @@ $PnW: 4px;
 	0% {
 		stroke: $color_Pr_A;
 	}
-	20% {
+	10% {
 		stroke: $color_Pr_A;
 	}
 	100% {
@@ -523,7 +524,7 @@ $PnW: 4px;
 	0% {
 		stroke: $color_Pn_A;
 	}
-	20% {
+	10% {
 		stroke: $color_Pn_A;
 	}
 	100% {

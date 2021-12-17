@@ -89,7 +89,7 @@ export default {
 
 		const R = cpType == "RX" ? 13 : 11;
 		const sAB = computed({
-			get: () => $store.state.flow.GPF[cpID]["sProd"],
+			get: () => $store.state.flow.GPF[cpID]["sProd"].replace(/i|e/, ""),
 			set: () => $store.commit("module/mutName"),
 		});
 		const classCP = computed(() => {
