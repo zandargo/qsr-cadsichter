@@ -153,9 +153,13 @@ export default {
 			set: () => $store.commit("flow/mutTglEditMode"),
 		});
 
-		const valnGavs = ref(6);
-		watch(valnGavs, (currentValue, oldValue) => {
-			$store.dispatch("flow/actSetNGavs", currentValue);
+		//_ const valnGavs = ref(6);
+		//_ watch(valnGavs, (currentValue, oldValue) => {
+		//_ 	$store.dispatch("flow/actSetNGavs", currentValue);
+		//_ });
+		const valnGavs = computed({
+			get: () => $store.state.flow.varMain.nGavs,
+			set: (value) => $store.commit("flow/mutSetNGavs", value),
 		});
 
 		// const posEnt = ref("F");

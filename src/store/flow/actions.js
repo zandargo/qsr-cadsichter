@@ -1,6 +1,7 @@
 // import { dist } from "src/modules/helperFunction";
 import { xyGPF, gpfMain } from "src/modules/xyGPFmain";
 import { convNLADO, convNIE, romanize } from "src/modules/helperFunction";
+// import { slice } from "core-js/core/array";
 
 //* ---------------------------- SET NUMBER OF GPF --------------------------- */
 export function actSetNGavs({ commit }, nGavs) {
@@ -174,12 +175,12 @@ export function actRecalcBtm({ commit, getters, state }) {
 	//! "Limpar" nomes
 	let sLados = ["F1", "F2", "D1", "D2", "E1", "E2", "T1", "T2"];
 	let nLados = [1, 1, 2, 2, 3, 3, 4, 4];
-	// for (let i = 0; i < sLados.length; i++) {
-	// 	commit("mutSetNameBtm", {
-	// 		sLado: sLados[i],
-	// 		sName: sLados[i],
-	// 	});
-	// }
+	for (let i = 0; i < sLados.length; i++) {
+		commit("mutSetNameBtm", {
+			sLado: sLados[i],
+			sName: sLados[i],
+		});
+	}
 	//! Combinação Rx|Pn, A|B.
 	//! Varrer G01 até GXX, de RX a P2.
 	//! Verificar se CP tem nIE=1 e nPara>nGav
@@ -188,15 +189,15 @@ export function actRecalcBtm({ commit, getters, state }) {
 	//! Se for para o fundo, checar se o fundo recebe dele (selecionado)
 	let aCP = ["RX", "P1", "P2"];
 	let aTp = ["Rx", "Pn", "Pn"];
-	//> nGav = 01 -> nGavs-1
-	for (let i = 1; i < nGavs; i++) {
+	//> nGav = 01 -> nGavs
+	for (let i = 1; i <= nGavs; i++) {
 		sID = "G" + ("0" + i).slice(-2);
 		//> "RX", "P1", "P2"
 		for (let n = 0; n < aCP.length; n++) {
 			let tmpLado = state.GPF[sID][aCP[n]]["nLado"];
 			let tmpIE = state.GPF[sID][aCP[n]]["nIE"];
 			let tmpPara = state.GPF[sID][aCP[n]]["nPara"];
-			if (tmpLado > 0 && tmpIE == 1 && tmpPara > i) {
+			if (tmpLado > 0 && ((tmpIE == 1 && tmpPara > i) || i == nGavs)) {
 				//> If send to bottom
 				let sObj = "n" + aTp[n] + state.GPF[sID]["sOrig"];
 				let Lado1 = convNLADO(tmpLado) + "1";
@@ -225,8 +226,6 @@ export function actRecalcBtm({ commit, getters, state }) {
 			}
 		}
 	}
-	//> nGav = nGavs
-	sID = "G" + ("0" + nGavs).slice(-2);
 }
 
 //* -------------------------------------------------------------------------- */
@@ -475,4 +474,45 @@ export async function actSetProdAll({ commit, getters, state }) {
 	}
 
 	commit("mutPurgeBtm");
+}
+
+//* -------------------------------------------------------------------------- */
+//*                                  RESET ALL                                 */
+//* -------------------------------------------------------------------------- */
+export function actResetAll({ commit, state }) {
+	//_ commit('mutName', obj)
+	//_ let tmpObj
+	//_ otherAction({ commit, state }, tmpObj)
+	//> Reset nGavs
+	commit("mutSetNGavs", 6);
+
+	//> Reset posEnt
+	commit("mutSetPosEnt", "F");
+
+	//> Reset AB order
+	commit("mutSetPosAB", "AB");
+
+	//> Reset Heights
+	for (let i = 1; i <= 32; i++) {
+		let tmpStr = "G" + ("0" + i).slice(-2);
+		commit("mutSetGpfH", {
+			id: tmpStr,
+			hGPF: 65,
+			hSPC: 0,
+		});
+		commit("mutSetGpfSlider", {
+			id: tmpStr,
+			val: 1,
+		});
+	}
+
+	//> Reset CPs
+
+	//> Reset Bottom
+	commit("mutResetBtm");
+
+	//> Edit Mode: True
+	if (!state.varMain.bEditMode) {
+		commit("mutTglEditMode");
+	}
 }

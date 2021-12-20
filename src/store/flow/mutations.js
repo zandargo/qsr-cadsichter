@@ -20,7 +20,7 @@ export function mutResetBtm(state) {
 		state.FND[sLados[i]]["nIE"] = 0;
 		state.FND[sLados[i]]["sType"] = "";
 		state.FND[sLados[i]]["sProd"] = "";
-		state.FND[sLados[i]]["name"] = "";
+		state.FND[sLados[i]]["name"] = sLados[i];
 
 		state.DI[sLados[i]]["i"]["act"] = false;
 		state.DI[sLados[i]]["e"]["act"] = false;
@@ -244,4 +244,9 @@ export function mutSetGpfH(state, obj) {
 	let hSPC = obj.hSPC;
 	state.GPF[sID]["alt"]["gpf"] = hGPF;
 	state.GPF[sID]["alt"]["spc"] = hSPC;
+}
+export function mutSetGpfSlider(state, obj) {
+	let sID = obj.id;
+	let val = obj.val;
+	state.GPF[sID]["alt"]["vSl"] = val;
 }

@@ -65,7 +65,16 @@ export default {
 			set: () => {},
 		});
 
-		const valSlide = ref(1);
+		// const valSlide = ref(1);
+		const valSlide = computed({
+			get: () => $store.state.flow.GPF[sID]["alt"]["vSl"],
+			set: (value) =>
+				$store.commit("flow/mutSetGpfSlider", {
+					id: props.sID,
+					val: value,
+				}),
+		});
+
 		const valH = computed({
 			get: () => {
 				if (parseInt(props.sID.slice(-2), 10) != nGavs.value) {

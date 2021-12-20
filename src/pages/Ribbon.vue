@@ -15,24 +15,6 @@
 					items-start
 				"
 			>
-				<!-- <q-tab
-					name="flow"
-					label="Esquema"
-					style="width: 120px"
-					@click="setRoute('flow')"
-				/>
-				<q-tab
-					name="chart"
-					label="Esquemino"
-					style="width: 120px"
-					@click="setRoute('chart')"
-				/>
-				<q-tab
-					name="defs"
-					label="Definições"
-					style="width: 120px"
-					@click="setRoute('defs')"
-				/> -->
 				<q-route-tab
 					name="flow"
 					title="flow"
@@ -94,26 +76,12 @@
 </template>
 
 <script>
-import Button from "components/RbnButton.vue";
 import { computed } from "vue";
-import { mapMutations, useStore } from "vuex";
-
-const BtnsListFlow = [
-	{
-		title: "Novo",
-		icon: require("../assets/img/ribbon/new-file-96.png"),
-	},
-	{
-		title: "Abrir",
-		icon: require("../assets/img/ribbon/opened-folder.png"),
-	},
-	{
-		title: "Salvar",
-		icon: require("../assets/img/ribbon/save-96.png"),
-	},
-];
-
+import { useStore } from "vuex";
 import { defineComponent, ref } from "vue";
+//_ import { useRouter, useRoute } from "vue-router";
+
+import Button from "components/RbnButton.vue";
 
 export default defineComponent({
 	name: "Ribbon",
@@ -123,17 +91,37 @@ export default defineComponent({
 	},
 
 	setup() {
+		//*  INITIAL DEFINITIONS  *//
+
+		const tab = ref("flow");
+		const $store = useStore();
+		//_ const router = useRouter();
+		//_ const route = useRoute();
+		//_ const setRoute = (name) => {
+		//_ 	router.push(name);
+		//_ 	$store.commit("main/mutSetTab", name);
+		//_ };
+
+		const BtnsFlow = [
+			{
+				title: "Novo",
+				icon: require("../assets/img/ribbon/new-file-96.png"),
+				action: () => $store.dispatch("flow/actResetAll"),
+			},
+			{
+				title: "Abrir",
+				icon: require("../assets/img/ribbon/opened-folder.png"),
+			},
+			{
+				title: "Salvar",
+				icon: require("../assets/img/ribbon/save-96.png"),
+			},
+		];
+
 		return {
-			BtnsFlow: BtnsListFlow,
-			tab: ref("flow"),
+			BtnsFlow,
+			tab,
 		};
-	},
-	methods: {
-		...mapMutations("main", { setTab: "SET_TAB" }),
-		setRoute: function (name) {
-			this.$router.push(name);
-			this.setTab(name);
-		},
 	},
 });
 </script>

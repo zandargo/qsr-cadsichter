@@ -72,12 +72,12 @@
 
 		<!-- //* ------------------------------ FLOW LINES ------------------------------ *// -->
 
-		<CPLine sID="Ai"/>
-		<CPLine0 sID="Ae"/>
-		<CPLine0 sID="Be"/>
 		<CPLine v-for="i in nGavs" :key="i" :sID="'G'+('0'+i).slice(-2)+'RX'"/>
 		<CPLine v-for="i in nGavs" :key="i" :sID="'G'+('0'+i).slice(-2)+'P1'"/>
 		<CPLine v-for="i in nGavs" :key="i" :sID="'G'+('0'+i).slice(-2)+'P2'"/>
+		<CPLine0 sID="Be"/>
+		<CPLine0 sID="Ae"/>
+		<CPLine sID="Ai"/>
 
 
 		<!-- //* ---------------------------- CONTROL POINTS ---------------------------- *// -->

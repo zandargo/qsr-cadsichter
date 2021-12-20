@@ -62,6 +62,7 @@ export default function () {
 			sProd: "",
 			sOrig: "",
 			alt: {
+				vSl: 1,
 				gpf: 65,
 				spc: 0,
 			},
