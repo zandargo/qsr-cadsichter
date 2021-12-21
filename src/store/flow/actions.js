@@ -479,7 +479,7 @@ export async function actSetProdAll({ commit, getters, state }) {
 //* -------------------------------------------------------------------------- */
 //*                                  RESET ALL                                 */
 //* -------------------------------------------------------------------------- */
-export function actResetAll({ commit, state }) {
+export async function actResetAll({ commit, dispatch, state }) {
 	//_ commit('mutName', obj)
 	//_ let tmpObj
 	//_ otherAction({ commit, state }, tmpObj)
@@ -507,12 +507,85 @@ export function actResetAll({ commit, state }) {
 	}
 
 	//> Reset CPs
+	await dispatch("actHomeAllCP");
 
 	//> Reset Bottom
 	commit("mutResetBtm");
+
+	//> Recalculate GPF
+	await dispatch("actSetProdAll");
+	await dispatch("actRecalcBtm");
 
 	//> Edit Mode: True
 	if (!state.varMain.bEditMode) {
 		commit("mutTglEditMode");
 	}
+}
+
+export function actHomeAllCP({ commit, state }) {
+	commit("mutSetSLpts", "");
+	commit("mutSelCPselGoBtm", false);
+
+	//> Ae
+	commit("mutSetCPxy", {
+		id: "Ae",
+		type: "A",
+		X: xyGPF["G01"]["CPts"]["Fi"]["X"],
+		Y: xyGPF["G01"]["CPts"]["Fi"]["Y"] - gpfMain.offYcp0,
+	});
+	commit("mutSetCPstatus", {
+		id: "Ae",
+		type: "A",
+		nLado: 0,
+		nIE: 0,
+		nPara: 0,
+	});
+
+	//> Be
+	commit("mutSetCPxy", {
+		id: "Be",
+		type: "B",
+		X: xyGPF["G01"]["CPts"]["Fi"]["X"] + gpfMain.offXcp0,
+		Y: xyGPF["G01"]["CPts"]["Fi"]["Y"] - gpfMain.offYcp0,
+	});
+	commit("mutSetCPstatus", {
+		id: "Be",
+		type: "B",
+		nLado: 0,
+		nIE: 0,
+		nPara: 0,
+	});
+
+	//> GPF CP
+	let aTp = ["RX", "P1", "P2"];
+	let aOffX = [0, -25, +25];
+	for (let i = 1; i <= 32; i++) {
+		let tmpID = "G" + ("0" + i).slice(-2);
+		for (let n = 0; n < aTp.length; n++) {
+			commit("mutSetCPxy", {
+				id: tmpID,
+				type: aTp[n],
+				X: xyGPF[tmpID]["CPts"]["C"]["X"] + aOffX[n],
+				Y: xyGPF[tmpID]["CPts"]["C"]["Y"],
+			});
+			commit("mutSetCPstatus", {
+				id: tmpID,
+				type: aTp[n],
+				nLado: 0,
+				nIE: 0,
+				nPara: 0,
+			});
+		}
+	}
+
+	//> Set Sel CP
+	commit("mutSetCPsel", {
+		// sID: dgGPF + dType,
+		id: "G01RX",
+		nLado: 0,
+		nOrig: 0,
+		nIE: 0,
+		sProd: "",
+		sType: "",
+	});
 }

@@ -22,6 +22,7 @@ module.exports = configure(function (ctx) {
 		// --> boot files are part of "main.js"
 		// https://v2.quasar.dev/quasar-cli/boot-files
 		boot: ["i18n", "service/index"],
+		// boot: ["i18n", "sqlite"],
 
 		// https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
 		css: ["app.scss"],
@@ -44,6 +45,9 @@ module.exports = configure(function (ctx) {
 		build: {
 			vueRouterMode: "history", // available values: 'hash', 'history'
 
+			extendWebpack(cfg) {
+				cfg.externals = { sqlite3: "commonjs sqlite3" };
+			},
 			// transpile: false,
 
 			// Add dependencies for transpiling with Babel (Array of string/regex)

@@ -1,4 +1,4 @@
-// import { boot } from 'quasar/wrappers'
+import { boot } from "quasar/wrappers";
 
 // // "async" is optional;
 // // more info on params: https://v2.quasar.dev/quasar-cli/boot-files
@@ -7,8 +7,7 @@
 // })
 
 import sqlite3 from "sqlite3";
-
-console.log(sqlite3);
+// console.log(sqlite3);
 
 const db = new sqlite3.Database("persons.db", (err) => {
 	if (err) {
@@ -39,4 +38,21 @@ db.serialize(() => {
 
 db.close();
 
-export default async (/* { app, router, Vue ... } */) => {};
+export default boot(({ app }) => {
+	app.use(db);
+});
+export { db };
+
+// export default async (/* { app, router, Vue ... } */) => {};
+
+// import sqlite3 from "sqlite3";
+// // import knex from "knex";
+
+// const knex = require("knex")({
+// 	client: "sqlite3",
+// 	connection: {
+// 		filename: "public/data/SB_FTP_PLANSICHTER.db",
+// 	},
+// });
+
+// export default db;
