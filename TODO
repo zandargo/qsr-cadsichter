@@ -41,7 +41,7 @@ Todo:
         ✔ Gerar Pontos de homing p/ Ae e Be, a depender da ordem AB/BA @done(21-11-09 07:44)
         ✔ BUG: CP0 voltam para a G01 no snap @done(21-11-09 08:02)
         ✔ Criar linhas de fluxo Ae/Be @done(21-11-09 10:00)
-        ☐ Possibilidade de Ae ser nIE=0
+        ☐ Possibilidade de Ae ser nGav=1 (nIE=0: passar direto pela chaminé)
 
     Extras:
       ☐ Máscaras para linha de fluxo (ordem de exibição)
