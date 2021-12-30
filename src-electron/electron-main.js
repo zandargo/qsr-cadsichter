@@ -2,11 +2,18 @@ import { app, BrowserWindow, nativeTheme } from "electron";
 import path from "path";
 import { initialize } from "@electron/remote/main";
 
-import sqlite3 from "sqlite3";
-import knex from "knex";
+// import sqlite3 from "sqlite3";
+// import knex from "knex";
 
 initialize();
 const { ipcMain } = require("electron");
+
+// const knex = require("knex")({
+// 	client: "sqlite3",
+// 	connection: {
+// 		filename: path.join(__dirname, "data", "SB_FTP_PLANSICHTER.db"),
+// 	},
+// });
 
 try {
 	if (
@@ -136,12 +143,22 @@ function createWindow() {
 	//
 	//
 	//
-	//
 	// const knex = require("knex")({
 	// 	client: "sqlite3",
 	// 	connection: {
 	// 		filename: `${__dirname}/data/SB_FTP_PLANSICHTER.db`,
 	// 	},
+	// });
+	//
+	//
+	//
+	//
+	//
+	// ipcMain.on("mainWindowLoaded", function () {
+	// 	let result = knex.select("Key").from("Reg_SQMA");
+	// 	result.then(function (rows) {
+	// 		mainWindow.webContents.send("resultSent", rows);
+	// 	});
 	// });
 }
 

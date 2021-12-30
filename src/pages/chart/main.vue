@@ -9,7 +9,23 @@
 </template>
 
 <script>
+// import knex from "knex";
+// import sqlite3 from "sqlite3";
+
 export default {
 	name: "ChartMain",
+
+	setup() {
+		// const knex = require("knex")({
+		// 	client: "sqlite3",
+		// 	connection: {
+		// 		filename: "./data/SB_FTP_PLANSICHTER.db",
+		// 	},
+		// });
+
+		return {};
+	},
 };
 </script>
+
+<style lang="scss" scoped></style>
