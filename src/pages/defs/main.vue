@@ -1,5 +1,7 @@
 <template>
-	<q-page> Defs main  </q-page>
+	<q-page> Defs main
+		<AlertIcon/>
+	</q-page>
 </template>
 
 <script>
@@ -8,10 +10,12 @@
 
 // import { db } from "src/modules/SQLite";
 import { onMounted } from "vue";
+import AlertIcon from 'components/AlertIcon.vue'
+
 
 export default {
 	name: "DefsMain",
-
+	components: {AlertIcon},
 	setup() {
 
 

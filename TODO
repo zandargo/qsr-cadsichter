@@ -17,6 +17,7 @@ Todo:
       FND:
         ✔ Ao clicar, capturar informações a partir do CPsel @done(21-11-08 14:23)
         ✘ Revisar Actions e Mutations p/ receber sID, não obj @cancelled(21-11-09 07:46)
+        ☐ Zerar DV ao limpar esquema
 
     GPF:
 
