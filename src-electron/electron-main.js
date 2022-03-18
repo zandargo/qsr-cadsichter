@@ -49,12 +49,14 @@ function createWindow() {
 		},
 	});
 
-	mainWindow.setSize(1000, 1040);
-	mainWindow.setPosition(2560 - 1000, 0);
-
 	mainWindow.loadURL(process.env.APP_URL);
 
 	if (process.env.DEBUGGING) {
+		const { screen } = require('electron')
+		const primaryDisplay = screen.getPrimaryDisplay()
+		const { width, height } = primaryDisplay.workAreaSize
+		mainWindow.setSize( Math.round(width*0.5), height);
+		mainWindow.setPosition(Math.round(width - width*0.5), 0);
 		// if on DEV or Production with debug enabled
 		mainWindow.webContents.openDevTools({ mode: "detach" });
 	} else {
